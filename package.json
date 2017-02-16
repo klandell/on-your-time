@@ -1,0 +1,20 @@
+{
+  "name": "on-your-time-server",
+  "version": "1.0.0",
+  "description": "Server for the On Your Time subway schedule application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "node --inspect --debug-brk index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klandell/on-your-time-server.git"
+  },
+  "author": "Kyle Landell <kyle.landell@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/klandell/on-your-time-server/issues"
+  },
+  "homepage": "https://github.com/klandell/on-your-time-server#readme"
+}
