@@ -1,0 +1,66 @@
+@import '../variables';
+
+.stops {
+    height: 100vh;
+    font-size: 1.25em;
+    background-color: $ui-color-1;
+    margin-top: $nav-bar-height;
+
+    /* {
+        width: calc(100% - 10px);
+        box-sizing: border-box;
+        border-width: 1px;
+        border-color: blue;
+        border-radius: 5px;
+        margin: 5px;
+        font-size: 1em;
+    */
+
+   ul {
+       margin: 0;
+       padding: 0 20px;
+       list-style: none;
+       color: $ui-color-4;
+       height: 100vh;
+       //overflow-y: scroll;
+
+       li {
+           //height: 3em;
+           padding: 3px 10px 8px;
+           border-bottom: 1px solid mix(#FFF, $ui-color-1, 20%);
+       }
+   }
+
+   .stop-name, .stop-distance {
+       font-size: .95em;
+   }
+
+   .stop-distance {
+       float: right;
+       padding-top: 1px;
+   }
+
+   .line-preview {
+       padding-top: 3px;
+
+       @each $line, $bgcolor in $line-colors {
+           .line-#{$line} {
+               display: inline-block;
+               height: 1.2em;
+               width: 1.2em;
+               line-height: 1.2em;
+               text-align: center;
+               border-radius: 0.6em;
+               margin-right: .4em;
+               background-color: map-get($line-colors, $line);
+
+               @if $line == N or $line == Q or $line == R or $line == W{
+                   color: #000;
+               } @else {
+                   color: #FFF;
+               }
+
+           }
+       }
+   }
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from 'Components/NavBar';
 import NavigationDelegate from 'Components/NavigationDelegate';
-//require('sass/Layout.scss');
+require('Sass/Layout.scss');
 
 export default class Layout extends React.Component {
 	render() {

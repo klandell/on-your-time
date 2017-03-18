@@ -21,11 +21,11 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                loaders: ['style', 'css', 'sass'],
+                loaders: ['style-loader', 'css-loader', 'sass-loader'],
             },
             {
                 test: /\.node$/,
-                loaders: ['node'],
+                loaders: ['node-loader'],
             },
         ],
     },
@@ -35,6 +35,7 @@ module.exports = {
             Components: path.resolve(__dirname, './src/components/'),
             Constants: path.resolve(__dirname, './src/constants.js'),
             Reducers: path.resolve(__dirname, './src/reducers/'),
+            Sass: path.resolve(__dirname, './src/sass/'),
         },
     },
     output: {

@@ -1,0 +1,21 @@
+@import 'variables';
+
+nav {
+    background-color: $ui-color-1;
+    border-bottom: 1px solid $ui-color-4;
+    height: $nav-bar-height;
+    font-size: 1.2em;
+    position: fixed;
+    width: 100%;
+    top: 0;
+
+    .back-arrow {
+        position: absolute;
+    }
+
+    .title {
+        line-height: $nav-bar-height;
+        text-align: center;
+        color: $ui-color-4;
+    }
+}

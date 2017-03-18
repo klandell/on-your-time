@@ -5,7 +5,11 @@ import {connect} from 'react-redux';
 import Stops from 'Components/content/Stops';
 import Departures from 'Components/content/Departures';
 
-@connect(state => state)
+@connect(state => {
+    return {
+        view: state.currentContent.view
+    }
+})
 export default class ContentContainer extends React.Component {
     static targetTags = {
         stops: <Stops />,
@@ -13,7 +17,7 @@ export default class ContentContainer extends React.Component {
     }
 
     render() {
-        let view = this.props.currentContent.view;
+        let view = this.props.view;
         const targetTags = this.constructor.targetTags;
 
         if (!targetTags[view]) {

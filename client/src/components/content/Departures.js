@@ -5,7 +5,7 @@ import loadDepartures from 'Actions/departuresActions';
 @connect(state => {
     return {
         configs: state.currentContent.configs,
-        departures: state.departures.departures
+        departures: state.departures
     };
 }, dispatch => {
     return {
@@ -17,18 +17,30 @@ import loadDepartures from 'Actions/departuresActions';
 })
 export default class Departures extends React.Component {
     componentWillMount() {
+        this.changeDirection(null, 1);
+    }
+
+    handleButtonKeyPress
+
+    changeDirection(e, direction) {
         const {actions, configs, dispatch} = this.props;
-        dispatch(actions.loadDepartures(configs.stopId, 1));
+        dispatch(actions.loadDepartures(configs.stopId, direction));
     }
 
     render() {
-        const departures = this.props.departures;
+        const direction = this.props.departures.direction;
+        const departures = this.props.departures.departures;
         const departureItems = departures.map(departure => {
-            const key = `${departure.train}-${departure.departureTime || departure.arrivalTime}`
+            const key = `${departure.train}-${direction}-${departure.departureTime || departure.arrivalTime}`
             return <li key={key}>{key}</li>
         });
         return (
-            <ul class="departures">{departureItems}</ul>
+            // TODO: aria stuff
+            <div class="departures">
+                <div class="selected-direction" onClick={e => this.changeDirection(e, 1)}>Uptown</div>
+                <div onClick={e => this.changeDirection(e, 3)}>Downtown</div>
+                <ul>{departureItems}</ul>
+            </div>
         );
     }
 }
