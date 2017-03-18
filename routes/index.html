@@ -1,0 +1,191 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Test Client</title>
+    <style>
+        li {
+            cursor: pointer;
+        }
+
+        li:hover {
+            color: #a2a2a2;
+        }
+
+        .selected-stop {
+            color: orange;
+        }
+
+        .selected-btn {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <h1>Testing client for on-your-time-server</h1>
+    <button id="uptownBtn" class="selected-btn "type="button">Uptown</button>
+    <button id="downtownBtn" type="button">Downtown</button>
+    <h2>Stops</h2>
+    <ul id="stops"></ul>
+    <h2>Arrivals</h2>
+    <ul id="arrivals"></ul>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        (function() {
+            var socket;
+            var direction = 1;
+            var stopId;
+
+            function initSocketIO() {
+                socket = io.connect('http://localhost:5000',{
+                    reconnection: true,
+                    reconnectionDelay: 1000,
+                    reconnectionDelayMax : 5000,
+                    reconnectionAttempts: 15
+                });
+                socket.on('arrival-update', onArrivalUpdate);
+            }
+
+            function loadStops() {
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', '/stops?num=10&lon=-73.9778&lat=40.7317');
+                xhr.send(null);
+
+                xhr.onreadystatechange = function () {
+                    var DONE = 4,
+                        OK = 200,
+                        responseText, stops, stop, stopCount, frag, ul, li, i;
+
+                    if (xhr.readyState === DONE && xhr.status === OK) {
+                        responseText = xhr.responseText;
+
+                        try {
+                            stops = JSON.parse(responseText);
+                        } catch (e) {
+                            stops = [];
+                        }
+
+                        ul = document.getElementById('stops');
+                        frag = document.createDocumentFragment();
+                        stopCount = stops.length;
+
+                        for (i = 0; i < stopCount; i++) {
+                            stop = stops[i];
+
+                            li = document.createElement('li');
+                            li.innerHTML = stop.stopName + ' (' + stop.distance + 'mi) ' + ': [' + stop.routes.join(' ') + ']';
+                            li.setAttribute('data-stopid', stop.stopId);
+                            li.onclick = onStopClick;
+                            frag.appendChild(li);
+                        }
+
+                        ul.innerHTML = '';
+                        ul.appendChild(frag);
+                    }
+                };
+            }
+
+            function onStopClick() {
+                var selected = this.parentNode.querySelector('.selected-stop');
+
+                stopId = this.getAttribute('data-stopid');
+
+                if (!this.classList.contains('selected-stop')) {
+                    if (selected) {
+                        selected.classList.remove('selected-stop');
+                    }
+                    this.classList.add('selected-stop');
+                }
+
+                if (socket && stopId) {
+                    socket.emit('join', stopId);
+                }
+
+                getTimes();
+            }
+
+            function getTimes() {
+                if (stopId) {
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', '/times?stopId=' + stopId + '&direction=' + direction);
+                    xhr.send(null);
+
+                    xhr.onreadystatechange = function () {
+                        var DONE = 4,
+                            OK = 200,
+                            responseText, arrivals, arrival, arrivalCount, time, now, frag, ul, li, i;
+
+                        responseText = xhr.responseText;
+
+                        try {
+                            arrivals = JSON.parse(responseText);
+                        } catch (e) {
+                            arrivals = [];
+                        }
+
+                        ul = document.getElementById('arrivals');
+                        frag = document.createDocumentFragment();
+                        arrivalCount = arrivals.length;
+
+                        for (i = 0; i < arrivalCount; i++) {
+                            arrival = arrivals[i];
+
+                            if (arrival.departureTime) {
+                                time = arrival.departureTime;
+                            } else if (arrival.arrivalTime) {
+                                time = arrival.arrivalTime;
+                            }
+
+                            if (time) {
+                                now = new Date(time);
+                                li = document.createElement('li');
+                                li.innerHTML = arrival.train + ' (' + now.toLocaleString([], { hour12: true}) + ')';
+                                frag.appendChild(li);
+                            }
+                        }
+
+                        ul.innerHTML = '';
+                        ul.appendChild(frag);
+                    };
+                }
+            }
+
+            function onArrivalUpdate() {
+                debugger;
+            }
+
+            function initBtnListeners() {
+                document.getElementById('uptownBtn').onclick = function() {
+                    var selectedBtn = document.querySelector('.selected-btn');
+
+                    direction = 1;
+                    if (selectedBtn) {
+                        selectedBtn.classList.remove('selected-btn');
+                    }
+                    this.classList.add('selected-btn');
+                    getTimes();
+                };
+                document.getElementById('downtownBtn').onclick = function() {
+                    var selectedBtn = document.querySelector('.selected-btn');
+
+                    direction = 3;
+                    if (selectedBtn) {
+                        selectedBtn.classList.remove('selected-btn');
+                    }
+                    this.classList.add('selected-btn');
+                    getTimes();
+                };
+            }
+
+            // init the dumb testing page
+            initSocketIO();
+            loadStops();
+            initBtnListeners();
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+extends: airbnb-base
+env:
+  jasmine: true
+rules:
+  indent:
+    - 2
+    - 4
+  no-console: 0
+  no-plusplus: 0
+  no-underscore-dangle: 0
+plugins:
+  - jasmine

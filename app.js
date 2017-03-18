@@ -5,35 +5,33 @@ require('dotenv').config();
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const index = require('./routes/index');
+const index = require('./routes');
+
+// instantiate the express app
 const app = express();
 
 // use verbose logging when running in development mode
 app.use(logger(!process.env.NODE_ENV ? 'dev' : 'short'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: false
+    extended: false,
 }));
 
-// TODO: switch over to router
-//app.use('/', index);
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
-});
+app.use('/', index);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     const err = new Error('Not Found');
     next((err.status = 404) && err);
 });
 
 // handle errors
-app.use(function(err, req, res, next) {
+app.use((err, req, res) => {
     const isDev = !process.env.NODE_ENV;
     const body = {
         message: err.message,
         status: err.status,
-        stack: err.stack
+        stack: isDev ? err.stack : null,
     };
     res.status(err.status || 500);
     res.json(body);

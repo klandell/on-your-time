@@ -1,9 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.send('index.js');
+
+const router = express.Router();
+
+// router.get('/', (req, res) => {
+//    res.send('home');
+// });
+
+router.get('/', (req, res) => {
+    res.sendFile(`${__dirname}/index.html`);
 });
+
+router.use('/stops', require('./stops').router);
+router.use('/times', require('./times').router);
 
 module.exports = router;
