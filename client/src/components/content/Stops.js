@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import loadStops from 'Actions/stopsActions';
+import { loadStops, getCurrentLocation } from 'Actions/stopsActions';
 import doNavigation from 'Actions/navigationActions';
 require('Sass/content/Stops.scss');
 
@@ -8,7 +8,8 @@ require('Sass/content/Stops.scss');
     return {
         actions: {
             loadStops,
-            doNavigation
+            doNavigation,
+            getCurrentLocation
         },
         dispatch
     };
@@ -17,7 +18,7 @@ export default class Stops extends React.Component {
     componentWillMount() {
         // load the stops near our current location
         const {actions, dispatch} = this.props;
-        dispatch(actions.loadStops('location'));
+        dispatch(actions.loadStops());
     }
 
     componentDidMount() {
@@ -64,7 +65,16 @@ export default class Stops extends React.Component {
         const lastStop = stops.stops.slice(-1)[0];
 
         if (lastStop) {
-            dispatch(actions.loadStops(location, lastStop.dbId, lastStop.distance));
+            dispatch(actions.loadStops(null, lastStop.dbId, lastStop.distance));
+        }
+    }
+
+    getCurrentLocation(e) {
+        const {actions, dispatch} = this.props;
+
+        if (!e.currentTarget.classList.contains('location-selected')) {
+            e.currentTarget.classList.add('location-selected');
+            dispatch(actions.getCurrentLocation());
         }
     }
 
@@ -89,7 +99,7 @@ export default class Stops extends React.Component {
 
         stopItems.unshift(<li>
             <input type="text" placeholder="Search"/>
-            <i class="icon ion-android-locate"></i>
+            <i onClick={e => this.getCurrentLocation(e)} class="icon ion-android-locate"></i>
         </li>);
 
         if (stopItems.length > 1 && stops.loadCount === 10) {
@@ -100,10 +110,7 @@ export default class Stops extends React.Component {
                 <a><i class="icon ion-ios-more"></i></a>
             </li>);
         }
-        //<input
-        //    type="text"
-        //    placeholder="Search"
-        //></input>
+
         return (
             <div class="stops">
                 <ul>{stopItems}</ul>

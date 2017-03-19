@@ -26,6 +26,10 @@ export default function reducer(state = {
             lastUpdated: action.receivedAt,
             loadCount: action.stops.length,
         });
+    case C.FIND_CURRENT_LOCATION:
+        return Object.assign({}, state, {
+            isFetching: true,
+        });
     default:
         return state;
     }

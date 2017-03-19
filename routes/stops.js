@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
                 stopName: doc.stop_name,
                 stopId: doc.stop_id,
                 distance: doc.distance,
-                routes: doc.routes,
+                routes: doc.routes || [],
             })));
         });
     } else {

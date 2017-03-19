@@ -22,6 +22,10 @@
         margin-top: .6em;
         margin-left: -26px;
         color: #BDBDBD;
+
+        &.location-selected {
+            color: $ui-accent-blue;
+        }
     }
 
    ul {
@@ -40,6 +44,7 @@
            &.more-icon {
                border-bottom: none;
                text-align: center;
+               padding-bottom: 2em;
 
                i {
                    font-size: 2em;
