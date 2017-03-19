@@ -38,3 +38,6 @@ jspm_packages
 
 # Environment variables
 .env
+
+# Front end build
+client/bundle.js
