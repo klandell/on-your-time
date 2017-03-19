@@ -22,12 +22,17 @@
        list-style: none;
        color: $ui-color-4;
        height: 100vh;
-       //overflow-y: scroll;
 
        li {
-           //height: 3em;
            padding: 3px 10px 8px;
            border-bottom: 1px solid mix(#FFF, $ui-color-1, 20%);
+           position: relative;
+           overflow: hidden;
+
+           a {
+               position: relative;
+               overflow: hidden;
+           }
        }
    }
 
@@ -61,6 +66,24 @@
                }
 
            }
+       }
+   }
+
+   .ink {
+       display: block; position: absolute;
+       background: rgba($ui-color-2, 0.75);
+       border-radius: 100%;
+       transform: scale(0);
+
+       &.animate {
+           animation: ripple 0.65s linear;
+       }
+   }
+
+   @keyframes ripple {
+   	   100% {
+           opacity: 0;
+           transform: scale(2.5);
        }
    }
 }
