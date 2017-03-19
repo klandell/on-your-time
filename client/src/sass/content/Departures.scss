@@ -10,19 +10,60 @@
 
         .toggle-btn {
             display: inline-block;
+            position: relative;
+            overflow: hidden;
             width: 50%;
 
             &:first-child {
-                border-bottom: 0 solid $ui-color-2;
+                border-bottom: 2px solid transparent;
+
+                &.selected-toggle {
+                    border-bottom-color: $ui-color-2;
+                }
+
+                .ink {
+                    background: $ui-color-2;
+                }
             }
 
             &:nth-child(2) {
-                border-bottom: 0 solid $ui-color-3;
+                border-bottom: 2px solid transparent;
+
+                &.selected-toggle {
+                    border-bottom-color: $ui-color-3;
+                }
+
+                .ink {
+                    background: $ui-color-3;
+                }
+            }
+
+            a {
+                position: relative;
+                overflow: hidden;
             }
         }
 
-        .selected-toggle {
-            border-bottom-width: 2px !important;
+        //.selected-toggle {
+        //    border-bottom-width: 2px !important;
+        //}
+
+
+        .ink {
+            display: block; position: absolute;
+            border-radius: 100%;
+            transform: scale(0);
+
+            &.animate {
+                animation: ripple 0.65s linear;
+            }
+        }
+
+        @keyframes ripple {
+        	   100% {
+                opacity: 0;
+                transform: scale(2.5);
+            }
         }
     }
 
