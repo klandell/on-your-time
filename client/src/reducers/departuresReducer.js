@@ -13,6 +13,7 @@ export default function reducer(state = {
             isFetching: true,
             stopId: action.stopId,
             direction: action.direction,
+            departures: [],
         });
     case C.RECEIVE_DEPARTURES:
         return Object.assign({}, state, {

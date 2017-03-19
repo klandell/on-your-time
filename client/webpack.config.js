@@ -27,10 +27,6 @@ module.exports = {
                 test: /\.node$/,
                 loaders: ['node-loader'],
             },
-            {
-                test: /\.(eot|woff|woff2|svg|ttf)$/,
-                loader: ['file-loader'],
-            },
         ],
     },
     resolve: {

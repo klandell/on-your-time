@@ -23,7 +23,7 @@ export default class Departures extends React.Component {
 
     onToggleClick(e, direction) {
         this.paintSelection(e);
-        this.changeDirection(e, 1);
+        this.changeDirection(e, direction);
     }
 
     // TODO: make util library for stuff like this?
