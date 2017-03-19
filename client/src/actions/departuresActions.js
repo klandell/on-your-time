@@ -20,7 +20,7 @@ function receiveDepartures(stopId, direction, departures) {
     };
 }
 
-export default function loadDepartures(stopId, direction) {
+export function loadDepartures(stopId, direction) {
     return (dispatch) => {
         dispatch(requestDepartures(stopId, direction));
         return fetch(`/departures?stopId=${stopId}&direction=${direction}`)
@@ -28,5 +28,11 @@ export default function loadDepartures(stopId, direction) {
             .then((departures) => {
                 dispatch(receiveDepartures(stopId, direction, departures));
             });
+    };
+}
+
+export function leaveDeparturesView() {
+    return {
+        type: C.LEAVE_DEPARTURES_VIEW,
     };
 }

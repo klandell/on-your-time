@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import loadDepartures from 'Actions/departuresActions';
+import {loadDepartures, leaveDeparturesView} from 'Actions/departuresActions';
 require('Sass/content/Departures.scss');
 
 @connect(state => {
@@ -11,7 +11,8 @@ require('Sass/content/Departures.scss');
 }, dispatch => {
     return {
         actions: {
-            loadDepartures
+            loadDepartures,
+            leaveDeparturesView
         },
         dispatch
     };
@@ -19,6 +20,11 @@ require('Sass/content/Departures.scss');
 export default class Departures extends React.Component {
     componentWillMount() {
         this.changeDirection(null, 1);
+    }
+
+    componentWillUnmount() {
+        const {actions, dispatch} = this.props;
+        dispatch(actions.leaveDeparturesView());
     }
 
     onToggleClick(e, direction) {

@@ -13,13 +13,16 @@ export default function reducer(state = {
             isFetching: true,
             stopId: action.stopId,
             direction: action.direction,
-            departures: [],
         });
     case C.RECEIVE_DEPARTURES:
         return Object.assign({}, state, {
             isFetching: false,
             departures: action.departures,
             lastUpdated: action.receivedAt,
+        });
+    case C.LEAVE_DEPARTURES_VIEW:
+        return Object.assign({}, state, {
+            departures: [],
         });
     default:
         return state;
