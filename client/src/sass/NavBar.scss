@@ -10,14 +10,17 @@ nav {
     top: 0;
     z-index: 9999;
     box-shadow: 0 10px 20px rgba(0, 0, 0, .4);
+    color: $ui-color-4;
 
-    .back-arrow {
+    .ion-android-arrow-back {
         position: absolute;
+        font-size: 1.25em;
+        top: .55em;
+        left: .75em;
     }
 
     .title {
         line-height: $nav-bar-height;
         text-align: center;
-        color: $ui-color-4;
     }
 }

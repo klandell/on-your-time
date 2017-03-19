@@ -27,7 +27,7 @@ export default class NavBar extends React.Component {
             <nav>
                 {
                     this.props.view !== 'stops'
-                    ? <div class="back-arrow" onClick={e => this.onBackClick(e)}>Back</div>
+                    ? <i class="icon ion-android-arrow-back" onClick={e => this.onBackClick(e)}></i>
                     : null
                 }
                 <div class="title">On Your Time</div>
