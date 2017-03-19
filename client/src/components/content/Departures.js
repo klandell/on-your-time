@@ -22,6 +22,10 @@ export default class Departures extends React.Component {
         this.changeDirection(null, 1);
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     componentWillUnmount() {
         const {actions, dispatch} = this.props;
         dispatch(actions.leaveDeparturesView());
@@ -84,18 +88,14 @@ export default class Departures extends React.Component {
             const key = `${departure.train}-${direction}-${departure.departureTime || departure.arrivalTime}`;
             const now = new Date();
             const departureTime = new Date(departure.departureTime || departure.arrivalTime);
+            const minutes = Math.round((departureTime - now) / 1000 / 60);
 
-            let minutes = Math.round((departureTime - now) / 1000 / 60);
-            if (minutes < 0) {
-                minutes = 0;
-            }
-
-            return <li key={key}>
+            return minutes >= 0 ? <li key={key}>
                 <div class="line-preview">
                     <div class={`line-${departure.train}`}>{departure.train}</div>
-                    <div class="departure-time" >{`${minutes} minutes`}</div>
+                    <div class={`departure-time ${minutes < 6 ? 'close-departure' : ''}`}>{`${minutes} minute${minutes === 1 ? '' : 's'}`}</div>
                 </div>
-            </li>
+            </li> : null;
         });
         return (
             <div class="departures">

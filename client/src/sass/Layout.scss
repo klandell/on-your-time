@@ -1,10 +1,10 @@
 @import 'variables';
 
 html, body {
-    height: 100vh;
-    margin:0;
+    height: 110vh;
+    margin: 0;
     padding:0;
-    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-family: $primary-font;
     background: radial-gradient(circle, mix($ui-color-3, $ui-color-1, 20%), $ui-color-1);
 }
 
@@ -15,4 +15,32 @@ html, body {
 .layout-wrapper {
     height: 100vh;
     margin-top: $nav-bar-height;
+}
+
+.splash-wrapper {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .desktop-splash {
+        color: $ui-color-4;
+        height: 23em;
+        width: 26.6em;
+        text-align: center;
+        margin: auto;
+
+        i {
+            font-size: 15em;
+        }
+
+        .site-name {
+            font-size: 5em;
+            margin-top: -.6em;
+        }
+        .unsupported-msg {
+            font-size: 1.5em;
+        }
+    }
 }

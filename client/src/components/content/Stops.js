@@ -20,6 +20,10 @@ export default class Stops extends React.Component {
         dispatch(actions.loadStops());
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     paintSelection(e) {
         const currentTarget = e.currentTarget;
         const max = Math.max(currentTarget.clientWidth, currentTarget.clientHeight);

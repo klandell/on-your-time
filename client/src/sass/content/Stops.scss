@@ -12,7 +12,7 @@
         box-sizing: border-box;
         border-radius: 0;
         margin-top: 10px;
-        font-family: 'Yanone Kaffeesatz', sans-serif;
+        font-family: $primary-font;
     }
 
     .ion-android-locate {
@@ -55,13 +55,15 @@
        @each $line, $bgcolor in $line-colors {
            .line-#{$line} {
                display: inline-block;
-               height: 1.2em;
-               width: 1.2em;
-               line-height: 1.2em;
+               height: 1.5rem;
+               width: 1.5rem;
+               line-height: 1.5rem;
                text-align: center;
-               border-radius: 0.6em;
+               border-radius: 0.75rem;
                margin-right: .4em;
                background-color: map-get($line-colors, $line);
+               font-family: $secondary-font;
+               font-size: .9em;
 
                @if $line == N or $line == Q or $line == R or $line == W{
                    color: #000;

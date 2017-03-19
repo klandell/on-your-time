@@ -4,6 +4,9 @@ $ui-color-2: #A239CA;
 $ui-color-3: #4717F6;
 $ui-color-4: #E7DFDD;
 
+$ui-accent-red: #D03539;
+$ui-accent-blue: #1C6498;
+
 // subway line colors
 $line-colors: (
     A: #0039A6,
@@ -32,3 +35,6 @@ $line-colors: (
 );
 
 $nav-bar-height: 3.3rem;
+
+$primary-font: 'Yanone Kaffeesatz', Helvetica, Arial, sans-serif;
+$secondary-font: 'Roboto', Helvetica, Arial, sans-serif;
