@@ -43,7 +43,7 @@ export default class Stops extends React.Component {
 
     loadDepartures(e) {
         const currentTarget = e.currentTarget;
-        
+
         this.paintSelection(e);
 
         // give the selection animation some time to propagate

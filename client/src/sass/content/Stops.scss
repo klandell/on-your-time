@@ -3,7 +3,7 @@
 .stops {
     height: 100vh;
     font-size: 1.25em;
-    background-color: $ui-color-1;
+    background: radial-gradient(circle, mix($ui-color-3, $ui-color-1, 20%), $ui-color-1);
     margin-top: $nav-bar-height;
 
     /* {
@@ -71,7 +71,7 @@
 
    .ink {
        display: block; position: absolute;
-       background: rgba($ui-color-2, 0.75);
+       background: rgba($ui-color-2, 0.5);
        border-radius: 100%;
        transform: scale(0);
 
