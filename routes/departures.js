@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
                 train: doc.train,
                 arrivalTime: doc.arrivalTime,
                 departureTime: doc.departureTime,
+                isRealtime: true,
             })));
         }).sort({ departureTime: 'asc' });
     }

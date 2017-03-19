@@ -93,7 +93,10 @@ export default class Departures extends React.Component {
             return minutes >= 0 ? <li key={key}>
                 <div class="line-preview">
                     <div class={`line-${departure.train}`}>{departure.train}</div>
-                    <div class={`departure-time ${minutes < 6 ? 'close-departure' : ''}`}>{`${minutes} minute${minutes === 1 ? '' : 's'}`}</div>
+                    <div class={`departure-time ${minutes < 6 ? 'close-departure' : ''}`}>{`${minutes} minute${minutes === 1 ? '' : 's'}`}                    {departure.isRealtime ?
+                        <i class="icon ion-social-rss"></i>
+                        : null
+                    }</div>
                 </div>
             </li> : null;
         });

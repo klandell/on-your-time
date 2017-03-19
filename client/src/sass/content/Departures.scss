@@ -101,6 +101,11 @@
             &.close-departure {
                 color: $ui-accent-red;
             }
+
+            i {
+                font-size: .85em;
+                padding-left: 3px;
+            }
         }
     }
 }

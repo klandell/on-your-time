@@ -21,6 +21,7 @@ export default class Layout extends React.Component {
                 </div>
             );
         } else {
+            // No views currently exist for desktop, so show a splash page instead
             layout = (
                 <div class="splash-wrapper">
                     <div class="desktop-splash">
