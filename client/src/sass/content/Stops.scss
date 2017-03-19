@@ -2,19 +2,27 @@
 
 .stops {
     height: 100vh;
-    font-size: 1.25em;
-    background: radial-gradient(circle, mix($ui-color-3, $ui-color-1, 20%), $ui-color-1);
+    font-size: 1.2em;
     margin-top: $nav-bar-height;
 
-    /* {
-        width: calc(100% - 10px);
-        box-sizing: border-box;
-        border-width: 1px;
-        border-color: blue;
-        border-radius: 5px;
-        margin: 5px;
+    input {
+        display: inline;
+        width: 100%;
         font-size: 1em;
-    */
+        box-sizing: border-box;
+        border-radius: 0;
+        margin-top: 10px;
+        font-family: 'Yanone Kaffeesatz', sans-serif;
+    }
+
+    i {
+        display: inline;
+        position: absolute;;
+        font-size: 1.2em;
+        margin-top: .6em;
+        margin-left: -26px;
+        color: #BDBDBD;
+    }
 
    ul {
        margin: 0;
@@ -34,10 +42,6 @@
                overflow: hidden;
            }
        }
-   }
-
-   .stop-name, .stop-distance {
-       font-size: .95em;
    }
 
    .stop-distance {

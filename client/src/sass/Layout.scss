@@ -4,8 +4,8 @@ html, body {
     height: 100vh;
     margin:0;
     padding:0;
-    //overflow: auto;
     font-family: 'Yanone Kaffeesatz', sans-serif;
+    background: radial-gradient(circle, mix($ui-color-3, $ui-color-1, 20%), $ui-color-1);
 }
 
 #app {

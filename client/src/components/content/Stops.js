@@ -72,6 +72,11 @@ export default class Stops extends React.Component {
                 </a>
             </li>
         });
+
+        stopItems.unshift(<li>
+            <input type="text" placeholder="Search"/>
+            <i class="icon ion-android-locate"></i>
+        </li>);
         //<input
         //    type="text"
         //    placeholder="Search"
