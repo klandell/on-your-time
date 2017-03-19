@@ -17,7 +17,7 @@ export default class Stops extends React.Component {
     componentWillMount() {
         // load the stops near our current location
         const {actions, dispatch} = this.props;
-        dispatch(actions.loadStops());
+        dispatch(actions.loadStops('location'));
     }
 
     componentDidMount() {
@@ -58,9 +58,19 @@ export default class Stops extends React.Component {
         }, 150);
     }
 
+    loadMoreStops(e) {
+        this.paintSelection(e);
+        const {actions, dispatch, stops} = this.props;
+        const lastStop = stops.stops.slice(-1)[0];
+
+        if (lastStop) {
+            dispatch(actions.loadStops(location, lastStop.dbId, lastStop.distance));
+        }
+    }
+
     render() {
-        const stops = this.props.stops.stops;
-        const stopItems = stops.map(stop => {
+        const stops = this.props.stops;
+        const stopItems = stops.stops.map(stop => {
             const routes = stop.routes.sort().map(route => {
                 return route.slice(-1) === 'X' ? '' : <div class={`line-${route}`}>{route}</div>;
             });
@@ -71,7 +81,7 @@ export default class Stops extends React.Component {
                 data-stopid={stop.stopId}>
                 <a>
                     <span class="stop-name">{stop.stopName}</span>
-                    <span class="stop-distance">{stop.distance} miles</span>
+                    <span class="stop-distance">{Math.round(stop.distance * 0.000621371 * 10) / 10} miles</span>
                     <div class="line-preview">{routes}</div>
                 </a>
             </li>
@@ -81,6 +91,15 @@ export default class Stops extends React.Component {
             <input type="text" placeholder="Search"/>
             <i class="icon ion-android-locate"></i>
         </li>);
+
+        if (stopItems.length > 1 && stops.loadCount === 10) {
+            stopItems.push(<li
+                onClick={e => this.loadMoreStops(e)}
+                key="more-icon"
+                class="more-icon">
+                <a><i class="icon ion-ios-more"></i></a>
+            </li>);
+        }
         //<input
         //    type="text"
         //    placeholder="Search"

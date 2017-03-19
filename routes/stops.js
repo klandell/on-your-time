@@ -21,19 +21,24 @@ router.get('/', (req, res) => {
                         type: 'Point',
                         coordinates: [parseFloat(query.lon), parseFloat(query.lat)],
                     },
-                    num: parseInt(query.num, 10) || 5,
+                    num: 10,
                     spherical: true,
                     distanceField: 'distance',
-                    distanceMultiplier: 0.000621371,
-                    maxDistance: 8046.72, // 5 mile max
-                    query: { stop_id: /[^NS]$/ },
+                    minDistance: parseFloat(query.minDistance) || 0,
+                    query: {
+                        _id: {
+                            $nin: [query.lastId || null],
+                        },
+                        stop_id: /[^NS]$/,
+                    },
                 },
             },
         ], (err, docs) => {
             res.send(docs.map(doc => ({
+                dbId: doc._id,
                 stopName: doc.stop_name,
                 stopId: doc.stop_id,
-                distance: Math.round(doc.distance * 10) / 10,
+                distance: doc.distance,
                 routes: doc.routes,
             })));
         });

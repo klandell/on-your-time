@@ -37,6 +37,20 @@
            position: relative;
            overflow: hidden;
 
+           &.more-icon {
+               border-bottom: none;
+               text-align: center;
+
+               i {
+                   font-size: 2em;
+               }
+
+               span {
+                   vertical-align: super;
+                   padding-left: 5px;
+               }
+           }
+
            a {
                position: relative;
                overflow: hidden;

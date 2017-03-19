@@ -9,23 +9,26 @@ function requestStops(location) {
     };
 }
 
-function receiveStops(location, stops) {
+function receiveStops(location, stops, clear) {
     return {
-        type: C.RECEIVE_STOPS,
+        type: clear ? C.RECEIVE_STOPS_CLEAR : C.RECEIVE_STOPS,
         location,
         stops,
         receivedAt: Date.now(),
     };
 }
 
-export default function loadStops(location) {
+export default function loadStops(location, lastId, minDistance) {
     return (dispatch) => {
         dispatch(requestStops(location));
         // TODO: use real location
-        return fetch('/stops?num=10&lon=-73.9778&lat=40.7317')
+        return fetch(`/stops?lon=-73.9778&lat=40.7317${lastId ? `&lastId=${lastId}&minDistance=${minDistance}` : ''}`)
             .then(response => response.json())
             .then((stops) => {
-                dispatch(receiveStops(location, stops));
+                dispatch(receiveStops(location, stops, !lastId));
             });
     };
 }
+
+// minDistance
+// lastId
