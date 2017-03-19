@@ -1,8 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import NavBar from 'Components/NavBar';
 import NavigationDelegate from 'Components/NavigationDelegate';
 require('Sass/Layout.scss');
 
+@connect(state => {
+    return {
+        stopsIsFetching: state.stops.isFetching,
+        departuresIsFetching: state.departures.isFetching
+    }
+})
 export default class Layout extends React.Component {
     render() {
         const agent = navigator.userAgent || navigator.vendor || window.opera;
@@ -12,12 +19,27 @@ export default class Layout extends React.Component {
             isMobile = false;
         }
 
+        const isFetching = this.props.stopsIsFetching || this.props.departuresIsFetching;
+        
         let layout;
         if (isMobile) {
             layout = (
+                <div>
                 <div class="layout-wrapper">
                     <NavBar />
+                    {
+                        isFetching ?
+                        <div class="load-mask">
+                            <div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        : null
+                    }
                     <NavigationDelegate />
+                </div>
                 </div>
             );
         } else {
