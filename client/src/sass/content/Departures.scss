@@ -67,7 +67,7 @@
         margin: 0;
         padding: 0 20px;
         list-style: none;
-        height: calc(100% - #{$nav-bar-height} - #{$toggle-height});
+        height: calc(100vh - #{$nav-bar-height} - #{$toggle-height});
 
         .line-preview {
             padding: 1.2em 0;
