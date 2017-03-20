@@ -1,7 +1,8 @@
 // webpack.config.js
-let webpack = require('webpack'),
-    path = require('path'),
-    debug = process.env.NODE_ENV !== 'production';
+const webpack = require('webpack');
+const path = require('path');
+
+const debug = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     context: `${__dirname}/src`,
@@ -40,6 +41,11 @@ module.exports = {
         path: __dirname,
     },
     plugins: debug ? [] : [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+            },
+        }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             sourcemap: false,

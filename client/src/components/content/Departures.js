@@ -90,9 +90,23 @@ export default class Departures extends React.Component {
             const departureTime = new Date(departure.departureTime || departure.arrivalTime);
             const minutes = Math.round((departureTime - now) / 1000 / 60);
 
+            let isExpress;
+            let train = departure.train;
+
+            if (train.slice(-1) === 'X') {
+                train = train.charAt(0);
+                isExpress = true;
+            } else if (train === 'GS') {
+                train = 'S';
+            }
+
             return minutes >= 0 ? <li key={key}>
                 <div class="line-preview">
-                    <div class={`line-${departure.train}`}>{departure.train}</div>
+                    <div class={`line-${train}`}>{train}</div>
+                    {
+                        isExpress ? <div class="express-indicator">Express</div>
+                        : null
+                    }
                     <div class={`departure-time ${minutes < 6 ? 'close-departure' : ''}`}>{`${minutes} minute${minutes === 1 ? '' : 's'}`}                    {departure.isRealtime ?
                         <i class="icon ion-social-rss"></i>
                         : null

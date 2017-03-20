@@ -108,5 +108,14 @@
                 padding-left: 3px;
             }
         }
+
+        .express-indicator {
+            color: $ui-color-4;
+            text-align: center;
+            position: relative;
+            top: -2em;
+            font-size: 0.8em;
+            height: 0;
+        }
     }
 }

@@ -95,7 +95,12 @@ export default class Stops extends React.Component {
         const stops = this.props.stops;
         const stopItems = stops.stops.map(stop => {
             const routes = stop.routes.sort().map(route => {
-                return route.slice(-1) === 'X' ? '' : <div class={`line-${route}`}>{route}</div>;
+                if (route === 'GS') {
+                    route = 'S';
+                } else if (route === 'H') {
+                    route = '';
+                }
+                return !route || route.slice(-1) === 'X' ? '' : <div class={`line-${route}`}>{route}</div>;
             });
 
             return <li
