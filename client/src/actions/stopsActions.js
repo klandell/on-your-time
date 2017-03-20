@@ -24,6 +24,12 @@ function findCurrentLocation() {
     };
 }
 
+function clearStops() {
+    return {
+        type: C.CLEAR_STOPS,
+    };
+}
+
 export function loadStops(location = {
     latitude: 40.7317,
     longitude: -73.9778,
@@ -38,14 +44,28 @@ export function loadStops(location = {
     };
 }
 
-export function setLocation(position) {
+export function setLocation(loc) {
     return (dispatch) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+        const latitude = loc.coords.latitude;
+        const longitude = loc.coords.longitude;
+        let location;
 
         if (latitude && longitude) {
             dispatch(loadStops({ latitude, longitude }));
+            location = {
+                latitude,
+                longitude,
+            };
+        } else {
+            dispatch(clearStops());
         }
+
+        dispatch({
+            type: C.SET_LOCATION,
+            location,
+            // TODO: move into location info
+            address: loc.address,
+        });
     };
 }
 

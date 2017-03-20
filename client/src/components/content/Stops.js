@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loadStops, getCurrentLocation } from 'Actions/stopsActions';
+import Geosuggest from 'react-geosuggest';
+import { loadStops, getCurrentLocation, setLocation } from 'Actions/stopsActions';
 import doNavigation from 'Actions/navigationActions';
 require('Sass/content/Stops.scss');
 
@@ -9,18 +10,13 @@ require('Sass/content/Stops.scss');
         actions: {
             loadStops,
             doNavigation,
-            getCurrentLocation
+            getCurrentLocation,
+            setLocation
         },
         dispatch
     };
 })
 export default class Stops extends React.Component {
-    componentWillMount() {
-        // load the stops near our current location
-        const {actions, dispatch} = this.props;
-        dispatch(actions.loadStops());
-    }
-
     componentDidMount() {
         window.scrollTo(0, 0);
     }
@@ -65,7 +61,7 @@ export default class Stops extends React.Component {
         const lastStop = stops.stops.slice(-1)[0];
 
         if (lastStop) {
-            dispatch(actions.loadStops(null, lastStop.dbId, lastStop.distance));
+            dispatch(actions.loadStops(stops.location, lastStop.dbId, lastStop.distance));
         }
     }
 
@@ -76,6 +72,23 @@ export default class Stops extends React.Component {
             e.currentTarget.classList.add('location-selected');
             dispatch(actions.getCurrentLocation());
         }
+    }
+
+    onSuggestSelect(suggest) {
+        const {actions, dispatch} = this.props;
+        const location = suggest.location;
+        let loc = {};
+
+        if (location) {
+            loc = {
+                coords: {
+                    latitude: location.lat,
+                    longitude: location.lng,
+                },
+                address: suggest.label
+            };
+        }
+        dispatch(actions.setLocation(loc));
     }
 
     render() {
@@ -97,10 +110,26 @@ export default class Stops extends React.Component {
             </li>
         });
 
-        stopItems.unshift(<li>
-            <input type="text" placeholder="Search"/>
-            <i onClick={e => this.getCurrentLocation(e)} class="icon ion-android-locate"></i>
-        </li>);
+        //stopItems.unshift(<li>
+        //    <input type="text" placeholder="Search"/>
+        //    <i onClick={e => this.getCurrentLocation(e)} class="icon ion-android-locate"></i>
+        //</li>);
+        //</
+
+        const bounds = new google.maps.LatLngBounds(
+            new google.maps.LatLng(40.477399, -74.259090),
+            new google.maps.LatLng(40.917577, -73.700272)
+        );
+
+        // North Latitude: 40.917577 South Latitude: 40.477399 East Longitude: -73.700272 West Longitude: -74.259090
+        stopItems.unshift(
+            <Geosuggest
+                initialValue={this.props.stops.address}
+                bounds={bounds}
+                onSuggestSelect={suggest => this.onSuggestSelect(suggest)}
+                types={['establishment', 'geocode']}
+            />
+        );
 
         if (stopItems.length > 1 && stops.loadCount === 10) {
             stopItems.push(<li

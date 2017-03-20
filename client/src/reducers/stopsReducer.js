@@ -3,8 +3,10 @@ const C = require('Constants');
 export default function reducer(state = {
     isFetching: false,
     stops: [],
+    location: {},
     lastUpdated: null,
     loadCount: 0,
+    address: '',
 }, action) {
     switch (action.type) {
     case C.REQUEST_STOPS:
@@ -29,6 +31,15 @@ export default function reducer(state = {
     case C.FIND_CURRENT_LOCATION:
         return Object.assign({}, state, {
             isFetching: true,
+        });
+    case C.SET_LOCATION:
+        return Object.assign({}, state, {
+            location: action.location,
+            address: action.address,
+        });
+    case C.CLEAR_STOPS:
+        return Object.assign({}, state, {
+            stops: [],
         });
     default:
         return state;

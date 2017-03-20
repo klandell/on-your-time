@@ -6,7 +6,7 @@ let webpack = require('webpack'),
 module.exports = {
     context: `${__dirname}/src`,
     target: 'web',
-    devtool: debug ? 'inline-sourcemap' : null,
+    devtool: debug ? 'inline-sourcemap' : false,
     entry: ['./entry.js'],
     module: {
         loaders: [
@@ -21,11 +21,8 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
+                exclude: /node_modules/,
                 loaders: ['style-loader', 'css-loader', 'sass-loader'],
-            },
-            {
-                test: /\.node$/,
-                loaders: ['node-loader'],
             },
         ],
     },
@@ -43,10 +40,10 @@ module.exports = {
         path: __dirname,
     },
     plugins: debug ? [] : [
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             sourcemap: false,
         }),
+        new webpack.optimize.AggressiveMergingPlugin(),
     ],
 };

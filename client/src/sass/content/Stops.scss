@@ -15,18 +15,43 @@
         font-family: $primary-font;
     }
 
-    .ion-android-locate {
-        display: inline;
-        position: absolute;;
-        font-size: 1.2em;
-        margin-top: .6em;
-        margin-left: -26px;
-        color: #BDBDBD;
+    .geosuggest__suggests {
+        position: absolute;
+        background-color: #FFF;
+        z-index: 9997;
+        height: inherit;
+        width: calc(100% - 80px);
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        color: #000;
 
-        &.location-selected {
-            color: $ui-accent-blue;
+        &--hidden {
+            max-height: 0;
+            overflow: hidden;
+            border-width: 0;
+        }
+
+        li:last-child {
+            border: none;
         }
     }
+
+    .geosuggest__item--active {
+        background: #267dc0;
+        color: #fff;
+    }
+
+    //.ion-android-locate {
+    //    display: inline;
+    //    position: absolute;;
+    //    font-size: 1.2em;
+    //    margin-top: .6em;
+    //    margin-left: -26px;
+    //    color: #BDBDBD;
+
+    //    &.location-selected {
+    //        color: $ui-accent-blue;
+    //    }
+    //}
 
    ul {
        margin: 0;

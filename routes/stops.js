@@ -12,14 +12,16 @@ gtfsModels.models.Stop.collection.ensureIndex({ loc: '2dsphere' });
 // lon
 router.get('/', (req, res) => {
     const query = req.query;
+    const lat = parseFloat(query.lat);
+    const lon = parseFloat(query.lon);
 
-    if (query.lat && query.lon) {
+    if (lat && lon) {
         gtfsModels.models.Stop.aggregate([
             {
                 $geoNear: {
                     near: {
                         type: 'Point',
-                        coordinates: [parseFloat(query.lon), parseFloat(query.lat)],
+                        coordinates: [lon, lat],
                     },
                     num: 10,
                     spherical: true,
