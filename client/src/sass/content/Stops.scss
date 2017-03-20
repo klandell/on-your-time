@@ -61,7 +61,7 @@
        padding: 0 20px;
        list-style: none;
        color: $ui-color-4;
-       height: calc(100vh - #{$nav-bar-height} -39px);
+       height: calc(100% - #{$nav-bar-height} -39px);
 
        li {
            padding: 3px 10px 8px;
