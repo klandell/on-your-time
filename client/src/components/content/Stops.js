@@ -77,7 +77,7 @@ export default class Stops extends React.Component {
     onSuggestSelect(suggest) {
         const {actions, dispatch} = this.props;
         const location = suggest.location;
-        let loc = {};
+        let loc = { coords: {} };
 
         if (location) {
             loc = {
@@ -121,16 +121,6 @@ export default class Stops extends React.Component {
             new google.maps.LatLng(40.917577, -73.700272)
         );
 
-        // North Latitude: 40.917577 South Latitude: 40.477399 East Longitude: -73.700272 West Longitude: -74.259090
-        stopItems.unshift(
-            <Geosuggest
-                initialValue={this.props.stops.address}
-                bounds={bounds}
-                onSuggestSelect={suggest => this.onSuggestSelect(suggest)}
-                types={['establishment', 'geocode']}
-            />
-        );
-
         if (stopItems.length > 1 && stops.loadCount === 10) {
             stopItems.push(<li
                 onClick={e => this.loadMoreStops(e)}
@@ -142,6 +132,12 @@ export default class Stops extends React.Component {
 
         return (
             <div class="stops">
+                <Geosuggest
+                    initialValue={this.props.stops.address}
+                    bounds={bounds}
+                    onSuggestSelect={suggest => this.onSuggestSelect(suggest)}
+                    types={['establishment', 'geocode']}
+                />
                 <ul>{stopItems}</ul>
             </div>
         );

@@ -1,12 +1,13 @@
 @import '../variables';
 
 .departures {
+    $toggle-height: 3.125rem;
     .direction-toggle {
         color: $ui-color-4;
         text-align: center;
         font-size: 1.25em;
-        height: 2.5em;
-        line-height: 2.5em;
+        height: $toggle-height;
+        line-height: $toggle-height;
 
         .toggle-btn {
             display: inline-block;
@@ -66,10 +67,10 @@
         margin: 0;
         padding: 0 20px;
         list-style: none;
-        height: 100vh;
+        height: calc(100vh - #{$nav-bar-height} - #{$toggle-height});
 
         .line-preview {
-            margin: 1.2em 0;
+            padding: 1.2em 0;
 
             @each $line, $bgcolor in $line-colors {
                 .line-#{$line} {

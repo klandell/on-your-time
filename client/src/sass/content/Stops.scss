@@ -1,9 +1,7 @@
 @import '../variables';
 
 .stops {
-    height: 100vh;
     font-size: 1.2em;
-    margin-top: $nav-bar-height;
 
     input {
         display: inline;
@@ -15,29 +13,34 @@
         font-family: $primary-font;
     }
 
-    .geosuggest__suggests {
-        position: absolute;
-        background-color: #FFF;
-        z-index: 9997;
-        height: inherit;
-        width: calc(100% - 80px);
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-        color: #000;
+    .geosuggest {
+        padding: 0 20px 5px;;
+        height: 40px;
 
-        &--hidden {
-            max-height: 0;
-            overflow: hidden;
-            border-width: 0;
+        &__suggests {
+            position: absolute;
+            background-color: #FFF;
+            z-index: 9997;
+            height: inherit;
+            width: calc(100% - 80px);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            color: #000;
+
+            &--hidden {
+                max-height: 0;
+                overflow: hidden;
+                border-width: 0;
+            }
+
+            li:last-child {
+                border: none;
+            }
         }
 
-        li:last-child {
-            border: none;
+        &__item--active {
+            background: #267dc0;
+            color: #fff;
         }
-    }
-
-    .geosuggest__item--active {
-        background: #267dc0;
-        color: #fff;
     }
 
     //.ion-android-locate {
@@ -58,7 +61,7 @@
        padding: 0 20px;
        list-style: none;
        color: $ui-color-4;
-       height: 100vh;
+       height: calc(100vh - #{$nav-bar-height} -39px);
 
        li {
            padding: 3px 10px 8px;

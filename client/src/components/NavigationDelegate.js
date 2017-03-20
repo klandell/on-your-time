@@ -29,8 +29,8 @@ export default class ContentContainer extends React.Component {
         return (
             <ReactCSSTransitionGroup
                 transitionName="content"
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={500}
+                transitionEnterTimeout={400}
+                transitionLeaveTimeout={400}
                 class="navigation-delegate">
                 {targetTags[view]}
             </ReactCSSTransitionGroup>

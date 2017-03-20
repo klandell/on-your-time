@@ -13,8 +13,8 @@ html, body {
 }
 
 .layout-wrapper {
-    height: 100vh;
-    margin-top: $nav-bar-height;
+    height: calc(100vh - #{$nav-bar-height});
+    padding-top: $nav-bar-height;
 
     // delay the load mask so that it isn't shown for fast requests
     @keyframes show {
