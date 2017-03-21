@@ -2,6 +2,7 @@
 
 .departures {
     $toggle-height: 3.125rem;
+
     .direction-toggle {
         color: $ui-color-4;
         text-align: center;
@@ -63,6 +64,17 @@
         }
     }
 
+    .stop-name {
+        color: $ui-color-4;
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        padding: 7px;
+        background-color: rgba($ui-color-1, .9);
+        border-top: 1px solid $ui-color-1;
+        bottom: 0;
+    }
+
     ul {
         margin: 0;
         padding: 0 20px;
@@ -92,6 +104,10 @@
 
                 }
             }
+        }
+
+        li:last-child {
+            padding-bottom: 1.7em;
         }
 
         .departure-time {

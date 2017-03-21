@@ -50,8 +50,9 @@ export default class Stops extends React.Component {
         // give the selection animation some time to propagate
         setTimeout(() => {
             const stopId = currentTarget.getAttribute('data-stopid');
+            const stopName = currentTarget.querySelector('.stop-name').innerHTML;
             const {actions, dispatch} = this.props;
-            dispatch(actions.doNavigation('departures', {stopId}));
+            dispatch(actions.doNavigation('departures', {stopId, stopName}));
         }, 150);
     }
 
@@ -106,7 +107,8 @@ export default class Stops extends React.Component {
             return <li
                 onClick={e => this.loadDepartures(e)}
                 key={stop.stopId}
-                data-stopid={stop.stopId}>
+                data-stopid={stop.stopId}
+                class="stop-item">
                 <a>
                     <span class="stop-name">{stop.stopName}</span>
                     <span class="stop-distance">{Math.round(stop.distance * 0.000621371 * 10) / 10} miles</span>
@@ -121,6 +123,7 @@ export default class Stops extends React.Component {
         //</li>);
         //</
 
+        // NYC bounds
         const bounds = new google.maps.LatLngBounds(
             new google.maps.LatLng(40.477399, -74.259090),
             new google.maps.LatLng(40.917577, -73.700272)
@@ -130,7 +133,7 @@ export default class Stops extends React.Component {
             stopItems.push(<li
                 onClick={e => this.loadMoreStops(e)}
                 key="more-icon"
-                class="more-icon">
+                class="stop-item more-icon">
                 <a><i class="icon ion-ios-more"></i></a>
             </li>);
         }
@@ -141,7 +144,8 @@ export default class Stops extends React.Component {
                     initialValue={this.props.stops.address}
                     bounds={bounds}
                     onSuggestSelect={suggest => this.onSuggestSelect(suggest)}
-                    types={['establishment', 'geocode']}
+                    // TODO: real location via location prop
+                    //location={new google.maps.LatLng(40.7316777, -73.9795155)}
                 />
                 <ul>{stopItems}</ul>
             </div>

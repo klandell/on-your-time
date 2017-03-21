@@ -8,7 +8,7 @@ export default function reducer(state = {
     case C.SET_CURRENT_CONTENT:
         return Object.assign({}, state, {
             view: action.targetView,
-            configs: action.configs,
+            configs: action.configs || {},
         });
     default:
         return state;

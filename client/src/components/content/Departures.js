@@ -116,6 +116,7 @@ export default class Departures extends React.Component {
         });
         return (
             <div class="departures">
+                <div class="stop-name">{this.props.configs.stopName}</div>
                 <div class="direction-toggle">
                     <div class="toggle-btn selected-toggle" data-direction="1" onClick={e => this.onToggleClick(e, 1)}><a>Uptown</a></div>
                     <div class="toggle-btn"  data-direction="3" onClick={e => this.onToggleClick(e, 3)}><a>Downtown</a></div>
