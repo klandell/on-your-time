@@ -41,6 +41,10 @@ export default function reducer(state = {
         return Object.assign({}, state, {
             stops: [],
         });
+    case C.CLEAR_ADDRESS:
+        return Object.assign({}, state, {
+            address: '',
+        });
     default:
         return state;
     }

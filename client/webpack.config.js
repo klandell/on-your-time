@@ -23,7 +23,26 @@ module.exports = {
             {
                 test: /\.scss$/,
                 exclude: /node_modules/,
-                loaders: ['style-loader', 'css-loader', 'sass-loader'],
+                loaders: [
+                    {
+                        loader: 'style-loader',
+                        query: {
+                            minimize: true,
+                        },
+                    },
+                    {
+                        loader: 'css-loader',
+                        query: {
+                            minimize: true,
+                        },
+                    },
+                    {
+                        loader: 'sass-loader',
+                        query: {
+                            minimize: true,
+                        },
+                    },
+                ],
             },
         ],
     },
@@ -43,13 +62,13 @@ module.exports = {
     plugins: debug ? [] : [
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+                NODE_ENV: JSON.stringify(debug ? undefined : 'production'),
             },
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.optimize.AggressiveMergingPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             sourcemap: false,
         }),
-        new webpack.optimize.AggressiveMergingPlugin(),
     ],
 };

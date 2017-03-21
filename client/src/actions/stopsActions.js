@@ -30,6 +30,12 @@ function clearStops() {
     };
 }
 
+export function clearAddress() {
+    return {
+        type: C.CLEAR_ADDRESS,
+    };
+}
+
 export function loadStops(location = {
     latitude: 40.7317,
     longitude: -73.9778,

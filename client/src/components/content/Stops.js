@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Geosuggest from 'react-geosuggest';
-import { loadStops, getCurrentLocation, setLocation } from 'Actions/stopsActions';
+import { loadStops, getCurrentLocation, setLocation, clearAddress } from 'Actions/stopsActions';
 import doNavigation from 'Actions/navigationActions';
 require('Sass/content/Stops.scss');
 
@@ -11,7 +11,8 @@ require('Sass/content/Stops.scss');
             loadStops,
             doNavigation,
             getCurrentLocation,
-            setLocation
+            setLocation,
+            clearAddress
         },
         dispatch
     };
@@ -92,6 +93,11 @@ export default class Stops extends React.Component {
         dispatch(actions.setLocation(loc));
     }
 
+    onClearSearchClick() {
+        const {actions, dispatch} = this.props;
+            dispatch(actions.clearAddress());
+    }
+
     render() {
         const stops = this.props.stops;
         const stopItems = stops.stops.map(stop => {
@@ -140,6 +146,7 @@ export default class Stops extends React.Component {
 
         return (
             <div class="stops">
+                <i class="icon ion-close" onClick={() => this.onClearSearchClick()}></i>
                 <Geosuggest
                     initialValue={this.props.stops.address}
                     bounds={bounds}
