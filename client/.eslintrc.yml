@@ -1,2 +1,7 @@
+parserOptions:
+    ecmaFeatures:
+        jsx: true
 plugins:
   - react
+rules:
+  class-methods-use-this: 0

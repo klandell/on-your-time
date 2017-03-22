@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {loadDepartures, leaveDeparturesView} from 'Actions/departuresActions';
-require('Sass/content/Departures.scss');
+require('Sass/containers/Departures.scss');
 
 @connect(state => {
     return {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import doNavigation from 'Actions/navigationActions';
-require('Sass/NavBar.scss');
+require('Sass/containers/NavBar.scss');
 
 @connect(state => {
     return {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import NavBar from 'Components/NavBar';
-import NavigationDelegate from 'Components/NavigationDelegate';
-require('Sass/Layout.scss');
+import NavBar from 'Containers/NavBar';
+import NavigationDelegate from 'Containers/Delegate';
+require('Sass/containers/Layout.scss');
 
 @connect(state => {
     return {
@@ -20,7 +20,7 @@ export default class Layout extends React.Component {
         }
 
         const isFetching = this.props.stopsIsFetching || this.props.departuresIsFetching;
-        
+
         let layout;
         if (isMobile) {
             layout = (

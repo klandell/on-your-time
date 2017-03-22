@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Geosuggest from 'react-geosuggest';
 import { loadStops, getCurrentLocation, setLocation, clearAddress } from 'Actions/stopsActions';
 import doNavigation from 'Actions/navigationActions';
-require('Sass/content/Stops.scss');
+require('Sass/containers/Stops.scss');
 
 @connect(state => state, dispatch => {
     return {
