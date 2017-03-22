@@ -1,22 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {loadDepartures, leaveDeparturesView} from 'Actions/departuresActions';
+import { loadDepartures, leaveDeparturesView } from 'Actions/departuresActions';
+import DepartureItem from 'Components/departures/DepartureItem';
 require('Sass/containers/Departures.scss');
 
-@connect(state => {
-    return {
-        configs: state.currentContent.configs,
-        departures: state.departures
-    };
-}, dispatch => {
-    return {
-        actions: {
-            loadDepartures,
-            leaveDeparturesView
-        },
-        dispatch
-    };
-})
+@connect(state => ({
+    configs: state.currentContent.configs,
+    departures: state.departures,
+}), dispatch => ({
+    actions: {
+        loadDepartures,
+        leaveDeparturesView,
+    },
+    dispatch,
+}))
 export default class Departures extends React.Component {
     componentWillMount() {
         this.changeDirection(null, 1);
@@ -27,7 +24,7 @@ export default class Departures extends React.Component {
     }
 
     componentWillUnmount() {
-        const {actions, dispatch} = this.props;
+        const { actions, dispatch } = this.props;
         dispatch(actions.leaveDeparturesView());
     }
 
@@ -60,7 +57,7 @@ export default class Departures extends React.Component {
     }
 
     changeDirection(e, direction) {
-        const {actions, configs, dispatch} = this.props;
+        const { actions, configs, dispatch } = this.props;
         let doLoad;
 
         if (e) {
@@ -84,7 +81,7 @@ export default class Departures extends React.Component {
     render() {
         const direction = this.props.departures.direction;
         const departures = this.props.departures.departures;
-        const departureItems = departures.map(departure => {
+        const departureItems = departures.map((departure) => {
             const key = `${departure.train}-${direction}-${departure.departureTime || departure.arrivalTime}`;
             const now = new Date();
             const departureTime = new Date(departure.departureTime || departure.arrivalTime);
@@ -100,26 +97,23 @@ export default class Departures extends React.Component {
                 train = 'S';
             }
 
-            return minutes >= 0 ? <li key={key}>
-                <div class="line-preview">
-                    <div class={`line-${train}`}>{train}</div>
-                    {
-                        isExpress ? <div class="express-indicator">Express</div>
-                        : null
-                    }
-                    <div class={`departure-time ${minutes < 6 ? 'close-departure' : ''}`}>{`${minutes} minute${minutes === 1 ? '' : 's'}`}                    {departure.isRealtime ?
-                        <i class="icon ion-social-rss"></i>
-                        : null
-                    }</div>
-                </div>
-            </li> : null;
+            return (
+                minutes >= 0 ? <DepartureItem
+                    key={key}
+                    route={train}
+                    minutes={minutes}
+                    isExpress={isExpress}
+                    isClose={minutes < 6}
+                    isRealtime={departure.isRealtime} />
+                : null
+            );
         });
         return (
             <div class="departures">
                 <div class="stop-name">{this.props.configs.stopName}</div>
                 <div class="direction-toggle">
                     <div class="toggle-btn selected-toggle" data-direction="1" onClick={e => this.onToggleClick(e, 1)}><a>Uptown</a></div>
-                    <div class="toggle-btn"  data-direction="3" onClick={e => this.onToggleClick(e, 3)}><a>Downtown</a></div>
+                    <div class="toggle-btn" data-direction="3" onClick={e => this.onToggleClick(e, 3)}><a>Downtown</a></div>
                 </div>
                 <ul>{departureItems}</ul>
             </div>

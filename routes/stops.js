@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const mongodb = require('mongodb');
 const gtfsModels = require('gtfs-mongoose');
 
 const router = express.Router();
@@ -14,6 +15,7 @@ router.get('/', (req, res) => {
     const query = req.query;
     const lat = parseFloat(query.lat);
     const lon = parseFloat(query.lon);
+    const lastId = query.lastId;
 
     if (lat && lon) {
         gtfsModels.models.Stop.aggregate([
@@ -29,7 +31,7 @@ router.get('/', (req, res) => {
                     minDistance: parseFloat(query.minDistance) || 0,
                     query: {
                         _id: {
-                            $nin: [query.lastId || null],
+                            $nin: [lastId ? mongodb.ObjectID(lastId) : null],
                         },
                         stop_id: /[^NS]$/,
                     },

@@ -16,9 +16,20 @@ require('Sass/containers/Stops.scss');
     dispatch,
 }))
 export default class Stops extends React.Component {
-    componentDidMount() {
-        window.scrollTo(0, 0);
-    }
+    // scroll to last location
+    // componentDidMount() {
+    //    window.scrollTo(0, 0);
+    // }
+
+    // not currently in use
+    // getCurrentLocation(e) {
+    //    const { actions, dispatch } = this.props;
+    //
+    //    if (!e.currentTarget.classList.contains('location-selected')) {
+    //        e.currentTarget.classList.add('location-selected');
+    //        dispatch(actions.getCurrentLocation());
+    //    }
+    // }
 
     paintSelection(e) {
         const currentTarget = e.currentTarget;
@@ -39,39 +50,6 @@ export default class Stops extends React.Component {
         ink.classList.add('animate');
 
         setTimeout(() => ink.classList.remove('animate'), 650);
-    }
-
-    loadDepartures(e) {
-        const currentTarget = e.currentTarget;
-
-        this.paintSelection(e);
-
-        // give the selection animation some time to propagate
-        setTimeout(() => {
-            const stopId = currentTarget.getAttribute('data-stopid');
-            const stopName = currentTarget.querySelector('.stop-name').innerHTML;
-            const { actions, dispatch } = this.props;
-            dispatch(actions.doNavigation('departures', { stopId, stopName }));
-        }, 150);
-    }
-
-    loadMoreStops(e) {
-        this.paintSelection(e);
-        const { actions, dispatch, stops } = this.props;
-        const lastStop = stops.stops.slice(-1)[0];
-
-        if (lastStop) {
-            dispatch(actions.loadStops(stops.location, lastStop.dbId, lastStop.distance));
-        }
-    }
-
-    getCurrentLocation(e) {
-        const { actions, dispatch } = this.props;
-
-        if (!e.currentTarget.classList.contains('location-selected')) {
-            e.currentTarget.classList.add('location-selected');
-            dispatch(actions.getCurrentLocation());
-        }
     }
 
     onSuggestSelect(suggest) {
@@ -96,8 +74,27 @@ export default class Stops extends React.Component {
         dispatch(actions.clearAddress());
     }
 
-    onStopItemClick() {
-        debugger;
+    onStopItemClick(e) {
+        const currentTarget = e.currentTarget;
+
+        this.paintSelection(e);
+        // give the selection animation some time to propagate
+        setTimeout(() => {
+            const stopId = currentTarget.getAttribute('data-stopid');
+            const stopName = currentTarget.querySelector('.stop-name').innerHTML;
+            const { actions, dispatch } = this.props;
+            dispatch(actions.doNavigation('departures', { stopId, stopName }));
+        }, 150);
+    }
+
+    onMoreClick(e) {
+        this.paintSelection(e);
+        const { actions, dispatch, stops } = this.props;
+        const lastStop = stops.stops.slice(-1)[0];
+
+        if (lastStop) {
+            dispatch(actions.loadStops(stops.location, lastStop.dbId, lastStop.distance));
+        }
     }
 
     render() {
@@ -109,7 +106,9 @@ export default class Stops extends React.Component {
                 onSuggestSelect={e => this.onSuggestSelect(e)}
                 onClearSearchClick={e => this.onClearSearchClick(e)}
                 stops={stops.stops}
-                onStopItemClick={e => this.onStopItemClick(e)} />
+                loadCount={stops.loadCount}
+                onStopItemClick={e => this.onStopItemClick(e)}
+                onMoreClick={e => this.onMoreClick(e)}/>
         );
     }
 }

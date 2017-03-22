@@ -8,7 +8,9 @@ export default class StopsView extends React.Component {
         onSuggestSelect: PropTypes.func.isRequired,
         onClearSearchClick: PropTypes.func.isRequired,
         stops: PropTypes.array.isRequired,
+        loadCount: PropTypes.number.isRequired,
         onStopItemClick: PropTypes.func.isRequired,
+        onMoreClick: PropTypes.func.isRequired,
     }
 
     render() {
@@ -27,7 +29,9 @@ export default class StopsView extends React.Component {
                     onSuggestSelect={suggest => props.onSuggestSelect(suggest)}/>
                 <StopsList
                     stops={props.stops}
-                    onStopItemClick={e => props.onStopItemClick(e)} />
+                    loadCount={props.loadCount}
+                    onStopItemClick={e => props.onStopItemClick(e)}
+                    onMoreClick={e => props.onMoreClick(e)} />
             </div>
         );
     }

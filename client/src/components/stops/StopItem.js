@@ -13,7 +13,6 @@ export default class StopItem extends React.Component {
     render() {
         const props = this.props;
         const stopId = props.stopId;
-        const distance = Math.round(props.stopDistance * 0.000621371 * 10) / 10;
 
         return (
             <li data-stopid={stopId}
@@ -21,7 +20,7 @@ export default class StopItem extends React.Component {
                 class="stop-item">
                 <a>
                     <span class="stop-name">{props.stopName}</span>
-                    <span class="stop-distance">{`${distance} miles`}</span>
+                    <span class="stop-distance">{`${props.stopDistance} miles`}</span>
                     <RoutePreview
                         routes={props.routes}
                         stopId={stopId}/>

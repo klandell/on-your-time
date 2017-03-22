@@ -81,7 +81,7 @@
         list-style: none;
         height: calc(100vh - #{$nav-bar-height} - #{$toggle-height});
 
-        .line-preview {
+        .route-preview {
             padding: 1.2em 0;
 
             @each $line, $bgcolor in $line-colors {
