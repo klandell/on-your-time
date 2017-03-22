@@ -6,7 +6,9 @@ export default class RoutePreview extends React.Component {
         stopId: PropTypes.string.isRequired,
     }
 
-    mapRoutes(routes, stopId) {
+    mapRoutes(routes) {
+        const stopId = this.props.stopId;
+
         return routes.map((route) => {
             let rte = route;
 

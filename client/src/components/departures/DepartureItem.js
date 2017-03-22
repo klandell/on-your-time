@@ -9,22 +9,45 @@ export default class DepartureItem extends React.Component {
         isExpress: PropTypes.bool,
     }
 
-    render() {
-        const props = this.props;
-        const route = props.route;
-        const minutes = props.minutes;
+    renderPreview() {
+        const route = this.props.route;
+        const lineCls = `${`line-${route}`}`;
+        const expressInd = this.renderExpress();
+        const departureTimeCls = this.getDepartureTimeCls();
+        const minutes = this.renderMinutes();
+        const realtime = this.renderRealtime();
 
         return (
-            <li>
-                <div class="route-preview">
-                    <div class={`line-${route}`}>{route}</div>
-                    {props.isExpress ? <div class="express-indicator">Express</div> : null}
-                    <div class={`departure-time ${props.isClose} ? 'close-departure' : ''`}>
-                        {`${minutes} minute${minutes === 1 ? '' : 's'}`}
-                        {props.isRealtime ? <i class="icon ion-social-rss"></i> : null}
-                    </div>
+            <div class="route-preview">
+                <div class={lineCls}>{route}</div>
+                {expressInd}
+                <div class={departureTimeCls}>
+                    {minutes}
+                    {realtime}
                 </div>
-            </li>
+            </div>
         );
+    }
+
+    renderExpress() {
+        return this.props.isExpress ? <div class="express-indicator">Express</div> : null;
+    }
+
+    getDepartureTimeCls() {
+        return `departure-time ${this.props.isClose} ? 'close-departure' : ''`;
+    }
+
+    renderMinutes() {
+        const minutes = this.props.minutes;
+        return `${minutes} minute${minutes === 1 ? '' : 's'}`;
+    }
+
+    renderRealtime() {
+        return this.props.isRealtime ? <i class="icon ion-social-rss"></i> : null;
+    }
+
+    render() {
+        const preview = this.renderPreview();
+        return <li>{preview}</li>;
     }
 }
