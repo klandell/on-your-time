@@ -1,15 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import NavBar from 'Containers/NavBar';
-import NavigationDelegate from 'Containers/Delegate';
+import Delegate from 'Containers/Delegate';
 require('Sass/containers/Layout.scss');
 
-@connect(state => {
-    return {
-        stopsIsFetching: state.stops.isFetching,
-        departuresIsFetching: state.departures.isFetching
-    }
-})
+@connect(state => ({
+    stopsIsFetching: state.stops.isFetching,
+    departuresIsFetching: state.departures.isFetching,
+}))
 export default class Layout extends React.Component {
     render() {
         const agent = navigator.userAgent || navigator.vendor || window.opera;
@@ -38,7 +36,7 @@ export default class Layout extends React.Component {
                         </div>
                         : null
                     }
-                    <NavigationDelegate />
+                    <Delegate />
                 </div>
                 </div>
             );

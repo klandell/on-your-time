@@ -1,22 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Geosuggest from 'react-geosuggest';
 import { loadStops, getCurrentLocation, setLocation, clearAddress } from 'Actions/stopsActions';
 import doNavigation from 'Actions/navigationActions';
+import StopsView from 'Components/stops/StopsView';
 require('Sass/containers/Stops.scss');
 
-@connect(state => state, dispatch => {
-    return {
-        actions: {
-            loadStops,
-            doNavigation,
-            getCurrentLocation,
-            setLocation,
-            clearAddress
-        },
-        dispatch
-    };
-})
+@connect(state => state, dispatch => ({
+    actions: {
+        loadStops,
+        doNavigation,
+        getCurrentLocation,
+        setLocation,
+        clearAddress,
+    },
+    dispatch,
+}))
 export default class Stops extends React.Component {
     componentDidMount() {
         window.scrollTo(0, 0);
@@ -52,14 +50,14 @@ export default class Stops extends React.Component {
         setTimeout(() => {
             const stopId = currentTarget.getAttribute('data-stopid');
             const stopName = currentTarget.querySelector('.stop-name').innerHTML;
-            const {actions, dispatch} = this.props;
-            dispatch(actions.doNavigation('departures', {stopId, stopName}));
+            const { actions, dispatch } = this.props;
+            dispatch(actions.doNavigation('departures', { stopId, stopName }));
         }, 150);
     }
 
     loadMoreStops(e) {
         this.paintSelection(e);
-        const {actions, dispatch, stops} = this.props;
+        const { actions, dispatch, stops } = this.props;
         const lastStop = stops.stops.slice(-1)[0];
 
         if (lastStop) {
@@ -68,7 +66,7 @@ export default class Stops extends React.Component {
     }
 
     getCurrentLocation(e) {
-        const {actions, dispatch} = this.props;
+        const { actions, dispatch } = this.props;
 
         if (!e.currentTarget.classList.contains('location-selected')) {
             e.currentTarget.classList.add('location-selected');
@@ -77,7 +75,7 @@ export default class Stops extends React.Component {
     }
 
     onSuggestSelect(suggest) {
-        const {actions, dispatch} = this.props;
+        const { actions, dispatch } = this.props;
         const location = suggest.location;
         let loc = { coords: {} };
 
@@ -87,75 +85,31 @@ export default class Stops extends React.Component {
                     latitude: location.lat,
                     longitude: location.lng,
                 },
-                address: suggest.label
+                address: suggest.label,
             };
         }
         dispatch(actions.setLocation(loc));
     }
 
     onClearSearchClick() {
-        const {actions, dispatch} = this.props;
-            dispatch(actions.clearAddress());
+        const { actions, dispatch } = this.props;
+        dispatch(actions.clearAddress());
+    }
+
+    onStopItemClick() {
+        debugger;
     }
 
     render() {
         const stops = this.props.stops;
-        const stopItems = stops.stops.map(stop => {
-            const routes = stop.routes.sort().map(route => {
-                if (route === 'GS') {
-                    route = 'S';
-                } else if (route === 'H') {
-                    route = '';
-                }
-                return !route || route.slice(-1) === 'X' ? '' : <div class={`line-${route}`}>{route}</div>;
-            });
-
-            return <li
-                onClick={e => this.loadDepartures(e)}
-                key={stop.stopId}
-                data-stopid={stop.stopId}
-                class="stop-item">
-                <a>
-                    <span class="stop-name">{stop.stopName}</span>
-                    <span class="stop-distance">{Math.round(stop.distance * 0.000621371 * 10) / 10} miles</span>
-                    <div class="line-preview">{routes}</div>
-                </a>
-            </li>
-        });
-
-        //stopItems.unshift(<li>
-        //    <input type="text" placeholder="Search"/>
-        //    <i onClick={e => this.getCurrentLocation(e)} class="icon ion-android-locate"></i>
-        //</li>);
-        //</
-
-        // NYC bounds
-        const bounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(40.477399, -74.259090),
-            new google.maps.LatLng(40.917577, -73.700272)
-        );
-
-        if (stopItems.length > 1 && stops.loadCount === 10) {
-            stopItems.push(<li
-                onClick={e => this.loadMoreStops(e)}
-                key="more-icon"
-                class="stop-item more-icon">
-                <a><i class="icon ion-ios-more"></i></a>
-            </li>);
-        }
 
         return (
-            <div class="stops">
-                <i class="icon ion-close" onClick={() => this.onClearSearchClick()}></i>
-                <Geosuggest
-                    initialValue={this.props.stops.address}
-                    bounds={bounds}
-                    onSuggestSelect={suggest => this.onSuggestSelect(suggest)}
-                    // TODO: real location via location prop
-                    //location={new google.maps.LatLng(40.7316777, -73.9795155)}
-                />
-                <ul>{stopItems}</ul>
-            </div>
+            <StopsView
+                address={stops.address}
+                onSuggestSelect={e => this.onSuggestSelect(e)}
+                onClearSearchClick={e => this.onClearSearchClick(e)}
+                stops={stops.stops}
+                onStopItemClick={e => this.onStopItemClick(e)} />
         );
     }
 }

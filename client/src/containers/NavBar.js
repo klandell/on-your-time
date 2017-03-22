@@ -3,22 +3,18 @@ import { connect } from 'react-redux';
 import doNavigation from 'Actions/navigationActions';
 require('Sass/containers/NavBar.scss');
 
-@connect(state => {
-    return {
-        view: state.currentContent.view
-    }
-}, dispatch => {
-    return {
-        actions: {
-            doNavigation
-        },
-        dispatch
-    };
-})
+@connect(state => ({
+    view: state.currentContent.view,
+}), dispatch => ({
+    actions: {
+        doNavigation,
+    },
+    dispatch,
+}))
 export default class NavBar extends React.Component {
 
     onBackClick(e) {
-        const {actions, dispatch} = this.props;
+        const { actions, dispatch } = this.props;
         dispatch(actions.doNavigation('stops'));
     }
 

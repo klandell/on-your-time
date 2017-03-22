@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 // import possible content pages
 import Stops from 'Containers/Stops';
@@ -8,15 +8,13 @@ import Departures from 'Containers/Departures';
 
 require('Sass/containers/Delegate.scss');
 
-@connect(state => {
-    return {
-        view: state.currentContent.view
-    }
-})
+@connect(state => ({
+    view: state.currentContent.view,
+}))
 export default class Delegate extends React.Component {
     static targetTags = {
         stops: <Stops key="stops" />,
-        departures: <Departures key="departures" />
+        departures: <Departures key="departures" />,
     }
 
     render() {
