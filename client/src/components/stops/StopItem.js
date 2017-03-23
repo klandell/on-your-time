@@ -16,7 +16,7 @@ export default class StopItem extends React.Component {
 
         return (
             <li data-stopid={stopId}
-                onClick={e => props.clickFn(e)}
+                onClick={props.clickFn}
                 class="stop-item">
                 <a>
                     <span class="stop-name">{props.stopName}</span>

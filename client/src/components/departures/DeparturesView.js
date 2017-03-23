@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import DeparturesList from 'Components/departures/DeparturesList';
+import DirectionToggle from 'Components/departures/direction/DirectionToggle';
 
 export default class DeparturesView extends React.Component {
     static propTypes = {
@@ -10,37 +11,13 @@ export default class DeparturesView extends React.Component {
     }
 
     renderDirectionToggle() {
-        const uptownBtn = this.renderToggleBtn(1);
-        const downtownBtn = this.renderToggleBtn(3);
+        const props = this.props;
 
         return (
-            <div class="direction-toggle">
-                {uptownBtn}
-                {downtownBtn}
-            </div>
+            <DirectionToggle
+                onToggleClick={props.onToggleClick}
+                direction={props.direction} />
         );
-    }
-
-    renderToggleBtn(btnDirection) {
-        const btnCls = this.getToggleBtnCls(btnDirection);
-        const btnText = this.getToggleBtnText(btnDirection);
-
-        return (
-            <div class={btnCls}
-                data-direction={btnDirection}
-                onClick={e => this.props.onToggleClick(e, btnDirection)}>
-                <a>{btnText}</a>
-            </div>
-        );
-    }
-
-    getToggleBtnCls(btnDirection) {
-        const direction = this.props.direction;
-        return `toggle-btn ${direction === btnDirection ? 'selected-toggle' : null}`;
-    }
-
-    getToggleBtnText(btnDirection) {
-        return btnDirection === 1 ? 'Uptown' : 'Downtown';
     }
 
     render() {

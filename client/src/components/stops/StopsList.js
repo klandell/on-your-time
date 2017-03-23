@@ -30,14 +30,14 @@ export default class StopsList extends React.Component {
                 stopName={stop.stopName}
                 stopDistance={stopDistance}
                 routes={stop.routes}
-                clickFn={e => this.props.onStopItemClick(e)} />
+                clickFn={this.props.onStopItemClick} />
         );
     }
 
     renderMoreIcon() {
         return (
             <li
-                onClick={e => this.props.onMoreClick(e)}
+                onClick={this.props.onMoreClick}
                 key="more-icon"
                 class="stop-item more-icon">
                 <a>

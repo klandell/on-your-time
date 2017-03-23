@@ -22,16 +22,16 @@ export default class StopsView extends React.Component {
 
         return (
             <div class="stops">
-                <i class="icon ion-close" onClick={() => props.onClearSearchClick()}></i>
+                <i class="icon ion-close" onClick={props.onClearSearchClick}></i>
                 <Geosuggest
                     initialValue={props.address}
                     bounds={bounds}
-                    onSuggestSelect={suggest => props.onSuggestSelect(suggest)}/>
+                    onSuggestSelect={props.onSuggestSelect}/>
                 <StopsList
                     stops={props.stops}
                     loadCount={props.loadCount}
-                    onStopItemClick={e => props.onStopItemClick(e)}
-                    onMoreClick={e => props.onMoreClick(e)} />
+                    onStopItemClick={props.onStopItemClick}
+                    onMoreClick={props.onMoreClick} />
             </div>
         );
     }
