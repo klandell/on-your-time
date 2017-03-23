@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { loadDepartures, leaveDeparturesView } from 'Actions/departuresActions';
-import DepartureItem from 'Components/departures/DepartureItem';
+import DeparturesView from 'Components/departures/DeparturesView';
 require('Sass/containers/Departures.scss');
 
 @connect(state => ({
@@ -39,7 +39,6 @@ export default class Departures extends React.Component {
         const max = Math.max(currentTarget.clientWidth, currentTarget.clientHeight);
         let ink = currentTarget.querySelector('.ink');
 
-
         if (!ink) {
             ink = document.createElement('span');
             ink.style.height = `${max}px`;
@@ -49,8 +48,8 @@ export default class Departures extends React.Component {
         }
 
         ink.classList.remove('animate');
-        ink.style.top = `${e.pageY - currentTarget.offsetTop - max / 2}px`;
-        ink.style.left = `${e.pageX - currentTarget.offsetLeft - max / 2}px`;
+        ink.style.top = `${e.pageY - currentTarget.offsetTop - (max / 2)}px`;
+        ink.style.left = `${e.pageX - currentTarget.offsetLeft - (max / 2)}px`;
         ink.classList.add('animate');
 
         setTimeout(() => ink.classList.remove('animate'), 650);
@@ -58,65 +57,21 @@ export default class Departures extends React.Component {
 
     changeDirection(e, direction) {
         const { actions, configs, dispatch } = this.props;
-        let doLoad;
 
-        if (e) {
-            const currentTarget = e.currentTarget;
-
-            if (!currentTarget.classList.contains('selected-toggle')) {
-                currentTarget.classList.add('selected-toggle');
-
-                const sel = `.toggle-btn:not([data-direction="${currentTarget.getAttribute('data-direction')}"])`;
-                const oldDirection = currentTarget.parentNode.querySelector(sel);
-                oldDirection.classList.remove('selected-toggle');
-                doLoad = true;
-            }
-        }
-
-        if (!e || doLoad) {
-            dispatch(actions.loadDepartures(configs.stopId, direction));
-        }
+        // TODO: only reload if state direction is different
+        dispatch(actions.loadDepartures(configs.stopId, direction));
     }
 
     render() {
-        const direction = this.props.departures.direction;
-        const departures = this.props.departures.departures;
-        const departureItems = departures.map((departure) => {
-            const key = `${departure.train}-${direction}-${departure.departureTime || departure.arrivalTime}`;
-            const now = new Date();
-            const departureTime = new Date(departure.departureTime || departure.arrivalTime);
-            const minutes = Math.round((departureTime - now) / 1000 / 60);
+        const props = this.props;
+        const departures = props.departures;
 
-            let isExpress;
-            let train = departure.train;
-
-            if (train.slice(-1) === 'X') {
-                train = train.charAt(0);
-                isExpress = true;
-            } else if (train === 'GS') {
-                train = 'S';
-            }
-
-            return (
-                minutes >= 0 ? <DepartureItem
-                    key={key}
-                    route={train}
-                    minutes={minutes}
-                    isExpress={isExpress}
-                    isClose={minutes < 6}
-                    isRealtime={departure.isRealtime} />
-                : null
-            );
-        });
         return (
-            <div class="departures">
-                <div class="stop-name">{this.props.configs.stopName}</div>
-                <div class="direction-toggle">
-                    <div class="toggle-btn selected-toggle" data-direction="1" onClick={e => this.onToggleClick(e, 1)}><a>Uptown</a></div>
-                    <div class="toggle-btn" data-direction="3" onClick={e => this.onToggleClick(e, 3)}><a>Downtown</a></div>
-                </div>
-                <ul>{departureItems}</ul>
-            </div>
+            <DeparturesView
+                departures={departures.departures}
+                direction={departures.direction || 1}
+                stopName={props.configs.stopName}
+                onToggleClick={(e, direction) => this.onToggleClick(e, direction)} />
         );
     }
 }

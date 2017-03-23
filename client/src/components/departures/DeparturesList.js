@@ -4,12 +4,7 @@ import DepartureItem from 'Components/departures/DepartureItem';
 export default class DeparturesList extends React.Component {
     static propTypes = {
         departures: PropTypes.array.isRequired,
-
-        route: PropTypes.string.isRequired,
-        minutes: PropTypes.number.isRequired,
-        isClose: PropTypes.bool.isRequired,
-        isRealtime: PropTypes.bool.isRequired,
-        isExpress: PropTypes.bool,
+        direction: PropTypes.number.isRequired,
     }
 
     mapDepartureItems() {
@@ -17,31 +12,45 @@ export default class DeparturesList extends React.Component {
     }
 
     renderDepartureItem(departure) {
-        const key = `${departure.train}-${direction}-${departure.departureTime || departure.arrivalTime}`;
-        const now = new Date();
+        const route = this.getRoute(departure.train);
+        const key = this.getItemKey(departure);
         const departureTime = new Date(departure.departureTime || departure.arrivalTime);
-        const minutes = Math.round((departureTime - now) / 1000 / 60);
-
-        let isExpress;
-        let train = departure.train;
-
-        if (train.slice(-1) === 'X') {
-            train = train.charAt(0);
-            isExpress = true;
-        } else if (train === 'GS') {
-            train = 'S';
-        }
+        const minutes = Math.round((departureTime - new Date()) / 1000 / 60);
 
         return (
             minutes >= 0 ? <DepartureItem
                 key={key}
-                route={train}
+                route={route.route}
                 minutes={minutes}
-                isExpress={isExpress}
+                isExpress={route.isExpress}
                 isClose={minutes < 6}
                 isRealtime={departure.isRealtime} />
             : null
         );
+    }
+
+    getItemKey(departure) {
+        return `${departure.train}-${this.props.direction}-${departure.departureTime || departure.arrivalTime}`;
+    }
+
+    getRoute(rte) {
+        let route = rte;
+        let isExpress;
+        const lastChar = rte.slice(-1);
+
+        if (lastChar === 'X') {
+            route = rte.charAt(0);
+            isExpress = true;
+        } else if (lastChar === 'S') {
+            route = 'S';
+        } else if (rte === 'SI') {
+            route = 'SIR';
+        }
+
+        return {
+            route,
+            isExpress,
+        };
     }
 
     render() {
