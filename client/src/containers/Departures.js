@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import paintSelection from 'paint-selection';
 import { loadDepartures, leaveDeparturesView } from 'Actions/departuresActions';
 import DeparturesView from 'Components/departures/DeparturesView';
 require('Sass/containers/Departures.scss');
@@ -29,37 +30,16 @@ export default class Departures extends React.Component {
     }
 
     onToggleClick(e, direction) {
-        this.paintSelection(e);
+        paintSelection(e);
         this.changeDirection(e, direction);
     }
 
-    // TODO: make util library for stuff like this?
-    paintSelection(e) {
-        const currentTarget = e.currentTarget;
-        const max = Math.max(currentTarget.clientWidth, currentTarget.clientHeight);
-        let ink = currentTarget.querySelector('.ink');
-
-        if (!ink) {
-            ink = document.createElement('span');
-            ink.style.height = `${max}px`;
-            ink.style.width = `${max}px`;
-            ink.classList.add('ink');
-            currentTarget.insertBefore(ink, currentTarget.firstChild);
-        }
-
-        ink.classList.remove('animate');
-        ink.style.top = `${e.pageY - currentTarget.offsetTop - (max / 2)}px`;
-        ink.style.left = `${e.pageX - currentTarget.offsetLeft - (max / 2)}px`;
-        ink.classList.add('animate');
-
-        setTimeout(() => ink.classList.remove('animate'), 650);
-    }
-
     changeDirection(e, direction) {
-        const { actions, configs, dispatch } = this.props;
+        const { actions, configs, departures, dispatch } = this.props;
 
-        // TODO: only reload if state direction is different
-        dispatch(actions.loadDepartures(configs.stopId, direction));
+        if (direction !== departures.direction) {
+            dispatch(actions.loadDepartures(configs.stopId, direction));
+        }
     }
 
     render() {

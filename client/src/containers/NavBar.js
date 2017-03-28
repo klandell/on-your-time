@@ -12,20 +12,23 @@ require('Sass/containers/NavBar.scss');
     dispatch,
 }))
 export default class NavBar extends React.Component {
-
-    onBackClick(e) {
+    onBackClick() {
         const { actions, dispatch } = this.props;
         dispatch(actions.doNavigation('stops'));
     }
 
+    renderBackBtn() {
+        return (this.props.view !== 'stops' ?
+            <i class="icon ion-android-arrow-back" onClick={e => this.onBackClick(e)}></i>
+            : null
+        );
+    }
+
     render() {
+        const backBtn = this.renderBackBtn();
         return (
             <nav>
-                {
-                    this.props.view !== 'stops'
-                    ? <i class="icon ion-android-arrow-back" onClick={e => this.onBackClick(e)}></i>
-                    : null
-                }
+                {backBtn}
                 <div class="title">On Your Time</div>
             </nav>
         );

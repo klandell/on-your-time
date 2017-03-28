@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loadStops, getCurrentLocation, setLocation, clearAddress } from 'Actions/stopsActions';
+import paintSelection from 'paint-selection';
+import { loadStops, getCurrentLocation, setLocation, clearAddress, saveScroll } from 'Actions/stopsActions';
 import doNavigation from 'Actions/navigationActions';
 import StopsView from 'Components/stops/StopsView';
 require('Sass/containers/Stops.scss');
@@ -12,14 +13,15 @@ require('Sass/containers/Stops.scss');
         getCurrentLocation,
         setLocation,
         clearAddress,
+        saveScroll,
     },
     dispatch,
 }))
 export default class Stops extends React.Component {
-    // scroll to last location
-    // componentDidMount() {
-    //    window.scrollTo(0, 0);
-    // }
+    componentDidMount() {
+        const scrollY = this.props.stops.scrollY;
+        window.scrollTo(0, scrollY);
+    }
 
     // not currently in use
     // getCurrentLocation(e) {
@@ -29,28 +31,7 @@ export default class Stops extends React.Component {
     //        e.currentTarget.classList.add('location-selected');
     //        dispatch(actions.getCurrentLocation());
     //    }
-    // }
-
-    paintSelection(e) {
-        const currentTarget = e.currentTarget;
-        const max = Math.max(currentTarget.clientWidth, currentTarget.clientHeight);
-        let ink = currentTarget.querySelector('.ink');
-
-        if (!ink) {
-            ink = document.createElement('span');
-            ink.style.height = `${max}px`;
-            ink.style.width = `${max}px`;
-            ink.classList.add('ink');
-            currentTarget.insertBefore(ink, currentTarget.firstChild);
-        }
-
-        ink.classList.remove('animate');
-        ink.style.top = `${e.pageY - currentTarget.offsetTop - max / 2}px`;
-        ink.style.left = `${e.pageX - currentTarget.offsetLeft - max / 2}px`;
-        ink.classList.add('animate');
-
-        setTimeout(() => ink.classList.remove('animate'), 650);
-    }
+    //
 
     onSuggestSelect(suggest) {
         const { actions, dispatch } = this.props;
@@ -77,7 +58,8 @@ export default class Stops extends React.Component {
     onStopItemClick(e) {
         const currentTarget = e.currentTarget;
 
-        this.paintSelection(e);
+        paintSelection(e);
+        this.saveScroll();
         // give the selection animation some time to propagate
         setTimeout(() => {
             const stopId = currentTarget.getAttribute('data-stopid');
@@ -87,14 +69,21 @@ export default class Stops extends React.Component {
         }, 150);
     }
 
+    saveScroll() {
+        const { actions, dispatch } = this.props;
+        const doc = document.documentElement;
+        const scrollY = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+        dispatch(actions.saveScroll(scrollY));
+    }
+
     onMoreClick(e) {
-        this.paintSelection(e);
         const { actions, dispatch, stops } = this.props;
         const lastStop = stops.stops.slice(-1)[0];
 
         if (lastStop) {
             dispatch(actions.loadStops(stops.location, lastStop.dbId, lastStop.distance));
         }
+        paintSelection(e);
     }
 
     render() {

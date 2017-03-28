@@ -7,6 +7,7 @@ export default function reducer(state = {
     lastUpdated: null,
     loadCount: 0,
     address: '',
+    scrollY: 0,
 }, action) {
     switch (action.type) {
     case C.REQUEST_STOPS:
@@ -44,6 +45,10 @@ export default function reducer(state = {
     case C.CLEAR_ADDRESS:
         return Object.assign({}, state, {
             address: '',
+        });
+    case C.SAVE_SCROLL:
+        return Object.assign({}, state, {
+            scrollY: action.scrollY,
         });
     default:
         return state;

@@ -17,20 +17,25 @@ export default class Delegate extends React.Component {
         departures: <Departures key="departures" />,
     }
 
-    render() {
-        let view = this.props.view;
+    renderTarget() {
         const targetTags = this.constructor.targetTags;
+        let view = this.props.view;
 
         if (!targetTags[view]) {
             view = 'stops';
         }
+        return targetTags[view];
+    }
+
+    render() {
+        const target = this.renderTarget();
         return (
             <ReactCSSTransitionGroup
                 transitionName="content"
                 transitionEnterTimeout={400}
                 transitionLeaveTimeout={400}
                 class="navigation-delegate">
-                {targetTags[view]}
+                {target}
             </ReactCSSTransitionGroup>
         );
     }

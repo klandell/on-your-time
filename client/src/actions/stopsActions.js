@@ -83,3 +83,10 @@ export function getCurrentLocation() {
         }
     };
 }
+
+export function saveScroll(scrollY) {
+    return {
+        type: C.SAVE_SCROLL,
+        scrollY,
+    };
+}
