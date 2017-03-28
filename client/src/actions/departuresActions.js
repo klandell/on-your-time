@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-
 const C = require('Constants');
 
 function requestDepartures(stopId, direction) {

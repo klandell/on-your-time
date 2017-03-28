@@ -1,9 +1,14 @@
 import { applyMiddleware, createStore } from 'redux';
-import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import reducer from './reducers';
 
-const middleware = applyMiddleware(thunk, logger());
+let middleware = [thunk];
+
+// Apply any dev only middleware
+if (process.env.NODE_ENV !== 'production') {
+    const logger = require('redux-logger');
+    middleware = [...middleware, logger()];
+}
 
 // Export our global redux store
-export  default createStore(reducer, middleware);
+export default createStore(reducer, applyMiddleware(...middleware));
