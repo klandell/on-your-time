@@ -1,38 +1,41 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 // import possible content pages
-import Stops from 'Components/content/Stops';
-import Departures from 'Components/content/Departures';
+import Stops from 'Containers/Stops';
+import Departures from 'Containers/Departures';
 
-require('Sass/NavigationDelegate.scss');
+require('Sass/containers/Delegate.scss');
 
-@connect(state => {
-    return {
-        view: state.currentContent.view
-    }
-})
-export default class ContentContainer extends React.Component {
+@connect(state => ({
+    view: state.currentContent.view,
+}))
+export default class Delegate extends React.Component {
     static targetTags = {
         stops: <Stops key="stops" />,
-        departures: <Departures key="departures" />
+        departures: <Departures key="departures" />,
     }
 
-    render() {
-        let view = this.props.view;
+    renderTarget() {
         const targetTags = this.constructor.targetTags;
+        let view = this.props.view;
 
         if (!targetTags[view]) {
             view = 'stops';
         }
+        return targetTags[view];
+    }
+
+    render() {
+        const target = this.renderTarget();
         return (
             <ReactCSSTransitionGroup
                 transitionName="content"
                 transitionEnterTimeout={400}
                 transitionLeaveTimeout={400}
                 class="navigation-delegate">
-                {targetTags[view]}
+                {target}
             </ReactCSSTransitionGroup>
         );
     }

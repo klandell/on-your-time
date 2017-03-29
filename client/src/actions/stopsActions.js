@@ -36,6 +36,13 @@ export function clearAddress() {
     };
 }
 
+export function saveScroll(scrollY) {
+    return {
+        type: C.SAVE_SCROLL,
+        scrollY,
+    };
+}
+
 export function loadStops(location = {
     latitude: 40.7317,
     longitude: -73.9778,

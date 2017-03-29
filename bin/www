@@ -65,9 +65,3 @@ const onListening = () => {
 
 // set the server listening handler
 server.on('listening', onListening);
-
-// start listening for websocket connections
-const io = require('../lib/socket-manager').listen(server);
-
-// start listening for redis messages
-require('../lib/subscription-manager').subscribe(io);

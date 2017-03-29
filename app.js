@@ -6,9 +6,13 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const index = require('./routes');
+const mongoose = require('mongoose');
 
 // instantiate the express app
 const app = express();
+
+// connect to the gtfs database
+mongoose.connect('mongodb://localhost:27017/gtfs');
 
 // use verbose logging when running in development mode
 app.use(logger(!process.env.NODE_ENV ? 'dev' : 'short'));
@@ -19,14 +23,14 @@ app.use(bodyParser.urlencoded({
 
 app.use('/', index);
 
-// catch 404 and forward to error handler
+// Throw 404 if router isn't found
 app.use((req, res, next) => {
     const err = new Error('Not Found');
     next((err.status = 404) && err);
 });
 
-// handle errors
-app.use((err, req, res) => {
+// Default error router
+app.use((err, req, res, next) => {
     const isDev = !process.env.NODE_ENV;
     const body = {
         message: err.message,

@@ -73,6 +73,7 @@
         background-color: rgba($ui-color-1, .9);
         border-top: 1px solid $ui-color-1;
         bottom: 0;
+        z-index: 9999;
     }
 
     ul {
@@ -81,7 +82,7 @@
         list-style: none;
         height: calc(100vh - #{$nav-bar-height} - #{$toggle-height});
 
-        .line-preview {
+        .route-preview {
             padding: 1.2em 0;
 
             @each $line, $bgcolor in $line-colors {

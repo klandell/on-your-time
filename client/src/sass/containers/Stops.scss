@@ -128,7 +128,7 @@
        padding-top: 1px;
    }
 
-   .line-preview {
+   .route-preview {
        padding-top: 3px;
 
        @each $line, $bgcolor in $line-colors {
@@ -155,7 +155,8 @@
    }
 
    .ink {
-       display: block; position: absolute;
+       display: block;
+       position: absolute;
        background: rgba($ui-color-2, 0.5);
        border-radius: 100%;
        transform: scale(0);
