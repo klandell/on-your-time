@@ -1,13 +1,10 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 const gtfsModels = require('gtfs-mongoose');
 
 const router = express.Router();
 
-mongoose.connect('mongodb://localhost:27017/gtfs');
 gtfsModels.models.Stop.collection.ensureIndex({ loc: '2dsphere' });
-
 // num
 // lat
 // lon
