@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
-// import Geosuggest from 'react-geosuggest';
-import PlacesAutocomplete from 'react-places-autocomplete';
-
 import StopsList from 'Components/stops/StopsList';
+import Search from 'Components/stops/Search';
 
 export default class StopsView extends React.Component {
     static propTypes = {
@@ -18,44 +16,14 @@ export default class StopsView extends React.Component {
 
     render() {
         const props = this.props;
-        const bounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(40.477399, -74.259090),
-            new google.maps.LatLng(40.917577, -73.700272),
-        );
-        const options = { // TODO: not working
-            bounds,
-        };
-
-        const cssClasses = {
-            root: 'form-group',
-            label: 'form-label',
-            input: 'search-input',
-            autocompleteContainer: 'search-container',
-        };
-
-        const AutocompleteItem = ({ formattedSuggestion }) => (
-              <div className="suggestion-item">
-                <i className='icon ion-location'/>
-                <strong>{formattedSuggestion.mainText}</strong>
-                <br />
-                <small className="text-muted">{formattedSuggestion.secondaryText}</small>
-              </div>);
 
         return (
             <div class="stops">
                 <i class="icon ion-close" onClick={props.onClearSearchClick}></i>
-                <PlacesAutocomplete
-                    value={props.address}
-                    onChange={props.onSuggestChange}
-                    onSelect={props.onSuggestSelect}
-                    options={options}
-                    onSelect={props.onSuggestSelect}
-                    classNames={cssClasses}
-                    autocompleteItem={AutocompleteItem}
-                    placeholder="Search Places"
-                    hideLabel={true}
-                    inputName="places-input"
-                    onEnterKeyDown={props.onSuggestSelect}/>
+                <Search
+                    onSuggestChange={props.onSuggestChange}
+                    onSuggestSelect={props.onSuggestSelect}
+                    address={props.address} />
                 <StopsList
                     stops={props.stops}
                     loadCount={props.loadCount}

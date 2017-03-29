@@ -23,6 +23,7 @@ export default function reducer(state = {
     case C.LEAVE_DEPARTURES_VIEW:
         return Object.assign({}, state, {
             departures: [],
+            direction: null,
         });
     default:
         return state;

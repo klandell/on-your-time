@@ -5,9 +5,9 @@ import DirectionToggle from 'Components/departures/direction/DirectionToggle';
 export default class DeparturesView extends React.Component {
     static propTypes = {
         departures: PropTypes.array.isRequired,
-        stopName: PropTypes.string.isRequired,
         onToggleClick: PropTypes.func.isRequired,
         direction: PropTypes.number.isRequired,
+        stopName: PropTypes.string,
     }
 
     renderDirectionToggle() {
