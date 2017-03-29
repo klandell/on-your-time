@@ -24,15 +24,16 @@ function findCurrentLocation() {
     };
 }
 
-function clearStops() {
+export function clearStops() {
     return {
         type: C.CLEAR_STOPS,
     };
 }
 
-export function clearAddress() {
+export function setAddress(address) {
     return {
-        type: C.CLEAR_ADDRESS,
+        type: C.SET_ADDRESS,
+        address,
     };
 }
 
@@ -76,8 +77,6 @@ export function setLocation(loc) {
         dispatch({
             type: C.SET_LOCATION,
             location,
-            // TODO: move into location info
-            address: loc.address,
         });
     };
 }

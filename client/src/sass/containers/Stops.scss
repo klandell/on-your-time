@@ -4,71 +4,50 @@
 .stops {
     font-size: 1.2em;
 
-    input {
+    .search-input {
         display: inline;
-        width: 100%;
         font-size: 1em;
         box-sizing: border-box;
         border-radius: 0;
         margin-top: 10px;
         border: none;
         font-family: $primary-font;
+        margin: 10px 20px;
+        padding: 0 10px;
+        height: 50px;
+        width: calc(100% - 40px);
     }
 
-    .geosuggest {
-        margin: 10px 20px;
-        height: 40px;
+    .search-container {
+        border: 1px solid $ui-color-gray-2 !important;
+        width: calc(100% - 40px) !important;
+        margin: -11px 19px;
 
-        &__suggests {
-            position: absolute;
-            background-color: #FFF;
-            z-index: 9997;
-            height: inherit;
-            width: calc(100% - 40px);
-            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-            color: #000;
-            padding: 0;
-            margin-top: -2px;
-
-            &--hidden {
-                max-height: 0;
-                overflow: hidden;
-                border-width: 0;
+        .suggestion-item {
+            .ion-location {
+                padding-right: 10px;
             }
 
-            li {
-                padding: 10px;
-                border-bottom: 1px solid $ui-color-gray-1;
+            small {
+                margin-left: 19px;
             }
-
-            li:first-child {
-                border: 1px solid $ui-color-gray-1;
-            }
-
-            li:last-child {
-                border: none;
-            }
-        }
-
-        &__item--active {
-            background: #267dc0;
-            color: #fff;
         }
     }
 
     .ion-close {
         @include no-select;
         position: absolute;
-        right: 1.05em;
-        margin-top: .75em;
+        right: 23px;
+        margin-top: 1.25em;
         color: $ui-color-gray-2;
         width: 1.5em;
         text-align: center;
         background-color: #FFF;
         height: 1.3em;
+        z-index: 999;
 
         &:active {
-            background-color: yellow;
+            background-color: #FFF;
         }
     }
 

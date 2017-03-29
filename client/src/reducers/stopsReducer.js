@@ -36,15 +36,14 @@ export default function reducer(state = {
     case C.SET_LOCATION:
         return Object.assign({}, state, {
             location: action.location,
-            address: action.address,
         });
     case C.CLEAR_STOPS:
         return Object.assign({}, state, {
             stops: [],
         });
-    case C.CLEAR_ADDRESS:
+    case C.SET_ADDRESS:
         return Object.assign({}, state, {
-            address: '',
+            address: action.address,
         });
     case C.SAVE_SCROLL:
         return Object.assign({}, state, {

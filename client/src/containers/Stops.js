@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { geocodeByAddress } from 'react-places-autocomplete';
 import paintSelection from 'paint-selection';
-import { loadStops, getCurrentLocation, setLocation, clearAddress, saveScroll } from 'Actions/stopsActions';
+import { loadStops, getCurrentLocation, setLocation, clearStops, setAddress, saveScroll } from 'Actions/stopsActions';
 import doNavigation from 'Actions/navigationActions';
 import StopsView from 'Components/stops/StopsView';
 require('Sass/containers/Stops.scss');
@@ -12,8 +13,9 @@ require('Sass/containers/Stops.scss');
         doNavigation,
         getCurrentLocation,
         setLocation,
-        clearAddress,
+        setAddress,
         saveScroll,
+        clearStops,
     },
     dispatch,
 }))
@@ -32,27 +34,39 @@ export default class Stops extends React.Component {
     //        dispatch(actions.getCurrentLocation());
     //    }
     //
-
-    onSuggestSelect(suggest) {
+    //
+    onSuggestChange(address) {
         const { actions, dispatch } = this.props;
-        const location = suggest.location;
-        let loc = { coords: {} };
+        dispatch(actions.setAddress(address));
+    }
 
-        if (location) {
+    onSuggestSelect(address) {
+        const { actions, dispatch } = this.props;
+        dispatch(actions.setAddress(address));
+
+        // TODO: loadmask while geocoding
+        geocodeByAddress(address, (err, latLon) => this.setLocation(err, latLon));
+    }
+
+    setLocation(err, { lat, lng }) {
+        if (!err) {
+            const { actions, dispatch } = this.props;
+            let loc = { coords: {} };
+
             loc = {
                 coords: {
-                    latitude: location.lat,
-                    longitude: location.lng,
+                    latitude: lat,
+                    longitude: lng,
                 },
-                address: suggest.label,
             };
+            dispatch(actions.setLocation(loc));
         }
-        dispatch(actions.setLocation(loc));
     }
 
     onClearSearchClick() {
         const { actions, dispatch } = this.props;
-        dispatch(actions.clearAddress());
+        dispatch(actions.clearStops());
+        dispatch(actions.setAddress(''));
     }
 
     onStopItemClick(e) {
@@ -92,6 +106,7 @@ export default class Stops extends React.Component {
         return (
             <StopsView
                 address={stops.address}
+                onSuggestChange={e => this.onSuggestChange(e)}
                 onSuggestSelect={e => this.onSuggestSelect(e)}
                 onClearSearchClick={e => this.onClearSearchClick(e)}
                 stops={stops.stops}
