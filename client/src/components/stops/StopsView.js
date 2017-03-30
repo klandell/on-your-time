@@ -13,6 +13,8 @@ export default class StopsView extends React.Component {
         loadCount: PropTypes.number.isRequired,
         onStopItemClick: PropTypes.func.isRequired,
         onMoreClick: PropTypes.func.isRequired,
+        onSearchFocus: PropTypes.func,
+        onSearchBlur: PropTypes.func,
     }
 
     render() {
@@ -24,6 +26,8 @@ export default class StopsView extends React.Component {
                 <Search
                     onSuggestChange={props.onSuggestChange}
                     onSuggestSelect={props.onSuggestSelect}
+                    onSearchFocus={props.onSearchFocus}
+                    onSearchBlur={props.onSearchBlur}
                     address={props.address} />
                 <StopsList
                     stops={props.stops}

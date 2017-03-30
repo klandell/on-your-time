@@ -24,6 +24,14 @@ export default class Stops extends React.Component {
         window.scrollTo(0, scrollY);
     }
 
+    onSearchFocus(e) {
+        window.scrollTo(0, 60);
+    }
+
+    onSearchBlur(e) {
+        window.scrollTo(0, 0);
+    }
+
     // not currently in use
     // getCurrentLocation(e) {
     //    const { actions, dispatch } = this.props;
@@ -105,6 +113,8 @@ export default class Stops extends React.Component {
         return (
             <StopsView
                 address={stops.address}
+                onSearchFocus={e => this.onSearchFocus(e)}
+                onSearchBlur={e => this.onSearchBlur(e)}
                 onSuggestChange={e => this.onSuggestChange(e)}
                 onSuggestSelect={e => this.onSuggestSelect(e)}
                 onClearSearchClick={e => this.onClearSearchClick(e)}

@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
-import PlacesAutocomplete from 'react-places-autocomplete';
+import ReactDOM from 'react-dom';
+// import PlacesAutocomplete from 'react-places-autocomplete';
+// temporarily use my local version, hopefully my pr is accepted
+import PlacesAutocomplete from 'react-places-autocomplete-kl';
 require('Sass/components/stops/Search.scss');
 
 export default class Search extends React.Component {
@@ -7,6 +10,8 @@ export default class Search extends React.Component {
         address: PropTypes.string.isRequired,
         onSuggestChange: PropTypes.func.isRequired,
         onSuggestSelect: PropTypes.func.isRequired,
+        onSearchFocus: PropTypes.func,
+        onSearchBlur: PropTypes.func,
     }
 
     get options() {
@@ -42,6 +47,8 @@ export default class Search extends React.Component {
         return (
             <PlacesAutocomplete
                 value={props.address}
+                onFocus={props.onSearchFocus}
+                onBlur={props.onSearchBlur}
                 onChange={props.onSuggestChange}
                 onSelect={props.onSuggestSelect}
                 options={this.options}
