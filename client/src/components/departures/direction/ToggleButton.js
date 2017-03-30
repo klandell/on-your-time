@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+require('Sass/components/departures/direction/ToggleButton.scss');
 
 export default class ToggleButton extends React.Component {
     static propTypes = {

@@ -1,0 +1,39 @@
+@import '../../variables';
+@import '../../mixins';
+
+.stop-item {
+    height: 2.7em;
+    padding: 3px 10px 8px;
+    border-bottom: 1px solid mix(#FFF, $ui-color-1, 20%);
+    position: relative;
+    overflow: hidden;
+
+    &.more-icon {
+        border-bottom: none;
+        text-align: center;
+        padding-bottom: 2em;
+
+        i {
+            font-size: 2em;
+        }
+
+        span {
+            vertical-align: super;
+            padding-left: 5px;
+        }
+    }
+
+    .ink {
+        @include ink(rgba($ui-color-2, 0.5));
+    }
+
+    a {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stop-distance {
+        float: right;
+        padding-top: 1px;
+    }
+}

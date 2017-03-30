@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import ToggleButton from 'Components/departures/direction/ToggleButton';
+require('Sass/components/departures/direction/DirectionToggle.scss');
 
 export default class DirectionToggle extends React.Component {
     static propTypes = {

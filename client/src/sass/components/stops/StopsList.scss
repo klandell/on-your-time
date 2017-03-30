@@ -1,0 +1,9 @@
+@import '../../variables';
+
+.stops-list {
+    margin: 0;
+    padding: 0 20px;
+    list-style: none;
+    color: $ui-color-4;
+    height: calc(100vh - #{$nav-bar-height} - 60px);
+}

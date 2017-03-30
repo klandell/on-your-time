@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+require('Sass/components/departures/DepartureItem.scss');
 
 export default class DepartureItem extends React.Component {
     static propTypes = {
@@ -34,7 +35,7 @@ export default class DepartureItem extends React.Component {
     }
 
     getDepartureTimeCls() {
-        return `departure-time ${this.props.isClose} ? 'close-departure' : ''`;
+        return `departure-time ${this.props.isClose ? 'close-departure' : ''}`;
     }
 
     renderMinutes() {
@@ -48,6 +49,6 @@ export default class DepartureItem extends React.Component {
 
     render() {
         const preview = this.renderPreview();
-        return <li>{preview}</li>;
+        return <li class="departure-item">{preview}</li>;
     }
 }

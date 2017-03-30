@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import StopItem from 'Components/stops/StopItem';
+require('Sass/components/stops/StopsList.scss');
 
 export default class StopsList extends React.Component {
     static propTypes = {
@@ -49,6 +50,6 @@ export default class StopsList extends React.Component {
 
     render() {
         const stopItems = this.mapStopItems();
-        return <ul>{stopItems}</ul>;
+        return <ul class="stops-list">{stopItems}</ul>;
     }
 }

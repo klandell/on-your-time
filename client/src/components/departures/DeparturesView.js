@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import DeparturesList from 'Components/departures/DeparturesList';
 import DirectionToggle from 'Components/departures/direction/DirectionToggle';
+require('Sass/components/departures/DeparturesView.scss');
 
 export default class DeparturesView extends React.Component {
     static propTypes = {

@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import StopsList from 'Components/stops/StopsList';
 import Search from 'Components/stops/Search';
+require('Sass/components/stops/StopsView.scss');
 
 export default class StopsView extends React.Component {
     static propTypes = {

@@ -5,7 +5,6 @@ import paintSelection from 'paint-selection';
 import { loadStops, getCurrentLocation, setLocation, clearStops, setAddress, saveScroll } from 'Actions/stopsActions';
 import doNavigation from 'Actions/navigationActions';
 import StopsView from 'Components/stops/StopsView';
-require('Sass/containers/Stops.scss');
 
 @connect(state => state, dispatch => ({
     actions: {

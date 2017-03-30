@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import paintSelection from 'paint-selection';
 import { loadDepartures, leaveDeparturesView } from 'Actions/departuresActions';
 import DeparturesView from 'Components/departures/DeparturesView';
-require('Sass/containers/Departures.scss');
 
 @connect(state => ({
     configs: state.currentContent.configs,

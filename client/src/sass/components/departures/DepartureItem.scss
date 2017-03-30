@@ -1,0 +1,56 @@
+@import '../../variables';
+
+.departure-item {
+    &:last-child {
+        padding-bottom: 1.7em;
+    }
+
+    .route-preview {
+        padding: 1.2em 0;
+        text-align: center;
+
+        @each $line, $bgcolor in $line-colors {
+            .line-#{$line} {
+                height: 6rem;
+                width: 6rem;
+                line-height: 6rem;
+                border-radius: 3rem;
+                font-size: 4.25em;
+                background-color: map-get($line-colors, $line);
+                font-family: $secondary-font;
+                margin: auto;
+
+                @if $line == N or $line == Q or $line == R or $line == W{
+                    color: #000;
+                } @else {
+                    color: #FFF;
+                }
+
+            }
+        }
+    }
+
+    .departure-time {
+        text-align: center;
+        color: $ui-color-4;
+        padding-top: 3px;
+
+        &.close-departure {
+            color: $ui-accent-red;
+        }
+
+        i {
+            font-size: .85em;
+            padding-left: 3px;
+        }
+    }
+
+    .express-indicator {
+        color: $ui-color-4;
+        text-align: center;
+        position: relative;
+        top: -2em;
+        font-size: 0.8em;
+        height: 0;
+    }
+}

@@ -1,0 +1,38 @@
+@import '../../../variables';
+@import '../../../mixins';
+
+.toggle-btn {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    width: 50%;
+
+    &:first-child {
+        border-bottom: 2px solid transparent;
+
+        &.selected-toggle {
+            border-bottom-color: $ui-color-2;
+        }
+
+        .ink {
+            @include ink($ui-color-2);
+        }
+    }
+
+    &:nth-child(2) {
+        border-bottom: 2px solid transparent;
+
+        &.selected-toggle {
+            border-bottom-color: $ui-color-3;
+        }
+
+        .ink {
+            @include ink($ui-color-3);
+        }
+    }
+
+    a {
+        position: relative;
+        overflow: hidden;
+    }
+}

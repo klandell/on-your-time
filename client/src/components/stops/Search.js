@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
+require('Sass/components/stops/Search.scss');
 
 export default class Search extends React.Component {
     static propTypes = {
@@ -18,10 +19,8 @@ export default class Search extends React.Component {
 
     get cssClasses() {
         return {
-            root: 'form-group',
-            label: 'form-label',
-            input: 'search-input',
-            autocompleteContainer: 'search-container',
+            input: 'stops-search-input',
+            autocompleteContainer: 'stops-search-container',
         };
     }
 

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import RoutePreview from 'Components/stops/RoutePreview';
+require('Sass/components/stops/StopItem.scss');
 
 export default class StopItem extends React.Component {
     static propTypes = {

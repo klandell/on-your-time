@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import DepartureItem from 'Components/departures/DepartureItem';
+require('Sass/components/departures/DeparturesList.scss');
 
 export default class DeparturesList extends React.Component {
     static propTypes = {
@@ -55,6 +56,6 @@ export default class DeparturesList extends React.Component {
 
     render() {
         const departureItems = this.mapDepartureItems();
-        return <ul>{departureItems}</ul>;
+        return <ul class="departures-list">{departureItems}</ul>;
     }
 }

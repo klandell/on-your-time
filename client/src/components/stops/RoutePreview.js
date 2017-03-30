@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+require('Sass/components/stops/RoutePreview.scss');
 
 export default class RoutePreview extends React.Component {
     static propTypes = {

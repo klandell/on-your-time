@@ -1,0 +1,15 @@
+@import '../../variables';
+
+.departures {
+    .stop-name {
+        color: $ui-color-4;
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        padding: 7px;
+        background-color: rgba($ui-color-1, .9);
+        border-top: 1px solid $ui-color-1;
+        bottom: 0;
+        z-index: 9999;
+    }
+}
