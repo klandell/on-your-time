@@ -26,6 +26,9 @@
                     color: #FFF;
                 }
 
+                @if $line == SIR {
+                    font-size: 3em;
+                }
             }
         }
     }

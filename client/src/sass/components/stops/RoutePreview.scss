@@ -16,10 +16,14 @@
             font-family: $secondary-font;
             font-size: .9em;
 
-            @if $line == N or $line == Q or $line == R or $line == W{
+            @if $line == N or $line == Q or $line == R or $line == W {
                 color: #000;
             } @else {
                 color: #FFF;
+            }
+
+            @if $line == SIR {
+                font-size: .55em;
             }
         }
     }

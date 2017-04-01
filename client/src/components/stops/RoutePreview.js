@@ -15,6 +15,8 @@ export default class RoutePreview extends React.Component {
 
             if (rte === 'GS' || rte === 'FS') {
                 rte = 'S';
+            } else if (rte === 'SI') {
+                rte = 'SIR';
             } else if (rte === 'H' || rte.slice(-1) === 'X') {
                 rte = null;
             }
