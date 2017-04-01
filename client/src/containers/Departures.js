@@ -29,7 +29,9 @@ export default class Departures extends React.Component {
     }
 
     onToggleClick(e, direction) {
-        paintSelection(e, direction === 1 ? '#A239CA' : '#4717F6');
+        paintSelection(e, {
+            color: direction === 1 ? '#A239CA' : '#4717F6',
+        });
         this.changeDirection(e, direction);
     }
 

@@ -34,7 +34,10 @@ export default class Stops extends React.Component {
 
     onGetCurrentLocClick(e) {
         const { actions, dispatch } = this.props;
-        paintSelection(e, '#CECECE');
+        paintSelection(e, {
+            color: '#CECECE',
+            duration: 0.2,
+        });
         dispatch(actions.getCurrentLocation());
     }
 
@@ -68,7 +71,10 @@ export default class Stops extends React.Component {
 
     onClearSearchClick(e) {
         const { actions, dispatch } = this.props;
-        paintSelection(e, '#CECECE');
+        paintSelection(e, {
+            color: '#CECECE',
+            duration: 0.2,
+        });
         dispatch(actions.clearStops());
         dispatch(actions.setAddress(''));
     }
@@ -76,7 +82,10 @@ export default class Stops extends React.Component {
     onStopItemClick(e) {
         const currentTarget = e.currentTarget;
 
-        paintSelection(e, 'rgba(162, 57, 202, 0.5)');
+        paintSelection(e, {
+            color: 'rgba(162, 57, 202, 0.5)',
+            duration: 0.4,
+        });
         this.saveScroll();
         // give the selection animation some time to propagate
         setTimeout(() => {
@@ -101,7 +110,11 @@ export default class Stops extends React.Component {
         if (lastStop) {
             dispatch(actions.loadStops(stops.location, lastStop.dbId, lastStop.distance));
         }
-        paintSelection(e);
+
+        paintSelection(e, {
+            color: 'rgba(162, 57, 202, 0.5)',
+            duration: 0.4,
+        });
     }
 
     render() {
