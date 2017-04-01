@@ -24,11 +24,11 @@ export default class Stops extends React.Component {
         window.scrollTo(0, scrollY);
     }
 
-    onSearchFocus(e) {
+    onSearchFocus() {
         window.scrollTo(0, 60);
     }
 
-    onSearchBlur(e) {
+    onSearchBlur() {
         window.scrollTo(0, 0);
     }
 
@@ -79,7 +79,7 @@ export default class Stops extends React.Component {
     onStopItemClick(e) {
         const currentTarget = e.currentTarget;
 
-        paintSelection(e);
+        paintSelection(e, 'rgba(162, 57, 202, 0.5)');
         this.saveScroll();
         // give the selection animation some time to propagate
         setTimeout(() => {

@@ -6,15 +6,3 @@
     -ms-user-select: none;
     user-select: none;
 }
-
-@mixin ink($bgcolor) {
-    display: block;
-    position: absolute;
-    background: $bgcolor;
-    border-radius: 100%;
-    transform: scale(0);
-
-    &.animate {
-        animation: ripple 0.65s linear;
-    }
-}

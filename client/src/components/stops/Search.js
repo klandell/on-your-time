@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-// import PlacesAutocomplete from 'react-places-autocomplete';
+import PlacesAutocomplete from 'react-places-autocomplete';
 // temporarily use my local version, hopefully my pr is accepted
-import PlacesAutocomplete from 'react-places-autocomplete-kl';
+// import PlacesAutocomplete from 'react-places-autocomplete-kl';
 require('Sass/components/stops/Search.scss');
 
 export default class Search extends React.Component {

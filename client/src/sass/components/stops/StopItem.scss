@@ -23,10 +23,6 @@
         }
     }
 
-    .ink {
-        @include ink(rgba($ui-color-2, 0.5));
-    }
-
     a {
         position: relative;
         overflow: hidden;
