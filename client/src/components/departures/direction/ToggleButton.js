@@ -24,7 +24,7 @@ export default class ToggleButton extends React.Component {
         const btnText = this.getToggleBtnText(btnDirection);
 
         return (
-            <div class={btnCls}
+            <div className={btnCls}
                 data-direction={btnDirection}
                 onClick={e => props.onToggleClick(e, btnDirection)}>
                 <a>{btnText}</a>

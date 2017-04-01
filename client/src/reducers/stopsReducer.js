@@ -49,6 +49,10 @@ export default function reducer(state = {
         return Object.assign({}, state, {
             scrollY: action.scrollY,
         });
+    case C.CLEAR_LOADING:
+        return Object.assign({}, state, {
+            isFetching: false,
+        });
     default:
         return state;
     }

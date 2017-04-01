@@ -19,10 +19,10 @@ export default class DepartureItem extends React.Component {
         const realtime = this.renderRealtime();
 
         return (
-            <div class="route-preview">
-                <div class={lineCls}>{route}</div>
+            <div className="route-preview">
+                <div className={lineCls}>{route}</div>
                 {expressInd}
-                <div class={departureTimeCls}>
+                <div className={departureTimeCls}>
                     {minutes}
                     {realtime}
                 </div>
@@ -31,7 +31,7 @@ export default class DepartureItem extends React.Component {
     }
 
     renderExpress() {
-        return this.props.isExpress ? <div class="express-indicator">Express</div> : null;
+        return this.props.isExpress ? <div className="express-indicator">Express</div> : null;
     }
 
     getDepartureTimeCls() {
@@ -44,11 +44,11 @@ export default class DepartureItem extends React.Component {
     }
 
     renderRealtime() {
-        return this.props.isRealtime ? <i class="icon ion-social-rss"></i> : null;
+        return this.props.isRealtime ? <i className="icon ion-social-rss"></i> : null;
     }
 
     render() {
         const preview = this.renderPreview();
-        return <li class="departure-item">{preview}</li>;
+        return <li className="departure-item">{preview}</li>;
     }
 }

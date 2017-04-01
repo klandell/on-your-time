@@ -44,6 +44,12 @@ export function saveScroll(scrollY) {
     };
 }
 
+export function clearLoading() {
+    return {
+        type: C.CLEAR_LOADING,
+    };
+}
+
 export function loadStops(location = {
     latitude: 40.7317,
     longitude: -73.9778,
@@ -81,11 +87,36 @@ export function setLocation(loc) {
     };
 }
 
+export function geocodeLocation(position) {
+    return (dispatch) => {
+        const coords = position.coords;
+        const latlng = { lat: coords.latitude, lng: coords.longitude };
+        const geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({ location: latlng }, (results, status) => {
+            if (status === 'OK') {
+                const found = results[0];
+
+                if (found) {
+                    dispatch(setAddress(found.formatted_address));
+                } else {
+                    dispatch(setAddress(''));
+                }
+            }
+        });
+    };
+}
+
 export function getCurrentLocation() {
     return (dispatch) => {
         if (navigator.geolocation) {
             dispatch(findCurrentLocation());
-            navigator.geolocation.getCurrentPosition(position => dispatch(setLocation(position)));
+            navigator.geolocation.getCurrentPosition((position) => {
+                dispatch(setLocation(position));
+                dispatch(geocodeLocation(position));
+            }, () => {
+                dispatch(clearLoading());
+            });
         }
     };
 }

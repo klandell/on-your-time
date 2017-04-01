@@ -40,9 +40,9 @@ export default class StopsList extends React.Component {
             <li
                 onClick={this.props.onMoreClick}
                 key="more-icon"
-                class="stop-item more-icon">
+                className="stop-item more-icon">
                 <a>
-                    <i class="icon ion-ios-more"></i>
+                    <i className="icon ion-ios-more"></i>
                 </a>
             </li>
         );
@@ -50,6 +50,6 @@ export default class StopsList extends React.Component {
 
     render() {
         const stopItems = this.mapStopItems();
-        return <ul class="stops-list">{stopItems}</ul>;
+        return <ul className="stops-list">{stopItems}</ul>;
     }
 }

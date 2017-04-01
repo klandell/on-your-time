@@ -10,6 +10,7 @@ export default class Search extends React.Component {
         address: PropTypes.string.isRequired,
         onSuggestChange: PropTypes.func.isRequired,
         onSuggestSelect: PropTypes.func.isRequired,
+        onClearSearchClick: PropTypes.func.isRequired,
         onSearchFocus: PropTypes.func,
         onSearchBlur: PropTypes.func,
     }
@@ -24,23 +25,33 @@ export default class Search extends React.Component {
 
     get cssClasses() {
         return {
+            root: 'stops-search-wrapper',
             input: 'stops-search-input',
             autocompleteContainer: 'stops-search-container',
         };
     }
 
-    renderItem() {
-        return ({ formattedSuggestion }) => (
-            <div className="suggestion-item">
-                <i className='icon ion-location'/>
-                <strong>{formattedSuggestion.mainText}</strong>
-                <br />
-                <small className="text-muted">{formattedSuggestion.secondaryText}</small>
+    renderLocateButton() {
+        const { onGetCurrentLocClick } = this.props;
+        return (
+            <div role="button"
+                className="locate-btn"
+                onClick={onGetCurrentLocClick}>
+                <i className="icon ion-android-locate"></i>
             </div>
         );
     }
 
-    render() {
+    renderClearButton() {
+        const { address, onClearSearchClick } = this.props;
+        return (
+            address ?
+                <i className="icon ion-close" onClick={onClearSearchClick}></i>
+                : null
+        );
+    }
+
+    renderAutoComplete() {
         const props = this.props;
         const autoCompleteItem = this.renderItem();
 
@@ -58,6 +69,31 @@ export default class Search extends React.Component {
                 hideLabel={true}
                 inputName="places-input"
                 onEnterKeyDown={props.onSuggestSelect} />
+        );
+    }
+
+    renderItem() {
+        return ({ formattedSuggestion }) => (
+            <div className="suggestion-item">
+                <i className='icon ion-location'/>
+                <strong>{formattedSuggestion.mainText}</strong>
+                <br />
+                <small className="text-muted">{formattedSuggestion.secondaryText}</small>
+            </div>
+        );
+    }
+
+    render() {
+        const locateButton = this.renderLocateButton();
+        const clearButton = this.renderClearButton();
+        const autoComplete = this.renderAutoComplete();
+
+        return (
+            <div className="search">
+                {locateButton}
+                {autoComplete}
+                {clearButton}
+            </div>
         );
     }
 }

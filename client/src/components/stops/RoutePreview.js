@@ -21,13 +21,13 @@ export default class RoutePreview extends React.Component {
 
             return route ? <div
                 key={`${stopId}-${rte}`}
-                class={`line-${rte}`}>{rte}
+                className={`line-${rte}`}>{rte}
             </div> : null;
         });
     }
 
     render() {
         const routes = this.mapRoutes(this.props.routes.sort());
-        return <div class="route-preview">{routes}</div>;
+        return <div className="route-preview">{routes}</div>;
     }
 }

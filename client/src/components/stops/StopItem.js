@@ -18,10 +18,10 @@ export default class StopItem extends React.Component {
         return (
             <li data-stopid={stopId}
                 onClick={props.clickFn}
-                class="stop-item">
+                className="stop-item">
                 <a>
-                    <span class="stop-name">{props.stopName}</span>
-                    <span class="stop-distance">{`${props.stopDistance} miles`}</span>
+                    <span className="stop-name">{props.stopName}</span>
+                    <span className="stop-distance">{`${props.stopDistance} miles`}</span>
                     <RoutePreview
                         routes={props.routes}
                         stopId={stopId}/>

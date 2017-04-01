@@ -24,7 +24,7 @@ export default class DirectionToggle extends React.Component {
         const downtownBtn = this.renderToggleBtn(3);
 
         return (
-            <div class="direction-toggle">
+            <div className="direction-toggle">
                 {uptownBtn}
                 {downtownBtn}
             </div>

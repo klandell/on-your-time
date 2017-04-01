@@ -56,6 +56,6 @@ export default class DeparturesList extends React.Component {
 
     render() {
         const departureItems = this.mapDepartureItems();
-        return <ul class="departures-list">{departureItems}</ul>;
+        return <ul className="departures-list">{departureItems}</ul>;
     }
 }

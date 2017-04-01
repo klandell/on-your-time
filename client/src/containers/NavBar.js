@@ -19,7 +19,7 @@ export default class NavBar extends React.Component {
 
     renderBackBtn() {
         return (this.props.view !== 'stops' ?
-            <i class="icon ion-android-arrow-back" onClick={e => this.onBackClick(e)}></i>
+            <i className="icon ion-android-arrow-back" onClick={e => this.onBackClick(e)}></i>
             : null
         );
     }
@@ -29,7 +29,7 @@ export default class NavBar extends React.Component {
         return (
             <nav>
                 {backBtn}
-                <div class="title">On Your Time</div>
+                <div className="title">On Your Time</div>
             </nav>
         );
     }

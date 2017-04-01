@@ -1,57 +1,88 @@
 @import '../../mixins';
 @import '../../variables';
 
-.stops-search-input {
-    display: inline;
-    font-size: 1em;
-    box-sizing: border-box;
-    border-radius: 0;
-    margin-top: 10px;
-    border: none;
-    font-family: $primary-font;
-    margin: 10px 20px;
-    padding: 0 10px;
-    height: 40px;
-    width: calc(100% - 40px);
-}
+.search {
+    padding: 10px 20px;
 
-.stops-search-container {
-    border: 1px solid $ui-color-gray-2 !important;
-    width: calc(100% - 40px) !important;
-    margin: -11px 19px;
-
-    > div {
-        padding: 5px 10px !important;
-    }
-
-    > div:not(last-child) {
-        border-bottom: 1px solid $ui-color-gray-1;
-    }
-
-    .suggestion-item {
-        .ion-location {
-            padding-right: 10px;
-        }
-
-        small {
-            margin-left: 19px;
-        }
-    }
-}
-
-.ion-close {
-    @include no-select;
-    position: absolute;
-    right: 23px;
-    margin-top: 1em;
-    color: $ui-color-gray-2;
-    width: 1.5em;
-    text-align: center;
-    background-color: #FFF;
-    height: 1.3em;
-    z-index: 999;
-
-    &:active {
+    .locate-btn {
+        display: inline-block;
         background-color: #FFF;
+        position: relative;
+        vertical-align: top;
+        border: 1px solid $ui-color-gray-1;
+        border-right: none;
+        text-align: center;
+        line-height: 40px;
+        height: 40px;
+        width: 40px;
+        overflow: hidden;
+
+        .ion-android-locate {
+            font-size: 1.75rem;
+            color: $ui-color-gray-2;
+        }
+    }
+
+    .stops-search-wrapper {
+        display: inline-block;
+        border: 1px solid $ui-color-gray-1;
+        width: calc(100% - 43px);
+        position: initial !important;
+    }
+
+    .stops-search-input {
+        display: inline;
+        font-size: 1em;
+        box-sizing: border-box;
+        border-radius: 0;
+        border: none;
+        font-family: $primary-font;
+        padding: 0 10px;
+        height: 40px;
+        width: 100%;
+    }
+
+    .stops-search-container {
+        border: 1px solid $ui-color-gray-2 !important;
+        width: calc(100% - 42px) !important;
+        top: initial !important;
+        left: 20px;
+
+        > div {
+            padding: 5px 10px !important;
+        }
+
+        > div:not(last-child) {
+            border-bottom: 1px solid $ui-color-gray-1;
+        }
+
+        .suggestion-item {
+            .ion-location {
+                padding-right: 10px;
+            }
+
+            small {
+                margin-left: 19px;
+            }
+        }
+    }
+
+    .ion-close {
+        @include no-select;
+        position: absolute;
+        right: 23px;
+        margin-top: 3px;
+        color: $ui-color-gray-2;
+        width: 2em;
+        text-align: center;
+        background-color: #FFF;
+        height: 36px;
+        line-height: 36px;
+        z-index: 999;
+        overflow: hidden;
+
+        &:active {
+            background-color: #FFF;
+        }
     }
 }

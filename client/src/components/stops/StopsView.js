@@ -6,6 +6,7 @@ require('Sass/components/stops/StopsView.scss');
 export default class StopsView extends React.Component {
     static propTypes = {
         address: PropTypes.string.isRequired,
+        onGetCurrentLocClick: PropTypes.func.isRequired,
         onSuggestChange: PropTypes.func.isRequired,
         onSuggestSelect: PropTypes.func.isRequired,
         onClearSearchClick: PropTypes.func.isRequired,
@@ -21,14 +22,15 @@ export default class StopsView extends React.Component {
         const props = this.props;
 
         return (
-            <div class="stops">
-                <i class="icon ion-close" onClick={props.onClearSearchClick}></i>
+            <div className="stops">
                 <Search
+                    onGetCurrentLocClick={props.onGetCurrentLocClick}
                     onSuggestChange={props.onSuggestChange}
                     onSuggestSelect={props.onSuggestSelect}
                     onSearchFocus={props.onSearchFocus}
                     onSearchBlur={props.onSearchBlur}
-                    address={props.address} />
+                    address={props.address}
+                    onClearSearchClick={props.onClearSearchClick} />
                 <StopsList
                     stops={props.stops}
                     loadCount={props.loadCount}
@@ -38,9 +40,3 @@ export default class StopsView extends React.Component {
         );
     }
 }
-
-// stopItems.unshift(<li>
-//    <input type="text" placeholder="Search"/>
-//    <i onClick={e => this.getCurrentLocation(e)} class="icon ion-android-locate"></i>
-// </li>);
-// </

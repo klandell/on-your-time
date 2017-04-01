@@ -26,8 +26,8 @@ export default class DeparturesView extends React.Component {
         const directionToggle = this.renderDirectionToggle();
 
         return (
-            <div class="departures">
-                <div class="stop-name">{props.stopName}</div>
+            <div className="departures">
+                <div className="stop-name">{props.stopName}</div>
                 {directionToggle}
                 <DeparturesList
                     departures={props.departures}

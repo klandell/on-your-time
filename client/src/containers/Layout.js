@@ -24,7 +24,7 @@ export default class Layout extends React.Component {
 
         return (
             <div>
-                <div class="layout-wrapper">
+                <div className="layout-wrapper">
                     <NavBar />
                     {loadMask}
                     <Delegate />
@@ -37,11 +37,11 @@ export default class Layout extends React.Component {
         const isFetching = this.props.stopsIsFetching || this.props.departuresIsFetching;
 
         return (isFetching ?
-            <div class="load-mask">
+            <div className="load-mask">
                 <div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                    <div className="dot"></div>
                 </div>
             </div>
             : null
@@ -51,11 +51,11 @@ export default class Layout extends React.Component {
     renderDesktop() {
         // No views currently exist for desktop, so show a splash page instead
         return (
-            <div class="splash-wrapper">
-                <div class="desktop-splash">
-                    <i class="icon ion-ios-stopwatch-outline"></i>
-                    <div class="site-name">On Your Time</div>
-                    <div class="unsupported-msg">Desktop not yet supported.  Please use a mobile device.</div>
+            <div className="splash-wrapper">
+                <div className="desktop-splash">
+                    <i className="icon ion-ios-stopwatch-outline"></i>
+                    <div className="site-name">On Your Time</div>
+                    <div className="unsupported-msg">Desktop not yet supported.  Please use a mobile device.</div>
                 </div>
             </div>
         );

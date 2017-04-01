@@ -34,7 +34,7 @@ export default class Delegate extends React.Component {
                 transitionName="content"
                 transitionEnterTimeout={400}
                 transitionLeaveTimeout={400}
-                class="navigation-delegate">
+                className="navigation-delegate">
                 {target}
             </ReactCSSTransitionGroup>
         );

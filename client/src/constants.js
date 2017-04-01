@@ -10,6 +10,7 @@ export const SET_ADDRESS = 'SET_ADDRESS';
 export const FIND_CURRENT_LOCATION = 'C.FIND_CURRENT_LOCATION';
 export const SET_LOCATION = 'SET_LOCATION';
 export const SAVE_SCROLL = 'SAVE_SCROLL';
+export const CLEAR_LOADING = 'CLEAR_LOADING';
 
 // Departures
 export const REQUEST_DEPARTURES = 'REQUEST_DEPARTURES';

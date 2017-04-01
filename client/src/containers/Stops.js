@@ -32,16 +32,12 @@ export default class Stops extends React.Component {
         window.scrollTo(0, 0);
     }
 
-    // not currently in use
-    // getCurrentLocation(e) {
-    //    const { actions, dispatch } = this.props;
-    //
-    //    if (!e.currentTarget.classList.contains('location-selected')) {
-    //        e.currentTarget.classList.add('location-selected');
-    //        dispatch(actions.getCurrentLocation());
-    //    }
-    //
-    //
+    onGetCurrentLocClick(e) {
+        const { actions, dispatch } = this.props;
+        paintSelection(e, '#CECECE');
+        dispatch(actions.getCurrentLocation());
+    }
+
     onSuggestChange(address) {
         const { actions, dispatch } = this.props;
         dispatch(actions.setAddress(address));
@@ -70,8 +66,9 @@ export default class Stops extends React.Component {
         }
     }
 
-    onClearSearchClick() {
+    onClearSearchClick(e) {
         const { actions, dispatch } = this.props;
+        paintSelection(e, '#CECECE');
         dispatch(actions.clearStops());
         dispatch(actions.setAddress(''));
     }
@@ -113,6 +110,7 @@ export default class Stops extends React.Component {
         return (
             <StopsView
                 address={stops.address}
+                onGetCurrentLocClick={e => this.onGetCurrentLocClick(e)}
                 onSearchFocus={e => this.onSearchFocus(e)}
                 onSearchBlur={e => this.onSearchBlur(e)}
                 onSuggestChange={e => this.onSuggestChange(e)}
