@@ -1,13 +1,52 @@
 runtime: nodejs
 env: flex
-handlers:
-- url: /.*
-  script: IGNORED
-  secure: always
 skip_files:
   - ^(.*/)?\DS_Store$
   - ^(.*/)?\.md$
   - ^(.*/)?\.yml$
   - ^.*\.git(/.*)?
   - ^.*node_modules(/.*)?
-  - ^client/(?!index\.html$|bundle\.js$).*
+  - ^client(/.*)?
+handlers:
+  # redirect to ssl
+  - url: /.*
+    script: IGNORED
+    secure: always
+
+  # service worker
+  - url: /sw.js
+    static_files: sw.js
+    upload: sw.js
+
+  # appcache
+  - url: /appcache
+    static_dir: appcache
+
+  # favicons
+  - url: /favicons
+    static_dir: favicons
+
+  # index
+  - url: /index.html
+    static_files: index.html
+    upload: index.html
+
+  # app bundle
+  - url: /bundle.js
+    static_files: bundle.js
+    upload: bundle.js
+
+  # vendor bundle
+  - url: /vendor.js
+    static_files: vendor.js
+    upload: vendor.js
+
+  # manifest bundle
+  - url: /manifest.js
+    static_files: manifest.js
+    upload: manifest.js
+
+  # site root
+  - url: /
+    static_files: index.html
+    upload: index.html

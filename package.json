@@ -6,8 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "node --inspect --debug-brk ./bin/www",
     "start": "node ./bin/www",
-    "build:client": "NODE_ENV=production webpack --config ./client/webpack.config.js",
-    "deploy": "npm run build:client && gcloud app deploy --verbosity=info && gcloud app browse"
+    "build": "webpack --config ./client/webpack.config.js",
+    "build:prod": "NODE_ENV=production npm run build",
+    "deploy": "npm run build:prod && gcloud app deploy --verbosity=info && gcloud app browse"
   },
   "repository": {
     "type": "git",
@@ -27,8 +28,9 @@
     "gtfs-mongoose": "0.0.8",
     "mongoose": "^4.8.4",
     "morgan": "^1.8.1"
-},
+  },
   "engines": {
     "node": "~7.8.0"
-  }
+  },
+  "devDependencies": {}
 }

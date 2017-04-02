@@ -40,4 +40,8 @@ jspm_packages
 .env
 
 # Front end build
-client/bundle.js
+bundle.js
+manifest.js
+vendor.js
+appcache
+sw.js

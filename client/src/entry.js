@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import Layout from './containers/Layout';
+import * as OfflinePluginRuntime from 'offline-plugin/runtime';
+import Layout from 'Containers/Layout';
 import store from './store';
+
+OfflinePluginRuntime.install();
 
 const app = document.getElementById('app');
 ReactDOM.render(
     <Provider store={store}>
         <Layout/>
-    </Provider>, app
+    </Provider>, app,
 );

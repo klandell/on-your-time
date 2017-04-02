@@ -1,21 +1,23 @@
-// webpack.config.js
 const webpack = require('webpack');
 const path = require('path');
+const OfflinePlugin = require('offline-plugin');
 
 const debug = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     context: `${__dirname}/src`,
     target: 'web',
-    devtool: debug ? 'inline-sourcemap' : false,
-    entry: ['./entry.js'],
+    devtool: debug ? 'inline-sourcemap' : 'cheap-module-source-map',
+    entry: {
+        bundle: './entry.js',
+    },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
-                query: {
+                options: {
                     presets: ['react', 'es2015', 'stage-0'],
                     plugins: ['react-html-attrs', 'transform-decorators-legacy'],
                 },
@@ -26,19 +28,19 @@ module.exports = {
                 loaders: [
                     {
                         loader: 'style-loader',
-                        query: {
+                        options: {
                             minimize: true,
                         },
                     },
                     {
                         loader: 'css-loader',
-                        query: {
+                        options: {
                             minimize: true,
                         },
                     },
                     {
                         loader: 'sass-loader',
-                        query: {
+                        options: {
                             minimize: true,
                         },
                     },
@@ -57,8 +59,8 @@ module.exports = {
         },
     },
     output: {
-        filename: 'bundle.js',
-        path: __dirname,
+        filename: '[name].js',
+        path: path.resolve(__dirname, '../'),
     },
     plugins: debug ? [] : [
         new webpack.DefinePlugin({
@@ -66,10 +68,25 @@ module.exports = {
                 NODE_ENV: JSON.stringify(debug ? undefined : 'production'),
             },
         }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: ({ resource }) => /node_modules/.test(resource),
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'manifest',
+        }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.AggressiveMergingPlugin(),
         new webpack.optimize.UglifyJsPlugin({
-            sourcemap: false,
+            comments: false,
+        }),
+        new OfflinePlugin({
+            externals: [
+                'index.html',
+                'https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:300',
+                'https://fonts.googleapis.com/css?family=Roboto',
+                'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
+            ],
         }),
     ],
 };

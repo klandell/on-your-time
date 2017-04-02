@@ -3,19 +3,11 @@ const express = require('express');
 
 const router = express.Router();
 
-// Default router
-router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client', 'index.html'));
-});
 
-router.use('/favicons', (req, res) => {
-    res.sendFile(path.join(__dirname, '../favicons', req.url));
-});
-
-// Router for client js code
-router.get('/bundle.js', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client', 'bundle.js'));
-});
+// Development router for static files
+if (!process.env.NODE_ENV) {
+    router.use('/', require('./dev').router);
+}
 
 // API routers
 router.use('/stops', require('./stops').router);
