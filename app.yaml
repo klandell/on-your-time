@@ -1,2 +1,13 @@
 runtime: nodejs
 env: flex
+handlers:
+- url: /.*
+  script: IGNORED
+  secure: always
+skip_files:
+  - ^(.*/)?\DS_Store$
+  - ^(.*/)?\.md$
+  - ^(.*/)?\.yml$
+  - ^.*\.git(/.*)?
+  - ^.*node_modules(/.*)?
+  - ^client/(?!index\.html$|bundle\.js$).*

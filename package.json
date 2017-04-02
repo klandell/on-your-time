@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "description": "Server for the On Your Time subway schedule application",
   "scripts": {
-    "test": "jasmine",
-    "coverage": "node ./node_modules/.bin/istanbul cover jasmine",
-    "check-coverage": "node ./node_modules/.bin/istanbul check-coverage || true",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "node --inspect --debug-brk ./bin/www",
     "start": "node ./bin/www",
-    "dev": "DEBUG=on-your-time:* npm start",
-    "debug-test": "node --inspect --debug-brk node_modules/jasmine/bin/jasmine.js || true"
+    "build:client": "NODE_ENV=production webpack --config ./client/webpack.config.js",
+    "deploy": "npm run build:client && gcloud app deploy --verbosity=info && gcloud app browse"
   },
   "repository": {
     "type": "git",
@@ -29,5 +27,8 @@
     "gtfs-mongoose": "0.0.8",
     "mongoose": "^4.8.4",
     "morgan": "^1.8.1"
+},
+  "engines": {
+    "node": "~7.8.0"
   }
 }
