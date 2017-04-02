@@ -12,7 +12,8 @@ const mongoose = require('mongoose');
 const app = express();
 
 // connect to the gtfs database
-mongoose.connect('mongodb://localhost:27017/gtfs');
+const { MONGODB_USER, MONGODB_PASS, MONGODB_HOST, MONGODB_PORT, MONGODB_DB } = process.env;
+mongoose.connect(`mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DB}`);
 
 // use verbose logging when running in development mode
 app.use(logger(!process.env.NODE_ENV ? 'dev' : 'short'));
