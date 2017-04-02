@@ -25,7 +25,7 @@ const normalizePort = (val) => {
 };
 
 // get the port from the .env file
-const port = normalizePort(process.env.SERVER_PORT);
+const port = normalizePort(process.env.PORT);
 app.set('port', port);
 server.listen(port);
 
