@@ -1,12 +1,15 @@
+service: default
 runtime: nodejs
 env: flex
 skip_files:
   - ^(.*/)?\DS_Store$
   - ^(.*/)?\.md$
   - ^(.*/)?\.yml$
+  - ^(.*/)?\.yaml$
   - ^.*\.git(/.*)?
   - ^.*node_modules(/.*)?
   - ^client(/.*)?
+  - ^download(/.*)?
 handlers:
   # redirect to ssl
   - url: /.*
