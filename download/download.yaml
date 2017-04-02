@@ -1,0 +1,11 @@
+service: download
+runtime: nodejs
+env: flex
+manual_scaling:
+  instances: 1
+skip_files:
+  - ^(.*/)?\DS_Store$
+  - ^(.*/)?\.md$
+  - ^(.*/)?\.yml$
+  - ^(.*/)?\.yaml$
+  - ^.*node_modules(/.*)?
