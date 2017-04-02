@@ -8,6 +8,10 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../index.html'));
 });
 
+router.get('/index.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../index.html'));
+});
+
 // favicon router
 router.use('/favicons', (req, res) => {
     res.sendFile(path.join(__dirname, '../favicons', req.url));

@@ -3,11 +3,8 @@ const express = require('express');
 
 const router = express.Router();
 
-
-// Development router for static files
-if (!process.env.NODE_ENV) {
-    router.use('/', require('./dev').router);
-}
+// Router explicitly declaring static files to serve up
+router.use('/', require('./static').router);
 
 // API routers
 router.use('/stops', require('./stops').router);
