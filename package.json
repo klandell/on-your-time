@@ -8,9 +8,9 @@
     "start": "node ./bin/www",
     "build": "webpack --config ./client/webpack.config.js",
     "build:prod": "NODE_ENV=production npm run build",
-    "deploy:web": "npm run build:prod && gcloud app deploy ./app.yaml --verbosity=info && gcloud app browse",
-    "deploy:worker": "gcloud app deploy ./download/download.yaml --verbosity=info",
-    "deploy:all": "npm run deploy:worker && npm run deploy:web"
+    "deploy:default": "npm run build:prod && gcloud app deploy ./app.yaml --verbosity=info && gcloud app browse",
+    "deploy:download": "gcloud app deploy ./download/download.yaml --verbosity=info",
+    "deploy:all": "npm run deploy:download && npm run deploy:default"
   },
   "repository": {
     "type": "git",

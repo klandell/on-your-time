@@ -42,19 +42,27 @@ module.exports = {
     /**
      * Executes the download of the staic and realtime transit data
      */
-    doDownload() {
+    doDownload(all) {
         console.log('Download Process started');
-        mongoose.connection.dropDatabase((err) => {
-            if (err) {
-                throw err;
-            }
-            console.log('Old Data Deleted');
 
-            this.downloadStaticData(this.staticFeed);
+        if (all) {
+            mongoose.connection.dropDatabase((err) => {
+                if (err) {
+                    throw err;
+                }
+                console.log('Old Data Deleted');
 
-            this.downloadRealtimeData(this.realtimePromises);
-            setInterval(() => this.downloadRealtimeData(this.realtimePromises), 30 * 1000);
-        });
+                this.downloadStaticData(this.staticFeed);
+                this.doRealtimeDownload();
+            });
+        } else {
+            this.doRealtimeDownload();
+        }
+    },
+
+    doRealtimeDownload() {
+        this.downloadRealtimeData(this.realtimePromises);
+        setInterval(() => this.downloadRealtimeData(this.realtimePromises), 30 * 1000);
     },
 
     /**
