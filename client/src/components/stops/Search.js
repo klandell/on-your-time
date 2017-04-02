@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import PlacesAutocomplete from 'react-places-autocomplete';
-// temporarily use my local version, hopefully my pr is accepted
-// import PlacesAutocomplete from 'react-places-autocomplete-kl';
+// import PlacesAutocomplete from 'react-places-autocomplete';
+// temporarily use my version of the autocomplete
+import PlacesAutocomplete from 'kl-temp-places-field';
+
 require('Sass/components/stops/Search.scss');
 
 export default class Search extends React.Component {
@@ -42,11 +42,15 @@ export default class Search extends React.Component {
         );
     }
 
+    test(e) {
+        debugger;
+    }
+
     renderClearButton() {
         const { address, onClearSearchClick } = this.props;
         return (
             address ?
-                <i className="icon ion-close" onClick={onClearSearchClick}></i>
+                <i className="icon ion-close" onFocus={e => this.test(e)}onClick={onClearSearchClick}></i>
                 : null
         );
     }
@@ -68,7 +72,8 @@ export default class Search extends React.Component {
                 placeholder="Search Places"
                 hideLabel={true}
                 inputName="places-input"
-                onEnterKeyDown={props.onSuggestSelect} />
+                onEnterKeyDown={props.onSuggestSelect}
+                inputId="stopssearch" />
         );
     }
 

@@ -25,7 +25,7 @@ export default class Stops extends React.Component {
     }
 
     onSearchFocus() {
-        window.scrollTo(0, 60);
+        window.scrollTo(0, 62);
     }
 
     onSearchBlur() {
@@ -77,6 +77,9 @@ export default class Stops extends React.Component {
         });
         dispatch(actions.clearStops());
         dispatch(actions.setAddress(''));
+
+        // if the clear button has been clicked, refocus the search bar
+        document.getElementById('stopssearch').focus();
     }
 
     onStopItemClick(e) {
