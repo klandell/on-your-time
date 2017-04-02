@@ -5,7 +5,14 @@ import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 import Layout from 'Containers/Layout';
 import store from './store';
 
-OfflinePluginRuntime.install();
+OfflinePluginRuntime.install({
+    onUpdateReady() {
+        OfflinePluginRuntime.applyUpdate();
+    },
+    onUpdated() {
+        window.location.reload();
+    },
+});
 
 const app = document.getElementById('app');
 ReactDOM.render(

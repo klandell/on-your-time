@@ -62,12 +62,13 @@ module.exports = {
         filename: '[name].js',
         path: path.resolve(__dirname, '../'),
     },
-    plugins: debug ? [] : [
+    plugins: (debug ? [] : [
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify(debug ? undefined : 'production'),
             },
         }),
+    ]).concat([
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minChunks: ({ resource }) => /node_modules/.test(resource),
@@ -75,12 +76,20 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'manifest',
         }),
+    ]).concat(debug ? [] : [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.AggressiveMergingPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             comments: false,
         }),
+    ]).concat([
         new OfflinePlugin({
+            ServiceWorker: {
+                events: true,
+            },
+            AppCache: {
+                events: true,
+            },
             externals: [
                 'index.html',
                 'https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:300',
@@ -88,5 +97,5 @@ module.exports = {
                 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
             ],
         }),
-    ],
+    ]),
 };
