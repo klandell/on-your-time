@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import paintSelection from 'paint-selection';
-import { loadStops, getCurrentLocation, setLocation, clearStops, setAddress, saveScroll } from 'Actions/stopsActions';
+import { loadStops, getCurrentLocation, setLocation, clearStops, setAddress, saveScroll, flagInitialLoadDone } from 'Actions/stopsActions';
 import doNavigation from 'Actions/navigationActions';
 import StopsView from 'Components/stops/StopsView';
 
@@ -15,13 +15,19 @@ import StopsView from 'Components/stops/StopsView';
         setAddress,
         saveScroll,
         clearStops,
+        flagInitialLoadDone,
     },
     dispatch,
 }))
 export default class Stops extends React.Component {
     componentDidMount() {
-        const scrollY = this.props.stops.scrollY;
-        window.scrollTo(0, scrollY);
+        const { stops, actions, dispatch } = this.props;
+        window.scrollTo(0, stops.scrollY);
+
+        if (!stops.initialLoadDone) {
+            dispatch(actions.flagInitialLoadDone());
+            dispatch(actions.getCurrentLocation());
+        }
     }
 
     onSearchFocus() {

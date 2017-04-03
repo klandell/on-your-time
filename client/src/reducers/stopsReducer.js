@@ -8,8 +8,13 @@ export default function reducer(state = {
     loadCount: 0,
     address: '',
     scrollY: 0,
+    initialLoadDone: false,
 }, action) {
     switch (action.type) {
+    case C.FLAG_INITIAL_LOAD_DONE:
+        return Object.assign({}, state, {
+            initialLoadDone: true,
+        });
     case C.REQUEST_STOPS:
         return Object.assign({}, state, {
             isFetching: true,

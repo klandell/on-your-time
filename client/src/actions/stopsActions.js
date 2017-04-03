@@ -24,6 +24,12 @@ function findCurrentLocation() {
     };
 }
 
+export function flagInitialLoadDone() {
+    return {
+        type: C.FLAG_INITIAL_LOAD_DONE,
+    };
+}
+
 export function clearStops() {
     return {
         type: C.CLEAR_STOPS,
