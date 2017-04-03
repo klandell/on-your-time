@@ -9,16 +9,19 @@
         padding: 1.2em 0;
         text-align: center;
 
+        .line {
+            height: 6rem;
+            width: 6rem;
+            line-height: 6rem;
+            border-radius: 3rem;
+            font-size: 4.25em;
+            font-family: $secondary-font;
+            margin: auto;
+        }
+
         @each $line, $bgcolor in $line-colors {
             .line-#{$line} {
-                height: 6rem;
-                width: 6rem;
-                line-height: 6rem;
-                border-radius: 3rem;
-                font-size: 4.25em;
                 background-color: map-get($line-colors, $line);
-                font-family: $secondary-font;
-                margin: auto;
 
                 @if $line == N or $line == Q or $line == R or $line == W{
                     color: #000;

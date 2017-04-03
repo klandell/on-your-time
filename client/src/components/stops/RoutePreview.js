@@ -23,7 +23,7 @@ export default class RoutePreview extends React.Component {
 
             return route ? <div
                 key={`${stopId}-${rte}`}
-                className={`line-${rte}`}>{rte}
+                className={`line line-${rte}`}>{rte}
             </div> : null;
         });
     }

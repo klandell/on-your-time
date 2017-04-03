@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import doNavigation from 'Actions/navigationActions';
+import zenscroll from 'zenscroll';
 require('Sass/containers/NavBar.scss');
 
 @connect(state => ({
@@ -24,12 +25,16 @@ export default class NavBar extends React.Component {
         );
     }
 
+    onTitleClick() {
+        zenscroll.toY(0);
+    }
+
     render() {
         const backBtn = this.renderBackBtn();
         return (
             <nav>
                 {backBtn}
-                <div className="title">On Your Time</div>
+                <div onClick={e => this.onTitleClick(e)} className="title">On Your Time</div>
             </nav>
         );
     }

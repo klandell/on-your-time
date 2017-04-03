@@ -12,7 +12,7 @@ export default class DepartureItem extends React.Component {
 
     renderPreview() {
         const route = this.props.route;
-        const lineCls = `${`line-${route}`}`;
+        const lineCls = `line line-${route}`;
         const expressInd = this.renderExpress();
         const departureTimeCls = this.getDepartureTimeCls();
         const minutes = this.renderMinutes();
