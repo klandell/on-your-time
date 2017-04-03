@@ -61,9 +61,28 @@ export default class Layout extends React.Component {
         );
     }
 
+    maybeStopScroll() {
+        const { stopsIsFetching, departuresIsFetching } = this.props;
+        const isFetching = stopsIsFetching || departuresIsFetching;
+        const htmlClasses = document.documentElement.classList;
+        const bodyClasses = document.body.classList;
+
+        if (isFetching) {
+            if (!htmlClasses.contains('no-scroll')) {
+                htmlClasses.add('no-scroll');
+                bodyClasses.add('no-scroll');
+            }
+        } else if (htmlClasses.contains('no-scroll')) {
+            htmlClasses.remove('no-scroll');
+            bodyClasses.remove('no-scroll');
+        }
+    }
+
     render() {
         const isMobile = this.isMobile();
         const layout = isMobile ? this.renderMobile() : this.renderDesktop();
+        this.maybeStopScroll();
+
         return layout;
     }
 }

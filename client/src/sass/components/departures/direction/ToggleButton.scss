@@ -5,6 +5,7 @@
     position: relative;
     overflow: hidden;
     width: 50%;
+    z-index: 99;
 
     &:first-child {
         border-bottom: 2px solid transparent;

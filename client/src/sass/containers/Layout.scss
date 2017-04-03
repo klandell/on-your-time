@@ -9,9 +9,15 @@ html, body {
     background: radial-gradient(circle, mix($ui-color-3, $ui-color-1, 20%), $ui-color-1);
 }
 
+.no-scroll {
+    overflow: hidden;
+    // interesting but effective method for preventing scroll on ios
+    position: fixed;
+    width: 100vw;
+}
+
 #app {
     height: 100vh;
-    scroll-behavior: smooth;
 }
 
 .layout-wrapper {
@@ -21,7 +27,7 @@ html, body {
     .load-mask {
         background: radial-gradient(circle, mix($ui-color-3, $ui-color-1, 20%), $ui-color-1);
         position: fixed;
-        z-index: 9998;
+        z-index: 9;
         display: flex;
         top: 3.3rem;
         right: 0;

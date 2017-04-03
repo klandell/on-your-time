@@ -9,9 +9,6 @@ OfflinePluginRuntime.install({
     onUpdateReady() {
         OfflinePluginRuntime.applyUpdate();
     },
-    onUpdated() {
-        window.location.reload();
-    },
 });
 
 const app = document.getElementById('app');

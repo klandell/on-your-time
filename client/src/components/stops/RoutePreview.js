@@ -21,7 +21,7 @@ export default class RoutePreview extends React.Component {
                 rte = null;
             }
 
-            return route ? <div
+            return rte ? <div
                 key={`${stopId}-${rte}`}
                 className={`line line-${rte}`}>{rte}
             </div> : null;

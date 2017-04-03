@@ -4,6 +4,10 @@
 .search {
     padding: 10px 20px;
 
+    div, input {
+        z-index: 99;
+    }
+
     .locate-btn {
         display: inline-block;
         background-color: #FFF;
@@ -27,7 +31,6 @@
         display: inline-block;
         border: 1px solid $ui-color-gray-1;
         width: calc(100% - 43px);
-        position: initial !important;
     }
 
     .stops-search-input {
@@ -44,9 +47,9 @@
 
     .stops-search-container {
         border: 1px solid $ui-color-gray-2 !important;
-        width: calc(100% - 42px) !important;
+        width: calc(100% + 41px) !important;
         top: initial !important;
-        left: 20px;
+        left: -42px;
 
         > div {
             padding: 5px 10px !important;
