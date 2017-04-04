@@ -7,21 +7,26 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const index = require('./routes');
 const mongoose = require('mongoose');
+const yes = require('yes-https');
 
 // instantiate the express app
 const app = express();
 
 // connect to the gtfs database
-const { MONGODB_USER, MONGODB_PASS, MONGODB_HOST, MONGODB_PORT, MONGODB_DB } = process.env;
+const { MONGODB_USER, MONGODB_PASS, MONGODB_HOST, MONGODB_PORT, MONGODB_DB, NODE_ENV } = process.env;
 mongoose.connect(`mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DB}`);
 
 // use verbose logging when running in development mode
-app.use(logger(!process.env.NODE_ENV ? 'dev' : 'short'));
+app.use(logger(!NODE_ENV ? 'dev' : 'short'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false,
 }));
 
+// Redirect to https
+app.use(yes());
+
+// Send all requests through our routers to see if we find a match
 app.use('/', index);
 
 // Throw 404 if router isn't found
@@ -32,11 +37,10 @@ app.use((req, res, next) => {
 
 // Default error router
 app.use((err, req, res, next) => {
-    const isDev = !process.env.NODE_ENV;
     const body = {
         message: err.message,
         status: err.status,
-        stack: isDev ? err.stack : null,
+        stack: !NODE_ENV ? err.stack : null,
     };
     res.status(err.status || 500);
     res.json(body);

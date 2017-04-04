@@ -68,14 +68,22 @@ export default class Layout extends React.Component {
         const bodyClasses = document.body.classList;
 
         if (isFetching) {
-            if (!htmlClasses.contains('no-scroll')) {
-                htmlClasses.add('no-scroll');
+            if (!bodyClasses.contains('no-scroll')) {
                 bodyClasses.add('no-scroll');
+                this.stopScroll(true);
             }
-        } else if (htmlClasses.contains('no-scroll')) {
-            htmlClasses.remove('no-scroll');
+        } else if (bodyClasses.contains('no-scroll')) {
             bodyClasses.remove('no-scroll');
+            this.stopScroll(false);
         }
+    }
+
+    stopScroll(stop) {
+        document.body[`${stop ? 'add' : 'remove'}EventListener`]('touchmove', this.freezeViewport, false);
+    }
+
+    freezeViewport(e) {
+        e.preventDefault();
     }
 
     render() {

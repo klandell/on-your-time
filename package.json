@@ -29,7 +29,8 @@
     "express": "^4.14.1",
     "gtfs-mongoose": "0.0.8",
     "mongoose": "^4.8.4",
-    "morgan": "^1.8.1"
+    "morgan": "^1.8.1",
+    "yes-https": "0.0.4"
   },
   "engines": {
     "node": "~7.8.0"

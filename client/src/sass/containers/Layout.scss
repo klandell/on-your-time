@@ -11,9 +11,6 @@ html, body {
 
 .no-scroll {
     overflow: hidden;
-    // interesting but effective method for preventing scroll on ios
-    position: fixed;
-    width: 100vw;
 }
 
 #app {

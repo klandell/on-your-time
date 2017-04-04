@@ -14,8 +14,10 @@ export default class StopItem extends React.Component {
     render() {
         const props = this.props;
         const stopId = props.stopId;
+        const hasRoutes = props.routes.length;
 
         return (
+            hasRoutes ?
             <li data-stopid={stopId}
                 onClick={props.clickFn}
                 className="stop-item">
@@ -27,6 +29,7 @@ export default class StopItem extends React.Component {
                         stopId={stopId}/>
                 </a>
             </li>
+            : null
         );
     }
 }

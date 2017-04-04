@@ -14,8 +14,3 @@ skip_files:
   - ^.*node_modules(/.*)?
   - ^client(/.*)?
   - ^download(/.*)?
-handlers:
-  # redirect to ssl
-  - url: /.*
-    script: IGNORED
-    secure: always
