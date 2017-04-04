@@ -92,9 +92,18 @@ module.exports = {
             },
             externals: [
                 'index.html',
+
+                // cache fonts
                 'https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:300',
+                'https://fonts.gstatic.com/s/yanonekaffeesatz/v8/We_iSDqttE3etzfdfhuPRbHVephy08vG3A_n649omsL3rGVtsTkPsbDajuO5ueQw.woff',
                 'https://fonts.googleapis.com/css?family=Roboto',
+                'https://fonts.gstatic.com/s/roboto/v15/CrYjSnGjrRCn0pd9VQsnFOvvDin1pK8aKteLpeZ5c0A.woff',
+
+                // cache icons
                 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
+                'https://code.ionicframework.com/ionicons/2.0.1/fonts/ionicons.ttf?v=2.0.1',
+                'https://code.ionicframework.com/ionicons/2.0.1/fonts/ionicons.woff?v=2.0.1',
+                'https://code.ionicframework.com/ionicons/2.0.1/fonts/ionicons.eot?v=2.0.1',
             ],
         }),
     ]),
