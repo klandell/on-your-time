@@ -43,6 +43,7 @@ export default class StopsList extends React.Component {
                 className="stop-item more-icon">
                 <a>
                     <i className="icon ion-ios-more"></i>
+                    <div>more</div>
                 </a>
             </li>
         );
