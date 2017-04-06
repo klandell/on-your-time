@@ -24,4 +24,11 @@ nav {
         line-height: $nav-bar-height;
         text-align: center;
     }
+
+    .nav-icon {
+        position: absolute;
+        font-size: 1.25em;
+        top: .55em;
+        right: .75em;
+    }
 }

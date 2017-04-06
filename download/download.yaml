@@ -1,3 +1,7 @@
+# The download service was initially going to be hosted on google app engine
+# along with the application server.  However, this was going to be too
+# expensive, so I am now hosting the download service on Heroku.  I'm
+# leaving this config file in here for future reference.
 service: download
 runtime: nodejs
 env: flex

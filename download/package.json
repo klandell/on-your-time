@@ -23,14 +23,15 @@
     "bluebird": "^3.4.7",
     "csv-parse": "^1.2.0",
     "dotenv": "^4.0.0",
-    "gtfs-mongoose": "0.0.8",
+    "gtfs-mongoose": "^0.0.9",
     "mongodb": "^2.2.24",
     "mongoose": "^4.8.4",
     "mta-gtfs-realtime-bindings": "0.0.5",
     "object-mapper": "^3.0.1",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
-    "unzipper": "^0.8.4"
+    "unzipper": "^0.8.4",
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {},
   "engines": {

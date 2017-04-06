@@ -14,7 +14,7 @@ export default class ToggleButton extends React.Component {
     }
 
     getToggleBtnText(btnDirection) {
-        return btnDirection === 1 ? 'Uptown' : 'Downtown';
+        return btnDirection === 1 ? 'Uptown and Queens' : 'Downtown and Brooklyn';
     }
 
     render() {

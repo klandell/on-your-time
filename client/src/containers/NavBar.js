@@ -25,16 +25,33 @@ export default class NavBar extends React.Component {
         );
     }
 
+    onNavIconClick() {
+        const { actions, dispatch } = this.props;
+        dispatch(actions.doNavigation('statuses'));
+    }
+
+    renderNavIcon() {
+        const iconCls = this.getNavIconCls();
+        return iconCls ? <i className={`nav-icon ${iconCls}`} onClick={e => this.onNavIconClick(e)}></i> : null;
+    }
+
+    getNavIconCls() {
+        const view = this.props.view;
+        return view === 'stops' ? 'ion-information-circled' : null;
+    }
+
     onTitleClick() {
         zenscroll.toY(0);
     }
 
     render() {
         const backBtn = this.renderBackBtn();
+        const navIcon = this.renderNavIcon();
         return (
             <nav>
                 {backBtn}
                 <div onClick={e => this.onTitleClick(e)} className="title">On Your Time</div>
+                {navIcon}
             </nav>
         );
     }

@@ -6,6 +6,7 @@ const unzip = require('unzipper');
 const csvParse = require('csv-parse');
 const gtfsModels = require('gtfs-mongoose');
 const mongoose = require('mongoose');
+const parseString = require('xml2js').parseString;
 
 const { MONGODB_USER, MONGODB_PASS, MONGODB_HOST, MONGODB_PORT, MONGODB_DB } = process.env;
 mongoose.connect(`mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DB}`);
@@ -39,6 +40,10 @@ module.exports = {
         }));
     },
 
+    get statusFeed() {
+        return 'http://web.mta.info/status/serviceStatus.txt';
+    },
+
     /**
      * Executes the download of the staic and realtime transit data
      */
@@ -54,15 +59,51 @@ module.exports = {
 
                 this.downloadStaticData(this.staticFeed);
                 this.doRealtimeDownload();
+                this.doStatusDownload();
             });
         } else {
             this.doRealtimeDownload();
+            this.doStatusDownload();
         }
     },
 
     doRealtimeDownload() {
         this.downloadRealtimeData(this.realtimePromises);
         setInterval(() => this.downloadRealtimeData(this.realtimePromises), 30 * 1000);
+    },
+
+    doStatusDownload() {
+        this.downloadStatusData();
+        setInterval(() => this.downloadStatusData(), 60 * 1000);
+    },
+
+    downloadStatusData() {
+        rp(this.statusFeed)
+        .then(response => this.parseStatusData(response));
+    },
+
+    parseStatusData(response) {
+        parseString(response, (err, result) => {
+            if (err) {
+                throw err;
+            }
+            const lines = result.service.subway[0].line;
+            lines.map(l => ({
+                date: l.Date[0],
+                time: l.Time[0],
+                name: l.name[0],
+                status: l.status[0],
+                text: l.text[0],
+            }));
+
+            gtfsModels.models.Status.remove((removeErr) => {
+                if (removeErr) {
+                    throw removeErr;
+                }
+                gtfsModels.models.Status.collection.insert(lines);
+                console.log('MTA status data downloaded');
+            });
+        });
     },
 
     /**
@@ -97,17 +138,18 @@ module.exports = {
         // build an array of all the documents that make up
         // the rows of the csv file
         .on('data', (row) => {
+            const r = row;
             if (file === 'stop_times.txt') {
                 this.stopTimes.push({
-                    trip_id: row.trip_id,
-                    stop_id: row.stop_id,
+                    trip_id: r.trip_id,
+                    stop_id: r.stop_id,
                 });
             } else if (file === 'trips.txt') {
-                this.trips[row.trip_id] = row.route_id;
+                this.trips[r.trip_id] = r.route_id;
             } else if (file === 'stops.txt') {
-                row.loc = [parseFloat(row.stop_lon), parseFloat(row.stop_lat)];
+                r.loc = [parseFloat(r.stop_lon), parseFloat(r.stop_lat)];
             }
-            docs.push(row);
+            docs.push(r);
         })
 
         // when the csv file has been completely parsed,

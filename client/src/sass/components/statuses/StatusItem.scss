@@ -1,0 +1,23 @@
+@import '../../variables';
+
+.status-item {
+    height: 1.75em;
+
+    .status, .route-preview {
+        display: inline-block;
+    }
+
+    .status-preview {
+        position: relative;
+    }
+
+    .status {
+        position: absolute;
+        top: 5px;
+        right: 40px;
+    }
+
+    .delays {
+        color: $ui-accent-red;
+    }
+}

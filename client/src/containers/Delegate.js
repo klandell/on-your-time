@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // import possible content pages
 import Stops from 'Containers/Stops';
 import Departures from 'Containers/Departures';
+import Statuses from 'Containers/Statuses';
 
 require('Sass/containers/Delegate.scss');
 
@@ -15,6 +16,7 @@ export default class Delegate extends React.Component {
     static targetTags = {
         stops: <Stops key="stops" />,
         departures: <Departures key="departures" />,
+        statuses: <Statuses key="statuses" />,
     }
 
     renderTarget() {
