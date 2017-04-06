@@ -20,7 +20,7 @@ export default class StatusList extends React.Component {
 
     renderStatus() {
         const status = this.getStatus();
-        return <div className={`status ${status === 'Delays' ? 'delays' : ''}`}>{status}</div>;
+        return <div className={`status ${status.toLowerCase().replace(' ', '-')}`}>{status}</div>;
     }
 
     render() {

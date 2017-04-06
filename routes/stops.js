@@ -4,7 +4,7 @@ const gtfsModels = require('gtfs-mongoose');
 
 const router = express.Router();
 
-gtfsModels.models.Stop.collection.ensureIndex({ loc: '2dsphere' });
+gtfsModels.models.Stop.collection.createIndex({ loc: '2dsphere' });
 // num
 // lat
 // lon

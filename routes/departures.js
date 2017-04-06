@@ -3,6 +3,9 @@ const gtfsModels = require('gtfs-mongoose');
 
 const router = express.Router();
 
+gtfsModels.models.StopTime.collection.createIndex({ stop_id: 1 });
+gtfsModels.models.Realtime.collection.createIndex({ stopId: 1 });
+
 function getScheduledDepartures(req, res) {
     const stopId = req.query.stopId;
     const direction = req.query.direction;
@@ -58,9 +61,9 @@ function getScheduledDepartures(req, res) {
 function getRealtimeDepartures(req, res) {
     const stopId = req.query.stopId;
     const direction = req.query.direction;
-    const search = new RegExp(`^${stopId}[NS]?$`);
+    const search = new RegExp(`^${stopId}${direction === '1' ? 'N' : 'S'}$`);
 
-    gtfsModels.models.Realtime.find({ stopId: search, direction }, (err, docs) => {
+    gtfsModels.models.Realtime.find({ stopId: search }, (err, docs) => {
         const now = new Date().getTime();
         const departures = docs.filter((doc) => {
             const arrivalTime = doc.arrivalTime;

@@ -1,19 +1,19 @@
 .navigation-delegate {
     .content-enter {
-      opacity: 0.01;
+        transform: translate(100%);
     }
 
     .content-enter.content-enter-active {
-      opacity: 1;
-      transition: opacity 400ms ease-in;
+        transform: translate(0%);
+        transition: all 400ms ease-in-out;
     }
 
     .content-leave {
-      opacity: 1;
+        transform: translate(0%);
     }
 
     .content-leave.content-leave-active {
-      opacity: 0.01;
-      transition: opacity 400ms ease-in;
+        transform: translate(-100%);
+        transition: all 400ms ease-in-out;
     }
 }

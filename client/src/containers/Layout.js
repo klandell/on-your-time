@@ -7,6 +7,7 @@ require('Sass/containers/Layout.scss');
 @connect(state => ({
     stopsIsFetching: state.stops.isFetching,
     departuresIsFetching: state.departures.isFetching,
+    statusesIsFetching: state.statuses.isFetching,
 }))
 export default class Layout extends React.Component {
     isMobile() {
@@ -34,7 +35,8 @@ export default class Layout extends React.Component {
     }
 
     renderLoadMask() {
-        const isFetching = this.props.stopsIsFetching || this.props.departuresIsFetching;
+        const { stopsIsFetching, departuresIsFetching, statusesIsFetching } = this.props;
+        const isFetching = stopsIsFetching || departuresIsFetching || statusesIsFetching;
 
         return (isFetching ?
             <div className="load-mask">
@@ -62,9 +64,8 @@ export default class Layout extends React.Component {
     }
 
     maybeStopScroll() {
-        const { stopsIsFetching, departuresIsFetching } = this.props;
-        const isFetching = stopsIsFetching || departuresIsFetching;
-        const htmlClasses = document.documentElement.classList;
+        const { stopsIsFetching, departuresIsFetching, statusesIsFetching } = this.props;
+        const isFetching = stopsIsFetching || departuresIsFetching || statusesIsFetching;
         const bodyClasses = document.body.classList;
 
         if (isFetching) {
