@@ -9,11 +9,6 @@
     }
 
     .content-leave {
-        transform: translate(0%);
-    }
-
-    .content-leave.content-leave-active {
-        transform: translate(-100%);
-        transition: all 400ms ease-in-out;
+        display: none;
     }
 }

@@ -1,6 +1,9 @@
 @import '../../variables';
 
 .departures {
+    display: inline-block;
+    width: 100vw;
+
     .stop-name {
         color: $ui-color-4;
         text-align: center;
