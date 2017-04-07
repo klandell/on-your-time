@@ -22,15 +22,12 @@ import StopsView from 'Components/stops/StopsView';
 export default class Stops extends React.Component {
     componentDidMount() {
         const { stops, actions, dispatch } = this.props;
+        window.scrollTo(0, stops.scrollY);
 
         if (!stops.initialLoadDone) {
             dispatch(actions.flagInitialLoadDone());
             dispatch(actions.getCurrentLocation());
         }
-    }
-
-    componentDidEnter() {
-        window.scrollTo(0, this.props.stops.scrollY);
     }
 
     onSearchFocus() {

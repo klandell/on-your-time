@@ -19,11 +19,11 @@ export default class Departures extends React.Component {
         this.changeDirection(null, 1);
     }
 
-    componentDidEnter() {
+    componentDidMount() {
         window.scrollTo(0, 0);
     }
 
-    componentWillLeave() {
+    componentWillUnmount() {
         const { actions, dispatch } = this.props;
         dispatch(actions.leaveDeparturesView());
     }
