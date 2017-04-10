@@ -8,11 +8,13 @@ const BASE_FEED = 'http://datamine.mta.info/mta_esi.php';
 const FEED_IDS = [1, 2, 11, 16, 21];
 
 // generate promises for the MTA feeds
-const realtimePromises = FEED_IDS.map(id => rp({
-    method: 'GET',
-    url: `${BASE_FEED}?key=${process.env.MTA_TOKEN}&feed_id=${id}`,
-    encoding: null,
-}));
+function getRealtimePromises() {
+    return FEED_IDS.map(id => rp({
+        method: 'GET',
+        url: `${BASE_FEED}?key=${process.env.MTA_TOKEN}&feed_id=${id}`,
+        encoding: null,
+    }));
+}
 
 /**
  * Map the returned GTFS data to a usable format
@@ -100,7 +102,7 @@ function onGTFSLoaded(...gtfs) {
  * rest api
  */
 module.exports.run = function () {
-    Promise.all(realtimePromises)
+    Promise.all(getRealtimePromises())
         .spread(response => onGTFSLoaded(response))
         // If any errors occur, just log them to the console.
         // We are excluding any errors that occur when decoding
