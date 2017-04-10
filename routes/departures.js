@@ -1,5 +1,6 @@
 const express = require('express');
-const gtfsModels = require('gtfs-mongoose');
+const StopTime = require('../models/stop-time');
+const Realtime = require('../models/realtime');
 
 const router = express.Router();
 
@@ -8,8 +9,8 @@ const router = express.Router();
 // amount of data being inserted during the download process, we insert
 // the data directly into the database without utilizing the capabilities
 // of mongoose.
-gtfsModels.models.StopTime.collection.createIndex({ stop_id: 1 });
-gtfsModels.models.Realtime.collection.createIndex({ stopId: 1 });
+StopTime.collection.createIndex({ stop_id: 1 });
+Realtime.collection.createIndex({ stopId: 1 });
 
 function getScheduledDepartures(req, res) {
     const stopId = req.query.stopId;
@@ -17,7 +18,7 @@ function getScheduledDepartures(req, res) {
     const search = new RegExp(`^${stopId}${direction === '1' ? 'N' : 'S'}$`);
 
     // Search the schedule collection
-    gtfsModels.models.StopTime.find({ stop_id: search }, (err, docs) => {
+    StopTime.find({ stop_id: search }, (err, docs) => {
         const now = (new Date()).getTime();
         const departureTime = new Date();
         const HOUR = 60 * 60 * 1000;
@@ -72,7 +73,7 @@ function getRealtimeDepartures(req, res) {
     // Look for any departues for this station in the realtime collection.
     // If nothing is found we have to fall back to the static GTFS data.
     // It isn't ideal, but we are severely limited by the MTA's capabilities.
-    gtfsModels.models.Realtime.find({ stopId: search }, (err, docs) => {
+    Realtime.find({ stopId: search }, (err, docs) => {
         const now = new Date().getTime();
         const departures = docs.filter((doc) => {
             const arrivalTime = doc.arrivalTime;

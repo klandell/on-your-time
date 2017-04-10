@@ -1,7 +1,7 @@
 const request = require('request');
 const unzip = require('unzipper');
 const csvParse = require('csv-parse');
-const gtfsModels = require('gtfs-mongoose');
+const models = require('../../models/index');
 const mongoose = require('mongoose');
 
 // The location where we can find the static GTFS data
@@ -45,15 +45,13 @@ function updateStaticRoutes() {
     }));
 
     // Insert our generated data into the collection
-    gtfsModels.models.Stop.collection.bulkWrite(operations, (err) => {
+    models.Stop.collection.bulkWrite(operations, (err) => {
         if (err) {
-            console.log(err);
-            return;
+            throw err;
         }
         console.log('Static download finished');
     });
 }
-
 
 /**
  * Generically loads the data from the GTFS csv files into the required mongodb
@@ -62,13 +60,10 @@ function updateStaticRoutes() {
  * @param  {Arrray} docs - the data to insert into the collection
  */
 function saveStaticDocs(file, docs) {
-    const Model = gtfsModels.getModelForFile(file);
+    const Model = models.getModelForFile(file);
 
     if (docs.length) {
-        Model.collection.insert(docs)
-        .catch((err) => {
-            console.error(err.message);
-        });
+        Model.collection.insert(docs);
     }
 }
 
@@ -120,7 +115,6 @@ function parseStaticEntry(entry) {
     .on('end', () => saveStaticDocs(file, docs));
 }
 
-
 /**
  * Downloads the static GTFS data from a url
  * The response is in the form of a zip file of several csv files
@@ -134,15 +128,13 @@ function downloadStaticData() {
         .on('close', () => updateStaticRoutes());
 }
 
-
 module.exports.run = function () {
     stopTimes = [];
     trips = {};
 
     mongoose.connection.dropDatabase((err) => {
         if (err) {
-            console.log(err);
-            return;
+            throw err;
         }
         downloadStaticData();
     });
