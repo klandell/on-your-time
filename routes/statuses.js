@@ -1,5 +1,7 @@
 const express = require('express');
-const Status = require('../models/status');
+const gtfsModels = require('gtfs-mongoose');
+
+const Status = gtfsModels.models.Status;
 
 const router = express.Router();
 Status.collection.createIndex({ name: 1 });

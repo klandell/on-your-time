@@ -1,7 +1,8 @@
 const express = require('express');
 const mongodb = require('mongodb');
-const Stop = require('../models/stop');
+const gtfsModels = require('gtfs-mongoose');
 
+const Stop = gtfsModels.models.Stop;
 const router = express.Router();
 Stop.collection.createIndex({ loc: '2dsphere' });
 

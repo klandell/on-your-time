@@ -1,7 +1,8 @@
 const express = require('express');
-const StopTime = require('../models/stop-time');
-const Realtime = require('../models/realtime');
+const gtfsModels = require('gtfs-mongoose');
 
+const StopTime = gtfsModels.models.StopTime;
+const Realtime = gtfsModels.models.Realtime;
 const router = express.Router();
 
 // Ensure the indexes required for rapid queries of the database exist.
