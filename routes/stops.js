@@ -2,12 +2,12 @@ const express = require('express');
 const mongodb = require('mongodb');
 const gtfsModels = require('gtfs-mongoose');
 
+const Stop = gtfsModels.models.Stop;
 const router = express.Router();
+Stop.collection.createIndex({ loc: '2dsphere' });
 
-gtfsModels.models.Stop.collection.createIndex({ loc: '2dsphere' });
-// num
-// lat
-// lon
+// Find the nearest subways stations to a latitude and longitude.
+// This query is paged, with a page size of 10 stops.
 router.get('/', (req, res) => {
     const query = req.query;
     const lat = parseFloat(query.lat);
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     const lastId = query.lastId;
 
     if (lat && lon) {
-        gtfsModels.models.Stop.aggregate([
+        Stop.aggregate([
             {
                 $geoNear: {
                     near: {

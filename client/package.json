@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/klandell/on-your-time-client.git"
+    "url": "git+https://github.com/klandell/on-your-time.git"
   },
   "author": "Kyle Landell <kyle.landell@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/klandell/on-your-time-client/issues"
+    "url": "https://github.com/klandell/on-your-time/issues"
   },
-  "homepage": "https://github.com/klandell/on-your-time-client#readme",
+  "homepage": "https://github.com/klandell/on-your-time#readme",
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "kl-temp-places-field": "0.0.0",

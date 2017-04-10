@@ -12,6 +12,9 @@ const yes = require('yes-https');
 // instantiate the express app
 const app = express();
 
+// use bluebird as the mongoose promise library
+mongoose.Promise = require('bluebird');
+
 // connect to the gtfs database
 const { MONGODB_USER, MONGODB_PASS, MONGODB_HOST, MONGODB_PORT, MONGODB_DB, NODE_ENV } = process.env;
 mongoose.connect(`mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DB}`);

@@ -13,20 +13,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/klandell/on-your-time-server.git"
+    "url": "git+https://github.com/klandell/on-your-time.git"
   },
   "author": "Kyle Landell <kyle.landell@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/klandell/on-your-time-server/issues"
+    "url": "https://github.com/klandell/on-your-time/issues"
   },
-  "homepage": "https://github.com/klandell/on-your-time-server#readme",
+  "homepage": "https://github.com/klandell/on-your-time#readme",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "^1.16.1",
     "debug": "^2.6.1",
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
-    "gtfs-mongoose": "^0.0.10",
+    "gtfs-mongoose": "0.0.10",
+    "mongodb": "^2.2.24",
     "mongoose": "^4.8.4",
     "morgan": "^1.8.1",
     "yes-https": "0.0.4"
