@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/klandell/on-your-time-download.git"
+    "url": "git+https://github.com/klandell/on-your-time.git"
   },
   "author": "Kyle Landell <kyle.landell@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/klandell/on-your-time-download/issues"
+    "url": "https://github.com/klandell/on-your-time/issues"
   },
-  "homepage": "https://github.com/klandell/on-your-time-download#readme",
+  "homepage": "https://github.com/klandell/on-your-time#readme",
   "dependencies": {
     "bluebird": "^3.4.7",
     "csv-parse": "^1.2.0",

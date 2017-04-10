@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../index.html'));
 });
 
+// Router for an explicit index.html
 router.get('/index.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../index.html'));
 });

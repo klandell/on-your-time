@@ -3,6 +3,11 @@ const gtfsModels = require('gtfs-mongoose');
 
 const router = express.Router();
 
+// Ensure the indexes required for rapid queries of the database exist.
+// These indexes should be created by mongoose. However, due to the large
+// amount of data being inserted during the download process, we insert
+// the data directly into the database without utilizing the capabilities
+// of mongoose.
 gtfsModels.models.StopTime.collection.createIndex({ stop_id: 1 });
 gtfsModels.models.Realtime.collection.createIndex({ stopId: 1 });
 
@@ -11,6 +16,7 @@ function getScheduledDepartures(req, res) {
     const direction = req.query.direction;
     const search = new RegExp(`^${stopId}${direction === '1' ? 'N' : 'S'}$`);
 
+    // Search the schedule collection
     gtfsModels.models.StopTime.find({ stop_id: search }, (err, docs) => {
         const now = (new Date()).getTime();
         const departureTime = new Date();
@@ -63,6 +69,9 @@ function getRealtimeDepartures(req, res) {
     const direction = req.query.direction;
     const search = new RegExp(`^${stopId}${direction === '1' ? 'N' : 'S'}$`);
 
+    // Look for any departues for this station in the realtime collection.
+    // If nothing is found we have to fall back to the static GTFS data.
+    // It isn't ideal, but we are severely limited by the MTA's capabilities.
     gtfsModels.models.Realtime.find({ stopId: search }, (err, docs) => {
         const now = new Date().getTime();
         const departures = docs.filter((doc) => {

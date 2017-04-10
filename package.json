@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/klandell/on-your-time-server.git"
+    "url": "git+https://github.com/klandell/on-your-time.git"
   },
   "author": "Kyle Landell <kyle.landell@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/klandell/on-your-time-server/issues"
+    "url": "https://github.com/klandell/on-your-time/issues"
   },
-  "homepage": "https://github.com/klandell/on-your-time-server#readme",
+  "homepage": "https://github.com/klandell/on-your-time#readme",
   "dependencies": {
     "body-parser": "^1.16.1",
     "debug": "^2.6.1",
