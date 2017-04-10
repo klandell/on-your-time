@@ -1,6 +1,6 @@
 const rp = require('request-promise');
-const Status = require('../../models/status');
 const parseXML = require('xml2js').parseString;
+const gtfsModels = require('gtfs-mongoose');
 
 const STATUS_FEED = 'http://web.mta.info/status/serviceStatus.txt';
 
@@ -23,11 +23,11 @@ function parseStatusData(response) {
             text: l.text[0],
         }));
 
-        Status.remove((removeErr) => {
+        gtfsModels.models.Status.remove((removeErr) => {
             if (removeErr) {
                 throw removeErr;
             }
-            Status.collection.insert(lines);
+            gtfsModels.models.Status.collection.insert(lines);
             console.log('MTA status data downloaded');
         });
     });

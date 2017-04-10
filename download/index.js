@@ -1,9 +1,11 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-
 const realtimeDownloader = require('./lib/realtime');
 const staticDownloader = require('./lib/static');
 const statusDownloader = require('./lib/status');
+
+// use bluebird as the mongoose promise library
+mongoose.Promise = require('bluebird');
 
 const { MONGODB_USER, MONGODB_PASS, MONGODB_HOST, MONGODB_PORT, MONGODB_DB } = process.env;
 mongoose.connect(`mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DB}`);

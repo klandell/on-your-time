@@ -1,7 +1,7 @@
 const request = require('request');
 const unzip = require('unzipper');
 const csvParse = require('csv-parse');
-const models = require('../../models/index');
+const gtfsModels = require('gtfs-mongoose');
 const mongoose = require('mongoose');
 
 // The location where we can find the static GTFS data
@@ -45,7 +45,7 @@ function updateStaticRoutes() {
     }));
 
     // Insert our generated data into the collection
-    models.Stop.collection.bulkWrite(operations, (err) => {
+    gtfsModels.models.Stop.collection.bulkWrite(operations, (err) => {
         if (err) {
             throw err;
         }
@@ -60,7 +60,7 @@ function updateStaticRoutes() {
  * @param  {Arrray} docs - the data to insert into the collection
  */
 function saveStaticDocs(file, docs) {
-    const Model = models.getModelForFile(file);
+    const Model = gtfsModels.getModelForFile(file);
 
     if (docs.length) {
         Model.collection.insert(docs);

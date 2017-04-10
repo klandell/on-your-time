@@ -1,7 +1,7 @@
 const rp = require('request-promise');
 const Promise = require('bluebird');
-const Realtime = require('../../models/realtime');
 const GTFSBindings = require('mta-gtfs-realtime-bindings');
+const gtfsModels = require('gtfs-mongoose');
 
 // constants defining the various MTA realtime feeds
 const BASE_FEED = 'http://datamine.mta.info/mta_esi.php';
@@ -84,12 +84,12 @@ function decodeRealtimeGTFS(gtfs) {
  * @param  {Array} gtfs - An array of GTFS data
  */
 function onGTFSLoaded(...gtfs) {
-    Realtime.remove((err) => {
+    gtfsModels.models.Realtime.remove((err) => {
         if (err) {
             throw err;
         }
         const data = [].concat(...decodeRealtimeGTFS(gtfs));
-        Realtime.collection.insert(data);
+        gtfsModels.models.Realtime.collection.insert(data);
         console.log('MTA realtime data downloaded');
     });
 }
