@@ -1,7 +1,7 @@
 # On Your Time
 Take the subway on your own terms.
 
-On Your Time is a subway schedule application that shows the subway stops nearest you, and lists the anticipated departure times of the trains. A live feed from the MTA is used when available to most accurately determine departure times. When live data is not available, the application falls back to using the MTA schedule. In addition, an info screen shows the current status of the various lines, giving relevant information status information such as whether or not the trains are on time, if there are delays, or if there is planned work.
+On Your Time is a subway schedule application that shows nearby subway stops and lists the anticipated departure times of the trains. A realtime data feed provided by the MTA is used when available to most accurately determine the departure times. When realtime data is not available, the application instead uses the default schedule provided by the MTA. Additionally, a status screen displays relevant status information for the various subway lines, such as if there are delays, or if work is planned.
 
 A demo version is available at https://on-your-time.appspot.com. Currently only mobile devices are supported.
 
