@@ -1,7 +1,7 @@
 .navigation-delegate {
     .content-enter {
         transform: translate(100%);
-        display: inline-block;
+        opacity: 1
     }
 
     .content-enter.content-enter-active {

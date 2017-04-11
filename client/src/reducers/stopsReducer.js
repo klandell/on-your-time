@@ -8,6 +8,7 @@ export default function reducer(state = {
     loadCount: 0,
     address: '',
     initialLoadDone: false,
+    lastId: null,
 }, action) {
     switch (action.type) {
     case C.FLAG_INITIAL_LOAD_DONE:
@@ -52,6 +53,10 @@ export default function reducer(state = {
     case C.CLEAR_LOADING:
         return Object.assign({}, state, {
             isFetching: false,
+        });
+    case C.SET_LAST_ID:
+        return Object.assign({}, state, {
+            lastId: action.lastId,
         });
     default:
         return state;

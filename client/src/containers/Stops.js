@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import paintSelection from 'paint-selection';
-import { loadStops, getCurrentLocation, setLocation, clearStops, setAddress, flagInitialLoadDone } from 'Actions/stopsActions';
+import { loadStops, getCurrentLocation, setLocation, clearStops, setAddress, flagInitialLoadDone, setLastId } from 'Actions/stopsActions';
 import { doNavigation, saveScroll } from 'Actions/navigationActions';
 import StopsView from 'Components/stops/StopsView';
 
@@ -19,6 +19,7 @@ import StopsView from 'Components/stops/StopsView';
         saveScroll,
         clearStops,
         flagInitialLoadDone,
+        setLastId,
     },
     dispatch,
 }))
@@ -58,8 +59,6 @@ export default class Stops extends React.Component {
     onSuggestSelect(address) {
         const { actions, dispatch } = this.props;
         dispatch(actions.setAddress(address));
-
-        // TODO: loadmask while geocoding
         geocodeByAddress(address, (err, latLon) => this.setLocation(err, latLon));
     }
 
@@ -118,8 +117,11 @@ export default class Stops extends React.Component {
     onMoreClick(e) {
         const { actions, dispatch, stops } = this.props;
         const lastStop = stops.stops.slice(-1)[0];
+        const lastId = stops.lastId;
+        const dbId = lastStop.dbId;
 
-        if (lastStop) {
+        if (lastStop && lastId !== dbId) {
+            dispatch(actions.setLastId(dbId));
             dispatch(actions.loadStops(stops.location, lastStop.dbId, lastStop.distance));
         }
 

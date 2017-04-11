@@ -24,6 +24,13 @@ function findCurrentLocation() {
     };
 }
 
+export function setLastId(lastId) {
+    return {
+        type: C.SET_LAST_ID,
+        lastId,
+    };
+}
+
 export function flagInitialLoadDone() {
     return {
         type: C.FLAG_INITIAL_LOAD_DONE,
@@ -52,7 +59,7 @@ export function clearLoading() {
 export function loadStops(location = {
     latitude: 40.7317,
     longitude: -73.9778,
-}, lastId, minDistance) {
+}, lastId = null, minDistance) {
     return (dispatch) => {
         dispatch(requestStops(location));
         return fetch(`/stops?lon=${location.longitude}&lat=${location.latitude}${lastId ? `&lastId=${lastId}&minDistance=${minDistance}` : ''}`)
