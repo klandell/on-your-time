@@ -5,7 +5,7 @@ On Your Time is a subway schedule application that shows the subway stops neares
 
 A demo version is available at https://on-your-time.appspot.com. Currently only mobile devices are supported.
 
-![Nearby stops](./img/stops.png)
-![More stops](./img/stops-more.png)
-![Nearby stops](./img/departures.png)
-![More stops](./img/status.png)
+<img src="./img/stops.png" alt="Nearby Stops" width="400px">
+<img src="./img/stops-more.png" alt="More Stops" width="400px">
+<img src="./img/departures.png" alt="Departures" width="400px">
+<img src="./img/status.png" alt="Statuses" width="400px">
