@@ -83,7 +83,7 @@ function decodeRealtimeGTFS(gtfs) {
  * Deletes the existing realtime data, builds the new data, and re-inserts it
  * @param  {Array} gtfs - An array of GTFS data
  */
-function onGTFSLoaded(...gtfs) {
+function onGTFSLoaded(gtfs) {
     gtfsModels.models.Realtime.remove((err) => {
         if (err) {
             throw err;
@@ -103,7 +103,7 @@ function onGTFSLoaded(...gtfs) {
  */
 module.exports.run = function () {
     Promise.all(getRealtimePromises())
-        .spread(response => onGTFSLoaded(response))
+        .spread((...gtfs) => onGTFSLoaded(gtfs))
         // If any errors occur, just log them to the console.
         // We are excluding any errors that occur when decoding
         // the gtfs data since we know it is often corrupted.
