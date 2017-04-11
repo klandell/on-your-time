@@ -25,6 +25,7 @@ function getScheduledDepartures(req, res) {
         const HOUR = 60 * 60 * 1000;
         const DAY = 24 * 60 * 60 * 1000;
         const departures = [];
+        const usedIds = {};
 
         docs.forEach((doc) => {
             const departureTimeAry = doc.departure_time.split(':');
@@ -52,12 +53,18 @@ function getScheduledDepartures(req, res) {
                     time += DAY;
                 }
 
-                departures.push({
-                    train,
-                    isRealtime: false,
-                    arrivalTime: time,
-                    departureTime: time,
-                });
+                const key = `${train}-${direction}-${time}`;
+
+                if (!usedIds[key]) {
+                    departures.push({
+                        train,
+                        isRealtime: false,
+                        arrivalTime: time,
+                        departureTime: time,
+                    });
+                    // add the departure time to a map so that identical trinas
+                    usedIds[key] = true;
+                }
             }
         });
 
