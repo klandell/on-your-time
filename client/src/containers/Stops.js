@@ -26,8 +26,25 @@ import StopsView from 'Components/stops/StopsView';
 export default class Stops extends React.Component {
     componentDidMount() {
         const { stops, actions, dispatch, currentContent } = this.props;
-        window.scrollTo(0, currentContent.scrollY);
+        const nav = document.getElementsByTagName('nav')[0];
 
+        // scrolling the window with the fixed nav bar during the transitionName
+        // leads to some unexpected behavior.  Position the nav bar as absolute
+        // at the correctly scrolled location, do the scroll, and once the
+        // transition is completely finished, change the nav bar back to fixed
+        Object.assign(nav.style, {
+            position: 'absolute',
+            top: `${currentContent.scrollY}px`,
+        });
+        window.scrollTo(0, currentContent.scrollY);
+        setTimeout(() => {
+            Object.assign(nav.style, {
+                position: '',
+                top: '',
+            });
+        }, 600);
+
+        // on the first load, set the current location to the user's gps coords
         if (!stops.initialLoadDone) {
             dispatch(actions.flagInitialLoadDone());
             dispatch(actions.getCurrentLocation());
