@@ -1,5 +1,6 @@
 // Navigation
 export const SET_CURRENT_CONTENT = 'SET_CURRENT_CONTENT';
+export const SAVE_SCROLL = 'SAVE_SCROLL';
 
 // Stops
 export const REQUEST_STOPS = 'REQUEST_STOPS';
@@ -9,7 +10,6 @@ export const CLEAR_STOPS = 'CLEAR_STOPS';
 export const SET_ADDRESS = 'SET_ADDRESS';
 export const FIND_CURRENT_LOCATION = 'FIND_CURRENT_LOCATION';
 export const SET_LOCATION = 'SET_LOCATION';
-export const SAVE_SCROLL = 'SAVE_SCROLL';
 export const CLEAR_LOADING = 'CLEAR_LOADING';
 export const FLAG_INITIAL_LOAD_DONE = 'FLAG_INITIAL_LOAD_DONE';
 

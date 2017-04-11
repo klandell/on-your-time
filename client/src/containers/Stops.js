@@ -2,11 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import paintSelection from 'paint-selection';
-import { loadStops, getCurrentLocation, setLocation, clearStops, setAddress, saveScroll, flagInitialLoadDone } from 'Actions/stopsActions';
-import doNavigation from 'Actions/navigationActions';
+import { loadStops, getCurrentLocation, setLocation, clearStops, setAddress, flagInitialLoadDone } from 'Actions/stopsActions';
+import { doNavigation, saveScroll } from 'Actions/navigationActions';
 import StopsView from 'Components/stops/StopsView';
 
-@connect(state => state, dispatch => ({
+@connect(state => ({
+    stops: state.stops,
+    currentContent: state.currentContent,
+}), dispatch => ({
     actions: {
         loadStops,
         doNavigation,
@@ -21,8 +24,8 @@ import StopsView from 'Components/stops/StopsView';
 }))
 export default class Stops extends React.Component {
     componentDidMount() {
-        const { stops, actions, dispatch } = this.props;
-        window.scrollTo(0, stops.scrollY);
+        const { stops, actions, dispatch, currentContent } = this.props;
+        window.scrollTo(0, currentContent.scrollY);
 
         if (!stops.initialLoadDone) {
             dispatch(actions.flagInitialLoadDone());

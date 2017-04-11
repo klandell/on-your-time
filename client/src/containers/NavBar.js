@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import doNavigation from 'Actions/navigationActions';
+import { doNavigation, saveScroll } from 'Actions/navigationActions';
 import zenscroll from 'zenscroll';
+
 require('Sass/containers/NavBar.scss');
 
 @connect(state => ({
@@ -9,6 +10,7 @@ require('Sass/containers/NavBar.scss');
 }), dispatch => ({
     actions: {
         doNavigation,
+        saveScroll,
     },
     dispatch,
 }))
@@ -19,20 +21,26 @@ export default class NavBar extends React.Component {
     }
 
     renderBackBtn() {
-        return (this.props.view !== 'stops' ?
-            <i className="icon ion-android-arrow-back" onClick={e => this.onBackClick(e)}></i>
-            : null
-        );
+        return this.props.view !== 'stops' ? (
+            <div className="nav-icon" onClick={e => this.onBackClick(e)}>
+            <i className="icon ion-android-arrow-back"></i>
+            </div>
+        ) : null;
     }
 
     onNavIconClick() {
         const { actions, dispatch } = this.props;
+        this.saveScroll();
         dispatch(actions.doNavigation('statuses'));
     }
 
     renderNavIcon() {
         const iconCls = this.getNavIconCls();
-        return iconCls ? <i className={`nav-icon ${iconCls}`} onClick={e => this.onNavIconClick(e)}></i> : null;
+        return iconCls ? (
+            <div className="nav-icon icon-right" onClick={e => this.onNavIconClick(e)}>
+                <i className={iconCls}></i>
+            </div>
+        ) : null;
     }
 
     getNavIconCls() {
@@ -42,6 +50,13 @@ export default class NavBar extends React.Component {
 
     onTitleClick() {
         zenscroll.toY(0);
+    }
+
+    saveScroll() {
+        const { actions, dispatch } = this.props;
+        const doc = document.documentElement;
+        const scrollY = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+        dispatch(actions.saveScroll(scrollY));
     }
 
     render() {

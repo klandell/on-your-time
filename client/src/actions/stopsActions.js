@@ -43,13 +43,6 @@ export function setAddress(address) {
     };
 }
 
-export function saveScroll(scrollY) {
-    return {
-        type: C.SAVE_SCROLL,
-        scrollY,
-    };
-}
-
 export function clearLoading() {
     return {
         type: C.CLEAR_LOADING,

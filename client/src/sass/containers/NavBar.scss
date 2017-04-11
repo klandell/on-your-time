@@ -13,23 +13,28 @@ nav {
     box-shadow: 0 10px 20px rgba(0, 0, 0, .4);
     color: $ui-color-4;
 
-    .ion-android-arrow-back {
+    .nav-icon {
         position: absolute;
         font-size: 1.25em;
-        top: .55em;
-        left: .75em;
+        height: 50px;
+        width: 60px;
+        top: 0;
+        padding: 0 20px;
+
+        &.icon-right {
+            text-align: right;
+            right: 0;
+        }
+
+        i {
+            position: relative;
+            top: .55em;
+        }
     }
 
     .title {
         line-height: $nav-bar-height;
         width: 100vw;
         text-align: center;
-    }
-
-    .nav-icon {
-        position: absolute;
-        font-size: 1.25em;
-        top: .55em;
-        right: .75em;
     }
 }
