@@ -1,6 +1,7 @@
 .navigation-delegate {
     .content-enter {
         transform: translate(100%);
+        display: inline-block;
     }
 
     .content-enter.content-enter-active {
@@ -9,6 +10,6 @@
     }
 
     .content-leave {
-        display: none;
+        opacity: 0;
     }
 }
